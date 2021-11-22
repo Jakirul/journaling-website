@@ -5,7 +5,8 @@ of the futureproof Conway cohort. We designed a website where users can share an
 The website includes a page where users can submit a joke and add a gif from giphy if they want.
 There is also a page which displays all the submitted jokes and users can comment on them and react
 to them using three emoji reactions. The jokes display page initially only displays the set up for
-the jokes, the user has to click a button to reveal the punchline of the joke and view/add comments.
+the jokes, the user can click a button to reveal the punchline of the joke and view/add comments and
+reaction emojis.
 
 ## Installation and Usage
 

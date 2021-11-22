@@ -41,7 +41,7 @@ function gifForm(e) {
 		let gif_btn = document.createElement("input");
 		gif_btn.setAttribute("type", "submit");
 		gif_btn.setAttribute("value", "Search");
-		gif_btn.setAttribute("class", "search_bar button");
+		gif_btn.setAttribute("class", "search_bar grey-button button");
 
 		// This is the list of gifs that gets returned into a new 'section'
 		let gif_list = document.createElement("section");

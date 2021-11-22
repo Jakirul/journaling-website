@@ -26,7 +26,7 @@ h1 {
 	font-family: "Luckiest Guy", cursive;
 	margin-top: 0;
 	padding-top: 35px;
-	margin-bottom: 20px;
+	margin-bottom: 0;
 }
 
 nav {
@@ -81,4 +81,11 @@ nav > a:hover {
 .red-button:hover {
 	background-color: rgb(168, 21, 21);
 	color: white;
+}
+
+@media only screen and (max-width: 300px) {
+	nav {
+		display: block;
+		padding: 1px;
+	}
 }

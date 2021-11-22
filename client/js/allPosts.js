@@ -29,7 +29,7 @@ async function overallSection(form, data, section) {
     h2.textContent = `${data.title}`;
     
     let h5 = document.createElement("h5");
-    h5.textContent = `Posted: ${data.date.slice(0,-7)}`;
+    h5.textContent = `Posted: ${data.date.slice(5,-7)}`;
 
     let button = document.createElement("button");
     button.textContent = "Show punchline";

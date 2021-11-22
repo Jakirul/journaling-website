@@ -30,7 +30,7 @@ async function overallSection(form, data, section) {
     h2.textContent = `${data.title}`;
     
     let h5 = document.createElement("h5");
-    h5.textContent = `Posted: ${data.date.slice(0,-7)}`;
+    h5.textContent = `Posted: ${data.date.slice(5,-7)}`;
 
     let button = document.createElement("button");
     button.textContent = "Show punchline";
@@ -328,7 +328,7 @@ function gifForm(e) {
 		let gif_btn = document.createElement("input");
 		gif_btn.setAttribute("type", "submit");
 		gif_btn.setAttribute("value", "Search");
-		gif_btn.setAttribute("class", "search_bar button");
+		gif_btn.setAttribute("class", "search_bar grey-button button");
 
 		// This is the list of gifs that gets returned into a new 'section'
 		let gif_list = document.createElement("section");
