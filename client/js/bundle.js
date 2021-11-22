@@ -4,6 +4,8 @@ const {commentCreation, reactionCreation} = require('./creation')
 async function getAllPosts() {
     const getPost = await fetch('http://localhost:3000/')
     const res = await getPost.json();
+
+    let sectionArray = []
    
     res.forEach(data => {
         
@@ -16,7 +18,8 @@ async function getAllPosts() {
         commentSection(form, data, section)
 
         const div = document.querySelector("#jokes")
-       
+        sectionArray.push(section)
+
         div.append(section)
        
         document.body.append(div)
@@ -24,6 +27,24 @@ async function getAllPosts() {
         form.addEventListener('submit', commentCreation)
        
     })
+    function compare(a,b) {
+        let a1 = a.querySelector("h2").textContent.toLowerCase()
+        let b1 = b.querySelector("h2").textContent.toLowerCase()
+        if (a1 < b1)
+           return -1;
+        if (a1> b1)
+          return 1;
+        return 0;
+      }
+
+    for (var i = 0; i <sectionArray.length; i++) {
+        console.log('unordered: ', sectionArray[i]);
+      }
+    let s2 = sectionArray.sort(compare)
+    for (var i = 0; i <s2.length; i++) {
+        console.log('ordered: ', s2[i]);
+      }
+
 }
 
 
