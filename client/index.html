@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Community Journaling Website</title>
+    <link rel="stylesheet" href="style.css">
+    <script defer src="./js/bundle.js"></script>
+</head>
+
+<body>
+
+    <h1>Tell us a Joke</h1>
+    <nav>
+        <a href="#"><p>Add a new Joke</p></a>
+        <a href="jokes.html"><p>Jokes List</p></a>
+    </nav>
+
+    <form class="outer-form" action="">
+        <input type="text" class="title" name="title" placeholder="Title" required maxlength="100">
+        <p class="title-warning hidden2"></p>
+        <textarea class="description" name="description" placeholder="Description" required maxlength="280"></textarea>
+        <p class="description-warning hidden3"></p>
+        <input type="text" class="author" name="author" placeholder="Your name - leave empty to remain anonymous">
+        <input type="submit" id="addGif" value="Gif Search">
+        <input type="submit" value="Submit" class="submit">
+        
+        <span id="one_gif"></span>
+    </form>
+ 
+
+    <!-- <div></div> -->
+
+</body>
+
+</html>
