@@ -1,3 +1,5 @@
+// const api_url = "https://lap1-jokesapp.herokuapp.com/"
+
 async function commentCreation(e) {
     e.preventDefault();
     const comment = e.target[0].value.trim()
@@ -11,7 +13,9 @@ async function commentCreation(e) {
             body: JSON.stringify({ "comment": comment })
         }
 
+        
         fetch(`http://localhost:3000/comment/${id}`, options)
+        // fetch(`http://localhost:3000/comment/${id}`, options)
             .then(data => console.log(data))
             .catch(err => console.log(err))
             .then(() => window.location.reload())
@@ -45,8 +49,9 @@ async function reactionCreation(e) {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ "reaction": currReaction })
     }
-
     fetch(`http://localhost:3000/reaction/${currReaction}/${id}`, options)
+    // fetch(`${api_url}/reaction/${currReaction}/${id}`, options)
+
         .then(data => console.log(data))
         .then(() => location.reload())
         .catch(err => console.log(err))

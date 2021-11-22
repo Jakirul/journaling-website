@@ -191,14 +191,17 @@ async function commentSection(form, data, section) {
 
     
 }
-sortBy.addEventListener('change', (event) => {
-    if(event.target.value == "alphabetical"){
-        getAllPosts("alphabetical")
-    }
-    else if(event.target.value == "likes"){
-        getAllPosts("likes")
-    }
-    
-  });
+
+if (document.querySelector("#jokes")) {
+    sortBy.addEventListener('change', (event) => {
+        if(event.target.value == "alphabetical"){
+            getAllPosts("alphabetical")
+        }
+        else if(event.target.value == "likes"){
+            getAllPosts("likes")
+        }
+        
+    });
+}
 
 module.exports = {getAllPosts, overallSection, reaction, commentSection,compareAlpha,compareByLikes}

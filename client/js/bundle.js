@@ -192,15 +192,18 @@ async function commentSection(form, data, section) {
 
     
 }
-sortBy.addEventListener('change', (event) => {
-    if(event.target.value == "alphabetical"){
-        getAllPosts("alphabetical")
-    }
-    else if(event.target.value == "likes"){
-        getAllPosts("likes")
-    }
-    
-  });
+
+if (document.querySelector("#jokes")) {
+    sortBy.addEventListener('change', (event) => {
+        if(event.target.value == "alphabetical"){
+            getAllPosts("alphabetical")
+        }
+        else if(event.target.value == "likes"){
+            getAllPosts("likes")
+        }
+        
+    });
+}
 
 module.exports = {getAllPosts, overallSection, reaction, commentSection,compareAlpha,compareByLikes}
 
@@ -233,7 +236,7 @@ if (document.querySelector("#jokes")) {
 
 
 },{"./allPosts.js":1,"./formSubmission":4,"./gifFunctionality":5}],3:[function(require,module,exports){
-const api_url = "https://lap1-jokesapp.herokuapp.com/"
+// const api_url = "https://lap1-jokesapp.herokuapp.com/"
 
 async function commentCreation(e) {
     e.preventDefault();
@@ -249,7 +252,7 @@ async function commentCreation(e) {
         }
 
         
-        fetch(`${api_url}/comment/${id}`, options)
+        fetch(`http://localhost:3000/comment/${id}`, options)
         // fetch(`http://localhost:3000/comment/${id}`, options)
             .then(data => console.log(data))
             .catch(err => console.log(err))
@@ -284,8 +287,8 @@ async function reactionCreation(e) {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ "reaction": currReaction })
     }
-    // fetch(`http://localhost:3000/reaction/${currReaction}/${id}`, options)
-    fetch(`${api_url}/reaction/${currReaction}/${id}`, options)
+    fetch(`http://localhost:3000/reaction/${currReaction}/${id}`, options)
+    // fetch(`${api_url}/reaction/${currReaction}/${id}`, options)
 
         .then(data => console.log(data))
         .then(() => location.reload())
@@ -322,7 +325,8 @@ async function submitForm(e) {
 			headers: { "Content-type": "application/json" }
 		};
 
-		fetch(`${api_url}`, options)
+		// fetch(`${api_url}`, options)
+		fetch('http://localhost:3000/', options)
 			.then(data => console.log(data))
 			.catch(err => console.log(err))
 			.then(() => {
