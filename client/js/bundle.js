@@ -4,7 +4,6 @@ const {commentCreation, reactionCreation} = require('./creation')
 async function getAllPosts() {
     const getPost = await fetch('http://localhost:3000/')
     const res = await getPost.json();
-   
     res.forEach(data => {
         
         const section = document.createElement("section");
@@ -16,7 +15,6 @@ async function getAllPosts() {
         reaction(data, section)
         
         const div = document.querySelector("#jokes")
-        console.log(document.querySelector(".comment-form"))
         div.append(section)
        
         document.body.append(div)
@@ -172,6 +170,8 @@ if (document.querySelector("#jokes")) {
 
 
 
+
+
 },{"./allPosts.js":1,"./formSubmission":4,"./gifFunctionality":5}],3:[function(require,module,exports){
 async function commentCreation(e) {
     e.preventDefault();
@@ -208,12 +208,10 @@ async function reactionCreation(e) {
     const happy = document.querySelector(".reactions > input:nth-of-type(3):focus")
     
     let id = e.target.name;
-    console.log(id)
     let currReaction;
     if (like) currReaction = like.name;
     if (dislike) currReaction = dislike.name;
     if (happy) currReaction = happy.name;
-    console.log(currReaction)
     
 
    
@@ -225,8 +223,8 @@ async function reactionCreation(e) {
 
     fetch(`http://localhost:3000/reaction/${currReaction}/${id}`, options)
         .then(data => console.log(data))
+        .then(() => location.reload())
         .catch(err => console.log(err))
-        .then(() => window.location.reload())
 }
 
 module.exports = {commentCreation, reactionCreation}

@@ -3,7 +3,6 @@ const {commentCreation, reactionCreation} = require('./creation')
 async function getAllPosts() {
     const getPost = await fetch('http://localhost:3000/')
     const res = await getPost.json();
-   
     res.forEach(data => {
         
         const section = document.createElement("section");
@@ -15,7 +14,6 @@ async function getAllPosts() {
         reaction(data, section)
         
         const div = document.querySelector("#jokes")
-        console.log(document.querySelector(".comment-form"))
         div.append(section)
        
         document.body.append(div)

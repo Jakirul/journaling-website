@@ -33,12 +33,10 @@ async function reactionCreation(e) {
     const happy = document.querySelector(".reactions > input:nth-of-type(3):focus")
     
     let id = e.target.name;
-    console.log(id)
     let currReaction;
     if (like) currReaction = like.name;
     if (dislike) currReaction = dislike.name;
     if (happy) currReaction = happy.name;
-    console.log(currReaction)
     
 
    
@@ -50,8 +48,8 @@ async function reactionCreation(e) {
 
     fetch(`http://localhost:3000/reaction/${currReaction}/${id}`, options)
         .then(data => console.log(data))
+        .then(() => location.reload())
         .catch(err => console.log(err))
-        .then(() => window.location.reload())
 }
 
 module.exports = {commentCreation, reactionCreation}
