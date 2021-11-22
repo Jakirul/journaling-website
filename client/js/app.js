@@ -15,6 +15,7 @@ if (document.querySelector("form")) {
 // Immediately shows all results in the home page
 if (document.querySelector("#jokes")) {
     getAllPosts()
+    //sortPosts()
 }
 
 

@@ -1,30 +1,41 @@
 (function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){
 const {commentCreation, reactionCreation} = require('./creation')
 
+
+async function sortPosts(){
+    console.log("herecd")
+    const getPost = await fetch('http://localhost:3000/')
+    const res = await getPost.json();
+    
+    res.forEach(data => {
+        console.log(data.title+"LOLOLOLOL")
+        
+    })
+}
+
 async function getAllPosts() {
     const getPost = await fetch('http://localhost:3000/')
     const res = await getPost.json();
-
+    
     let sectionArray = []
-   
     res.forEach(data => {
         
         const section = document.createElement("section");
-       
-        overallSection(data, section)
+        
+        overallSection(data, section,sectionArray)
         reaction(data, section)
         
         let form = document.createElement("form");
         commentSection(form, data, section)
-
+        
+        form.addEventListener('submit', commentCreation)
+        
+        
         const div = document.querySelector("#jokes")
-        sectionArray.push(section)
-
         div.append(section)
        
         document.body.append(div)
 
-        form.addEventListener('submit', commentCreation)
        
     })
     function compare(a,b) {
@@ -41,14 +52,23 @@ async function getAllPosts() {
         console.log('unordered: ', sectionArray[i]);
       }
     let s2 = sectionArray.sort(compare)
+    const div = document.querySelector("#jokes")
+
     for (var i = 0; i <s2.length; i++) {
+        div.append(s2[i])
+       
+        document.body.append(div)
+    
         console.log('ordered: ', s2[i]);
       }
+
+      sortPosts()
 
 }
 
 
-async function overallSection(data, section) {
+
+async function overallSection(data, section,anArray) {
     console.log(data)
     let h2 = document.createElement("h2");
     h2.textContent = `${data.title}`
@@ -71,6 +91,7 @@ async function overallSection(data, section) {
     section.append(h4);
     section.append(h5);
     section.append(img);
+    anArray.push(section);
 }
 
 async function reaction(data, section) {
@@ -155,7 +176,7 @@ async function commentSection(form, data, section) {
     
 }
 
-module.exports = {getAllPosts, overallSection, reaction, commentSection}
+module.exports = {getAllPosts, overallSection, reaction, commentSection,sortPosts}
 },{"./creation":3}],2:[function(require,module,exports){
 
 
@@ -174,6 +195,7 @@ if (document.querySelector("form")) {
 // Immediately shows all results in the home page
 if (document.querySelector("#jokes")) {
     getAllPosts()
+    //sortPosts()
 }
 
 

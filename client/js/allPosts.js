@@ -1,12 +1,42 @@
 const {commentCreation, reactionCreation} = require('./creation')
 
+
+async function sortPosts(){
+    console.log("herecd")
+    const getPost = await fetch('http://localhost:3000/')
+    const res = await getPost.json();
+    
+    res.forEach(data => {
+        console.log(data.title+"LOLOLOLOL")
+        
+    })
+}
+
 async function getAllPosts() {
     const getPost = await fetch('http://localhost:3000/')
     const res = await getPost.json();
-
-
+    
     let sectionArray = []
-   
+    res.forEach(data => {
+        
+        const section = document.createElement("section");
+        
+        overallSection(data, section,sectionArray)
+        reaction(data, section)
+        
+        let form = document.createElement("form");
+        commentSection(form, data, section)
+        
+        form.addEventListener('submit', commentCreation)
+        
+        
+        const div = document.querySelector("#jokes")
+        div.append(section)
+       
+        document.body.append(div)
+
+       
+    })
     function compare(a,b) {
         let a1 = a.querySelector("h2").textContent.toLowerCase()
         let b1 = b.querySelector("h2").textContent.toLowerCase()
@@ -17,50 +47,27 @@ async function getAllPosts() {
         return 0;
       }
 
-    res.forEach(data => {
-        
-        const section = document.createElement("section");
-       
-        overallSection(data, section)
-        reaction(data, section)
-        
-        let form = document.createElement("form");
-        commentSection(form, data, section)
-
-        const div = document.querySelector("#jokes")
-        sectionArray.push(section)
-
-        div.append(section)
-       
-        document.body.append(div)
-
-        form.addEventListener('submit', commentCreation)
-       
-    })
-    
+    for (var i = 0; i <sectionArray.length; i++) {
+        console.log('unordered: ', sectionArray[i]);
+      }
     let s2 = sectionArray.sort(compare)
-    let div = document.querySelector("#jokes")
-    while(div.firstChild){
-        div.removeChild(div.firstChild);
-    }
-    for (var i = 0; i <s2.length; i++) {
-        let form = document.createElement("form");
-        commentSection(form, data, section)
+    const div = document.querySelector("#jokes")
 
-        const div = document.querySelector("#jokes")
-    
+    for (var i = 0; i <s2.length; i++) {
         div.append(s2[i])
        
         document.body.append(div)
-
-        form.addEventListener('submit', commentCreation)
+    
+        console.log('ordered: ', s2[i]);
       }
+
+      sortPosts()
 
 }
 
 
 
-async function overallSection(data, section) {
+async function overallSection(data, section,anArray) {
     console.log(data)
     let h2 = document.createElement("h2");
     h2.textContent = `${data.title}`
@@ -83,6 +90,7 @@ async function overallSection(data, section) {
     section.append(h4);
     section.append(h5);
     section.append(img);
+    anArray.push(section);
 }
 
 async function reaction(data, section) {
@@ -167,4 +175,4 @@ async function commentSection(form, data, section) {
     
 }
 
-module.exports = {getAllPosts, overallSection, reaction, commentSection}
+module.exports = {getAllPosts, overallSection, reaction, commentSection,sortPosts}
