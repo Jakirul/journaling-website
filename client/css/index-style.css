@@ -1,0 +1,114 @@
+form {
+	font-family: Glory;
+	font-size: 20px;
+}
+
+textarea,
+.gif_search {
+	border: 1px solid rgb(216, 210, 210);
+	border-radius: 8px;
+	padding: 10px;
+	margin-bottom: 20px;
+	font-family: Glory;
+	font-size: 20px;
+}
+
+.outer-form {
+	display: flex;
+	flex-direction: column;
+	width: 60%;
+	margin: 20px auto;
+	border-radius: 8px;
+	margin: 40px auto;
+}
+
+.outer-form > label {
+	margin: 10px auto;
+}
+
+.outer-form > textarea:nth-of-type(1) {
+	height: 100px;
+	resize: none;
+}
+
+.outer-form > textarea:nth-of-type(2) {
+	height: 75px;
+	resize: none;
+}
+
+.hidden2,
+.hidden3 {
+	display: none;
+}
+
+.warning {
+	margin: 0 0 20px 0;
+	font-weight: bold;
+	color: rgb(211, 58, 58);
+}
+
+#submit-buttons {
+	display: flex;
+	width: 100%;
+	justify-content: center;
+	margin-top: 15px;
+}
+
+.button {
+	margin: 0 10px;
+	text-align: center;
+	padding: 10px 15px;
+	border: none;
+	border-radius: 5px;
+	font-family: Glory;
+	font-size: 20px;
+}
+
+.button:hover {
+	cursor: pointer;
+}
+
+.submit {
+	background-color: #37d368;
+}
+
+.submit:hover {
+	background-color: #308b4d;
+	color: white;
+}
+
+.gifSearchForm {
+	margin-top: 20px;
+}
+
+#addGif:hover,
+.search_bar:hover {
+	background-color: rgb(126, 126, 126);
+	color: white;
+}
+.outer-form > #one_gif > input {
+	display: block;
+	margin: 0 auto;
+	background-color: #d0342c;
+	color: white;
+	font-weight: bold;
+}
+
+.outer-form > .gifSearchForm > input[class="search_bar"] {
+	margin-left: 10px;
+	margin-top: 10px;
+}
+
+.outer-form > .gifSearchForm > .gif-list {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	width: 80%;
+	margin: 10px auto;
+}
+
+.outer-form > .gifSearchForm > .gif-list > img {
+	width: auto;
+	height: 125px;
+	margin: 5px;
+}

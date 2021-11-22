@@ -1,0 +1,119 @@
+/* ------------------------------------------------ */
+
+/* These code blocks are for each post */
+div {
+    display: flex;
+    flex-direction: column;
+    /* flex-wrap: wrap; */
+    margin: 50px;
+}
+
+input, textarea, body > div > section, button {
+    border: 1px solid rgb(216, 210, 210);
+    border-radius: 8px;
+    padding: 10px;
+}
+
+div > section {
+    width: 50%;
+    margin: 5px auto 40px;
+    padding: 20px;
+    position: relative;
+    background-color: #f5f4ee;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+    
+}
+
+div > section h2 {
+    padding-top: 20px;
+}
+
+div > section button {
+    background-color: #74ffa0;
+}
+
+div > section button:hover {
+    background-color: #55d17c;
+    font-weight: bold;
+}
+
+div > section h5 {
+    position: absolute; 
+    top: -10px; 
+    right: 10px;
+}
+
+section > .reactions {
+    margin: 10px auto;
+    border: 1px solid rgb(216, 210, 210);
+    border-radius: 8px;
+    width: fit-content;
+    padding: 10px;
+}
+
+/* The hidden class which toggles the hiding/showing of the comment section */
+section > .hidden {
+    display: none;
+}
+
+section > .reactions label {
+    margin-left: 20px;
+    margin-right: 5px;
+}
+
+section > .comment-section p {
+    border: 1px solid rgb(236, 235, 235);
+    border-radius: 8px;
+    padding: 20px;
+    width: 65%;
+    word-wrap: break-word;
+    margin: 10px auto;
+    background-color: white;    
+    box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
+
+}
+
+section > .reactions label:nth-of-type(1) {
+    margin-left: 10px;
+}
+
+section > .reactions input:nth-of-type(3) {
+    margin-right: 10px;
+}
+
+section > .comment-form > input {
+    margin-left: 10px;
+}
+
+section > h1, section > h2 {
+    word-wrap: break-word;
+}
+
+section > button {
+    margin-top: 10px;
+}
+
+/* ------------------------------------------------ */
+
+/* Code for responsive design */
+@media screen and (max-width: 1800px) {
+    .outer-form {
+        width: 40%;
+    }
+}
+
+@media screen and (max-width: 1000px) {
+    .outer-form {
+        width: 60%;
+    }
+
+    div > section {
+        width: 100%;
+    }
+}
+
+@media screen and (max-width: 500px) {
+    div > section > img {
+        width: 100%;
+    }
+}

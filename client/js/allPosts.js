@@ -5,14 +5,14 @@ async function getAllPosts() {
     const res = await getPost.json();
    
     res.forEach(data => {
-        
         const section = document.createElement("section");
        
+        let form = document.createElement("form");
+
         overallSection(data, section)
         reaction(data, section)
-        
-        let form = document.createElement("form");
         commentSection(form, data, section)
+        
 
         const div = document.querySelector("#jokes")
        
@@ -28,30 +28,39 @@ async function getAllPosts() {
 async function overallSection(data, section) {
     let h2 = document.createElement("h2");
     h2.textContent = `${data.title}`
+    
+    let h5 = document.createElement("h5");
+    h5.textContent = `Posted: ${data.date}`;
 
 
     let button = document.createElement("button");
     button.textContent = "Show punchline"
 
     let h3 = document.createElement("h3");
+    let img = document.createElement("img");
+
     button.addEventListener('click', (e) => {
         e.preventDefault();
         h3.textContent = `${data.description}`;
         h3.style.fontWeight = "normal"
+        
+
+        img.src = data.gif
+        
         button.style.display = "none"
+
+        
     })
 
-    let h5 = document.createElement("h5");
-    h5.textContent = `Date: ${data.date}`;
+    
 
-    let img = document.createElement("img");
-    img.src = data.gif
+    
 
     section.append(h2);
     section.append(button)
     section.append(h3);
-    section.append(h5);
     section.append(img);
+    section.append(h5);
 }
 
 async function reaction(data, section) {
