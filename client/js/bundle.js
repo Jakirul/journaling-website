@@ -2,16 +2,16 @@
 const {commentCreation, reactionCreation} = require('./creation')
 
 
-async function sortPosts(){
-    console.log("herecd")
-    const getPost = await fetch('http://localhost:3000/')
-    const res = await getPost.json();
+// async function sortPosts(){
+//     console.log("herecd")
+//     const getPost = await fetch('http://localhost:3000/')
+//     const res = await getPost.json();
     
-    res.forEach(data => {
-        console.log(data.title+"LOLOLOLOL")
+//     res.forEach(data => {
+//         console.log(data.title+"LOLOLOLOL")
         
-    })
-}
+//     })
+// }
 
 async function getAllPosts() {
     const getPost = await fetch('http://localhost:3000/')
@@ -19,7 +19,7 @@ async function getAllPosts() {
     
     let sectionArray = []
     res.forEach(data => {
-        
+        console.log(data.reaction.like+"HLOO")
         const section = document.createElement("section");
         
         overallSection(data, section,sectionArray)
@@ -31,29 +31,29 @@ async function getAllPosts() {
         form.addEventListener('submit', commentCreation)
         
         
-        const div = document.querySelector("#jokes")
-        div.append(section)
-       
-        document.body.append(div)
-
-       
+        
+        
+        
     })
     function compare(a,b) {
-        let a1 = a.querySelector("h2").textContent.toLowerCase()
-        let b1 = b.querySelector("h2").textContent.toLowerCase()
-        if (a1 < b1)
-           return -1;
-        if (a1> b1)
-          return 1;
+        
+        let a1 = a.querySelector("#happy").textContent
+
+        let b1 = b.querySelector("#happy").textContent
+        
+        
+        if (a1 > b1)
+        return -1;
+        if (a1< b1)
+        return 1;
         return 0;
-      }
+    }
 
     for (var i = 0; i <sectionArray.length; i++) {
         console.log('unordered: ', sectionArray[i]);
       }
-    let s2 = sectionArray.sort(compare)
-    const div = document.querySelector("#jokes")
-
+      const div = document.querySelector("#jokes")
+      let s2 = sectionArray.sort(compare)
     for (var i = 0; i <s2.length; i++) {
         div.append(s2[i])
        
@@ -62,11 +62,13 @@ async function getAllPosts() {
         console.log('ordered: ', s2[i]);
       }
 
-      sortPosts()
+    //   sortPosts()
 
 }
 
+async function sortAlpha(aArray){
 
+}
 
 async function overallSection(data, section,anArray) {
     console.log(data)
@@ -102,6 +104,7 @@ async function reaction(data, section) {
     const emoji1 = document.createElement("input");
     emoji1.value = "👍";
     const emoji1Label = document.createElement("label");
+    emoji1Label.id = "happy"
     emoji1Label.setAttribute("for", `${data.reaction["like"]}`)
     emoji1Label.textContent = `${data.reaction["like"]}`
 
@@ -176,7 +179,7 @@ async function commentSection(form, data, section) {
     
 }
 
-module.exports = {getAllPosts, overallSection, reaction, commentSection,sortPosts}
+module.exports = {getAllPosts, overallSection, reaction, commentSection}
 },{"./creation":3}],2:[function(require,module,exports){
 
 
