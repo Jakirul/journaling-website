@@ -1,0 +1,139 @@
+@import url("https://fonts.googleapis.com/css2?family=Sigmar+One&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Glory:wght@400;700&family=Luckiest+Guy&display=swap");
+
+* {
+	box-sizing: border-box;
+}
+
+body,
+html {
+	margin: 0;
+}
+
+body {
+	font-family: Arial, Helvetica, sans-serif;
+	text-align: center;
+}
+
+h1,
+nav,
+header {
+	background-color: rgb(95, 95, 243);
+}
+
+h1 {
+	font-size: 60px;
+	font-family: "Luckiest Guy", cursive;
+	margin-top: 0;
+	padding-top: 35px;
+	margin-bottom: 20px;
+}
+
+/* Navigation bar code */
+nav {
+	display: flex;
+	justify-content: space-evenly;
+	font-family: Glory;
+	font-size: 20px;
+}
+
+nav > a {
+	text-decoration: none;
+	color: black;
+	width: 125px;
+}
+
+nav > a:hover {
+	font-weight: bold;
+}
+/* ------------------------------------------------ */
+/* These code blocks are for the post submission form */
+
+/* ------------------------------------------------ */
+
+/* These code blocks are for each post */
+/* div {
+	display: flex;
+	flex-wrap: wrap;
+	margin: 50px;
+}
+
+div > section {
+	width: 50%;
+	margin: 10px auto;
+	border: 1px solid black;
+	padding: 20px;
+}
+
+section > .reactions {
+	margin: 10px auto;
+	border: 1px solid rgb(216, 210, 210);
+	border-radius: 8px;
+	width: fit-content;
+	padding: 10px;
+} */
+
+/* The hidden class which toggles the hiding/showing of the comment section */
+/* section > .hidden {
+	display: none;
+}
+
+section > .reactions label {
+	margin-left: 20px;
+	margin-right: 5px;
+}
+
+section > .comment-section p {
+	border: 1px solid rgb(236, 235, 235);
+	border-radius: 8px;
+	padding: 20px;
+	width: 65%;
+	word-wrap: break-word;
+	margin: 10px auto;
+}
+
+section > .reactions label:nth-of-type(1) {
+	margin-left: 10px;
+}
+
+section > .reactions input:nth-of-type(3) {
+	margin-right: 10px;
+}
+
+section > .comment-form > input {
+	margin-left: 10px;
+}
+
+section > h1,
+section > h2 {
+	word-wrap: break-word;
+}
+
+section > button {
+	margin-top: 10px;
+} */
+
+/* ------------------------------------------------ */
+
+/* Code for responsive design */
+/* @media screen and (max-width: 1800px) {
+	.outer-form {
+		width: 40%;
+	}
+}
+
+@media screen and (max-width: 1000px) {
+	.outer-form {
+		width: 60%;
+	}
+
+	div > section {
+		width: 100%;
+	}
+}
+
+@media screen and (max-width: 500px) {
+	div > section > img {
+		width: 100%;
+	}
+} */
