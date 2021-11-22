@@ -88,12 +88,22 @@ textarea,
 	color: white;
 }
 .outer-form > #one_gif > input {
+
 	display: block;
 	margin: 0 auto;
 	background-color: #d0342c;
+	text-align: center;
+	padding: 10px 15px;
 	color: white;
-	font-weight: bold;
+	border: none;
+	border-radius: 5px;
+	font-family: Glory;
+	font-size: 20px;
 }
+
+.outer-form > #one_gif > img {
+	margin: 10px 0;
+} 
 
 .outer-form > .gifSearchForm > input[class="search_bar"] {
 	margin-left: 10px;

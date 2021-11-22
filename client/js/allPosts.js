@@ -9,21 +9,20 @@ async function getAllPosts() {
 
 		let form = document.createElement("form");
 
-		overallSection(data, section);
+		overallSection(form, data, section);
+
 		reaction(data, section);
-		commentSection(form, data, section);
 
 		const div = document.querySelector("#jokes");
-
+		console.log(document.querySelector(".comment-form"));
 		div.append(section);
 
 		document.body.append(div);
-
 		form.addEventListener("submit", commentCreation);
 	});
 }
 
-async function overallSection(data, section) {
+async function overallSection(form, data, section) {
 	let h2 = document.createElement("h2");
 	h2.textContent = `${data.title}`;
 
@@ -33,17 +32,21 @@ async function overallSection(data, section) {
 	let button = document.createElement("button");
 	button.textContent = "Show punchline";
 
-	let h3 = document.createElement("h3");
-	let img = document.createElement("img");
+	form.addEventListener("submit", commentCreation);
+}
+
+async function overallSection(data, section) {
+	let h2 = document.createElement("h2");
+	h2.textContent = `${data.title}`;
 
 	button.addEventListener("click", e => {
 		e.preventDefault();
 		h3.textContent = `${data.description}`;
 		h3.style.fontWeight = "normal";
-
 		img.src = data.gif;
-
 		button.style.display = "none";
+
+		commentSection(form, data, section);
 	});
 
 	section.append(h2);
@@ -123,6 +126,12 @@ async function commentSection(form, data, section) {
 
 	section.append(toggleComments);
 
+	if (data.comment.length < 1) {
+		const comments1 = document.createElement("h4");
+		comments1.textContent = `No comments yet!`;
+		commentWrapper.append(comments1);
+		section.append(commentWrapper);
+	}
 	data.comment.forEach(comment => {
 		const comments1 = document.createElement("p");
 		comments1.textContent = `${comment}`;
