@@ -1,99 +1,107 @@
 (function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){
 const {commentCreation, reactionCreation} = require('./creation')
 
-
-// async function sortPosts(){
-//     console.log("herecd")
-//     const getPost = await fetch('http://localhost:3000/')
-//     const res = await getPost.json();
-    
-//     res.forEach(data => {
-//         console.log(data.title+"LOLOLOLOL")
-        
-//     })
-// }
-
-async function getAllPosts() {
+async function getAllPosts(order) {
     const getPost = await fetch('http://localhost:3000/')
     const res = await getPost.json();
-    
-    let sectionArray = []
+    sectionArray = []
     res.forEach(data => {
-        console.log(data.reaction.like+"HLOO")
-        const section = document.createElement("section");
         
-        overallSection(data, section,sectionArray)
+        const section = document.createElement("section");
+       
+        let form = document.createElement("form");
+
+        overallSection(form, data, section,sectionArray)
+        
         reaction(data, section)
         
-        let form = document.createElement("form");
-        commentSection(form, data, section)
-        
+        const div = document.querySelector("#jokes")
+        console.log(document.querySelector(".comment-form"))
         form.addEventListener('submit', commentCreation)
-        
-        
-        
-        
-        
+       
     })
-    function compare(a,b) {
-        
-        let a1 = a.querySelector("#happy").textContent
-
-        let b1 = b.querySelector("#happy").textContent
-        
-        
-        if (a1 > b1)
-        return -1;
-        if (a1< b1)
-        return 1;
-        return 0;
-    }
 
     for (var i = 0; i <sectionArray.length; i++) {
-        console.log('unordered: ', sectionArray[i]);
+        console.log('unordered: ', sectionArray[i].querySelector("#happy").textContent+"KKKK");
+
       }
       const div = document.querySelector("#jokes")
-      let s2 = sectionArray.sort(compare)
+      let s2 = sectionArray;
+      if (order == "alphabetical"){
+          s2 = sectionArray.sort(compareAlpha)
+          console.log("ALPHA")
+          div.innerHTML = ""
+      }
+      if (order=="likes"){
+        s2 = sectionArray.sort(compareByLikes)
+        console.log("LIKES")
+        div.innerHTML = ""
+      }
     for (var i = 0; i <s2.length; i++) {
+
         div.append(s2[i])
        
         document.body.append(div)
     
         console.log('ordered: ', s2[i]);
       }
-
-    //   sortPosts()
-
 }
+function compareByLikes(a,b) {
+        
+    let a1 = parseInt(a.querySelector("#happy").textContent)
 
-async function sortAlpha(aArray){
-
+    let b1 = parseInt(b.querySelector("#happy").textContent)
+    
+    
+    if (a1 > b1){
+        return -1;}
+    else if (a1< b1){
+        return 1;}
+    else{return 0;}
 }
+function compareAlpha(a,b) {
+        
+    let a1 = a.querySelector("h2").textContent.toLowerCase()
 
-async function overallSection(data, section,anArray) {
-    console.log(data)
+    let b1 = b.querySelector("h2").textContent.toLowerCase()
+    
+    
+    if (a1 < b1)
+    return -1;
+    if (a1> b1)
+    return 1;
+    return 0;
+}
+async function overallSection(form, data, section,anArray) {
     let h2 = document.createElement("h2");
-    h2.textContent = `${data.title}`
+    h2.textContent = `${data.title}`;
+    
+    let h5 = document.createElement("h5");
+    h5.textContent = `Posted: ${data.date.slice(0,-7)}`;
+
+    let button = document.createElement("button");
+    button.textContent = "Show punchline";
 
     let h3 = document.createElement("h3");
-    h3.textContent = `${data.description}`;
-    h3.style.fontWeight = "normal"
-
-    let h4 = document.createElement("h4");
-    h4.textContent = `Author: ${data.author}`;
-
-    let h5 = document.createElement("h5");
-    h5.textContent = `Date: ${data.date}`;
-
     let img = document.createElement("img");
-    img.src = data.gif
+
+    button.addEventListener('click', (e) => {
+        e.preventDefault();
+        h3.textContent = `${data.description}`;
+        h3.style.fontWeight = "normal";
+        img.src = data.gif;
+        button.style.display = "none";
+        
+        
+        commentSection(form, data, section)
+    })
 
     section.append(h2);
+    section.append(button)
     section.append(h3);
-    section.append(h4);
-    section.append(h5);
     section.append(img);
-    anArray.push(section);
+    section.append(h5);
+    anArray.push(section)
 }
 
 async function reaction(data, section) {
@@ -169,6 +177,12 @@ async function commentSection(form, data, section) {
 
     section.append(toggleComments)
 
+    if (data.comment.length < 1) {
+        const comments1 = document.createElement("h4");
+        comments1.textContent = `No comments yet!`
+        commentWrapper.append(comments1)
+        section.append(commentWrapper)
+    }
     data.comment.forEach(comment => {
         const comments1 = document.createElement("p");
         comments1.textContent = `${comment}`
@@ -178,35 +192,32 @@ async function commentSection(form, data, section) {
 
     
 }
+sortBy.addEventListener('change', (event) => {
+    if(event.target.value == "alphabetical"){
+        getAllPosts("alphabetical")
+    }
+    else if(event.target.value == "likes"){
+        getAllPosts("likes")
+    }
+    
+  });
 
-module.exports = {getAllPosts, overallSection, reaction, commentSection}
+module.exports = {getAllPosts, overallSection, reaction, commentSection,compareAlpha,compareByLikes}
+
 },{"./creation":3}],2:[function(require,module,exports){
-
-
 const {submitForm} = require('./formSubmission')
 const {getAllPosts} = require('./allPosts.js')
 const {gifForm} = require('./gifFunctionality')
-
-
 if (document.querySelector("form")) {
     const form = document.querySelector('.outer-form');
     const addGif = document.querySelector('#addGif')
     form.addEventListener('submit', submitForm)
     addGif.addEventListener('click', gifForm)
 }
-
 // Immediately shows all results in the home page
 if (document.querySelector("#jokes")) {
     getAllPosts()
-    //sortPosts()
 }
-
-
-
-
-
-
-
 },{"./allPosts.js":1,"./formSubmission":4,"./gifFunctionality":5}],3:[function(require,module,exports){
 async function commentCreation(e) {
     e.preventDefault();
