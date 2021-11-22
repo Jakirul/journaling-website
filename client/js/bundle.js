@@ -1,8 +1,10 @@
 (function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){
 const {commentCreation, reactionCreation} = require('./creation')
 
+const api_url = "https://lap1-jokesapp.herokuapp.com/"
 async function getAllPosts() {
-    const getPost = await fetch('http://localhost:3000/')
+    // const getPost = await fetch('http://localhost:3000/')
+    const getPost = await fetch(api_url)
     const res = await getPost.json();
     res.forEach(data => {
         
@@ -173,6 +175,8 @@ if (document.querySelector("#jokes")) {
 
 
 },{"./allPosts.js":1,"./formSubmission":4,"./gifFunctionality":5}],3:[function(require,module,exports){
+const api_url = "https://lap1-jokesapp.herokuapp.com/"
+
 async function commentCreation(e) {
     e.preventDefault();
     const comment = e.target[0].value.trim()
@@ -186,7 +190,9 @@ async function commentCreation(e) {
             body: JSON.stringify({ "comment": comment })
         }
 
-        fetch(`http://localhost:3000/comment/${id}`, options)
+        
+        fetch(`${api_url}/comment/${id}`, options)
+        // fetch(`http://localhost:3000/comment/${id}`, options)
             .then(data => console.log(data))
             .catch(err => console.log(err))
             .then(() => window.location.reload())
@@ -220,8 +226,9 @@ async function reactionCreation(e) {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ "reaction": currReaction })
     }
+    // fetch(`http://localhost:3000/reaction/${currReaction}/${id}`, options)
+    fetch(`${api_url}/reaction/${currReaction}/${id}`, options)
 
-    fetch(`http://localhost:3000/reaction/${currReaction}/${id}`, options)
         .then(data => console.log(data))
         .then(() => location.reload())
         .catch(err => console.log(err))
@@ -229,7 +236,10 @@ async function reactionCreation(e) {
 
 module.exports = {commentCreation, reactionCreation}
 },{}],4:[function(require,module,exports){
+const api_url = "https://lap1-jokesapp.herokuapp.com/"
+
 async function submitForm(e) {
+
 	e.preventDefault();
 
 	const gif = document.querySelector("#one_gif img");
@@ -254,7 +264,7 @@ async function submitForm(e) {
 			headers: { "Content-type": "application/json" }
 		};
 
-		fetch(`http://localhost:3000/`, options)
+		fetch(`${api_url}`, options)
 			.then(data => console.log(data))
 			.catch(err => console.log(err))
 			.then(() => {

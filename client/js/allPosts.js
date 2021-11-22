@@ -1,7 +1,9 @@
 const {commentCreation, reactionCreation} = require('./creation')
 
+const api_url = "https://lap1-jokesapp.herokuapp.com/"
 async function getAllPosts() {
-    const getPost = await fetch('http://localhost:3000/')
+    // const getPost = await fetch('http://localhost:3000/')
+    const getPost = await fetch(api_url)
     const res = await getPost.json();
     res.forEach(data => {
         
