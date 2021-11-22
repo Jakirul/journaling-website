@@ -1,29 +1,78 @@
 (function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){
 const {commentCreation, reactionCreation} = require('./creation')
 
-async function getAllPosts() {
+async function getAllPosts(order) {
     const getPost = await fetch('http://localhost:3000/')
     const res = await getPost.json();
+    sectionArray = []
     res.forEach(data => {
         
         const section = document.createElement("section");
        
         let form = document.createElement("form");
 
-        overallSection(form, data, section)
+        overallSection(form, data, section,sectionArray)
         
         reaction(data, section)
         
         const div = document.querySelector("#jokes")
-        div.append(section)
-       
-        document.body.append(div)
+        console.log(document.querySelector(".comment-form"))
         form.addEventListener('submit', commentCreation)
        
     })
-}
 
-async function overallSection(form, data, section) {
+    for (var i = 0; i <sectionArray.length; i++) {
+        console.log('unordered: ', sectionArray[i].querySelector("#happy").textContent+"KKKK");
+
+      }
+      const div = document.querySelector("#jokes")
+      let s2 = sectionArray;
+      if (order == "alphabetical"){
+          s2 = sectionArray.sort(compareAlpha)
+          console.log("ALPHA")
+          div.innerHTML = ""
+      }
+      if (order=="likes"){
+        s2 = sectionArray.sort(compareByLikes)
+        console.log("LIKES")
+        div.innerHTML = ""
+      }
+    for (var i = 0; i <s2.length; i++) {
+
+        div.append(s2[i])
+       
+        document.body.append(div)
+    
+        console.log('ordered: ', s2[i]);
+      }
+}
+function compareByLikes(a,b) {
+        
+    let a1 = parseInt(a.querySelector("#happy").textContent)
+
+    let b1 = parseInt(b.querySelector("#happy").textContent)
+    
+    
+    if (a1 > b1){
+        return -1;}
+    else if (a1< b1){
+        return 1;}
+    else{return 0;}
+}
+function compareAlpha(a,b) {
+        
+    let a1 = a.querySelector("h2").textContent.toLowerCase()
+
+    let b1 = b.querySelector("h2").textContent.toLowerCase()
+    
+    
+    if (a1 < b1)
+    return -1;
+    if (a1> b1)
+    return 1;
+    return 0;
+}
+async function overallSection(form, data, section,anArray) {
     let h2 = document.createElement("h2");
     h2.textContent = `${data.title}`;
     
@@ -52,6 +101,7 @@ async function overallSection(form, data, section) {
     section.append(h3);
     section.append(img);
     section.append(h5);
+    anArray.push(section)
 }
 
 async function reaction(data, section) {
@@ -62,6 +112,7 @@ async function reaction(data, section) {
     const emoji1 = document.createElement("input");
     emoji1.value = "👍";
     const emoji1Label = document.createElement("label");
+    emoji1Label.id = "happy"
     emoji1Label.setAttribute("for", `${data.reaction["like"]}`)
     emoji1Label.textContent = `${data.reaction["like"]}`
 
@@ -141,8 +192,17 @@ async function commentSection(form, data, section) {
 
     
 }
+sortBy.addEventListener('change', (event) => {
+    if(event.target.value == "alphabetical"){
+        getAllPosts("alphabetical")
+    }
+    else if(event.target.value == "likes"){
+        getAllPosts("likes")
+    }
+    
+  });
 
-module.exports = {getAllPosts, overallSection, reaction, commentSection}
+module.exports = {getAllPosts, overallSection, reaction, commentSection,compareAlpha,compareByLikes}
 
 },{"./creation":3}],2:[function(require,module,exports){
 
