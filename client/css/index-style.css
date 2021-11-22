@@ -55,40 +55,11 @@ textarea,
 	margin-top: 15px;
 }
 
-.button {
-	margin: 0 10px;
-	text-align: center;
-	padding: 10px 15px;
-	border: none;
-	border-radius: 5px;
-	font-family: Glory;
-	font-size: 20px;
-}
-
-.button:hover {
-	cursor: pointer;
-}
-
-.submit {
-	background-color: #37d368;
-}
-
-.submit:hover {
-	background-color: #308b4d;
-	color: white;
-}
-
 .gifSearchForm {
 	margin-top: 20px;
 }
 
-#addGif:hover,
-.search_bar:hover {
-	background-color: rgb(126, 126, 126);
-	color: white;
-}
 .outer-form > #one_gif > input {
-
 	display: block;
 	margin: 0 auto;
 	background-color: #d0342c;
@@ -103,7 +74,7 @@ textarea,
 
 .outer-form > #one_gif > img {
 	margin: 10px 0;
-} 
+}
 
 .outer-form > .gifSearchForm > input[class="search_bar"] {
 	margin-left: 10px;

@@ -10,8 +10,8 @@ div {
 
 input,
 textarea,
-body > div > section,
-button {
+body > div > section
+{
 	border: 1px solid rgb(216, 210, 210);
 	border-radius: 8px;
 	padding: 10px;
@@ -30,15 +30,6 @@ div > section {
 
 div > section h2 {
 	padding-top: 20px;
-}
-
-div > section button {
-	background-color: #74ffa0;
-}
-
-div > section button:hover {
-	background-color: #55d17c;
-	font-weight: bold;
 }
 
 div > section h5 {
@@ -84,8 +75,13 @@ section > .reactions input:nth-of-type(3) {
 	margin-right: 10px;
 }
 
+.comment-form {
+	margin-bottom: 10px;
+}
+
 section > .comment-form > input {
 	margin-left: 10px;
+	margin-top: 10px;
 }
 
 section > h1,

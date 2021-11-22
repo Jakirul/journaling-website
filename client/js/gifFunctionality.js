@@ -10,6 +10,7 @@ function gifSelection(e) {
 	let gifDeletion = document.createElement("input");
 	gifDeletion.setAttribute("type", "button");
 	gifDeletion.setAttribute("value", "Remove Gif");
+	gifDeletion.setAttribute("class", "button red-button")
 
 	gifDeletion.addEventListener("click", () => {
 		gif.textContent = "";

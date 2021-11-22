@@ -29,7 +29,6 @@ h1 {
 	margin-bottom: 20px;
 }
 
-/* Navigation bar code */
 nav {
 	display: flex;
 	justify-content: space-evenly;
@@ -46,94 +45,40 @@ nav > a {
 nav > a:hover {
 	font-weight: bold;
 }
-/* ------------------------------------------------ */
-/* These code blocks are for the post submission form */
 
-/* ------------------------------------------------ */
-
-/* These code blocks are for each post */
-/* div {
-	display: flex;
-	flex-wrap: wrap;
-	margin: 50px;
+.button {
+	margin: 0 10px;
+	text-align: center;
+	padding: 10px 25px;
+	border: none;
+	border-radius: 5px;
+	font-family: Glory;
+	font-size: 20px;
 }
 
-div > section {
-	width: 50%;
-	margin: 10px auto;
-	border: 1px solid black;
-	padding: 20px;
+.button:hover {
+	cursor: pointer;
 }
 
-section > .reactions {
-	margin: 10px auto;
-	border: 1px solid rgb(216, 210, 210);
-	border-radius: 8px;
-	width: fit-content;
-	padding: 10px;
-} */
-
-/* The hidden class which toggles the hiding/showing of the comment section */
-/* section > .hidden {
-	display: none;
+.grey-button:hover {
+	background-color: rgb(126, 126, 126);
+	color: white;
 }
 
-section > .reactions label {
-	margin-left: 20px;
-	margin-right: 5px;
+.green-button {
+	background-color: #37d368;
 }
 
-section > .comment-section p {
-	border: 1px solid rgb(236, 235, 235);
-	border-radius: 8px;
-	padding: 20px;
-	width: 65%;
-	word-wrap: break-word;
-	margin: 10px auto;
+.green-button:hover {
+	background-color: #308b4d;
+	color: white;
 }
 
-section > .reactions label:nth-of-type(1) {
-	margin-left: 10px;
+.red-button {
+	background-color: rgb(226, 55, 55);
 }
 
-section > .reactions input:nth-of-type(3) {
-	margin-right: 10px;
+.red-button:hover {
+	background-color: rgb(168, 21, 21);
+	color: white;
 }
-
-section > .comment-form > input {
-	margin-left: 10px;
-}
-
-section > h1,
-section > h2 {
-	word-wrap: break-word;
-}
-
-section > button {
-	margin-top: 10px;
-} */
-
-/* ------------------------------------------------ */
-
-/* Code for responsive design */
-/* @media screen and (max-width: 1800px) {
-	.outer-form {
-		width: 40%;
-	}
-}
-
-@media screen and (max-width: 1000px) {
-	.outer-form {
-		width: 60%;
-	}
-
-	div > section {
-		width: 100%;
-	}
-}
-
-@media screen and (max-width: 500px) {
-	div > section > img {
-		width: 100%;
-	}
-} */
