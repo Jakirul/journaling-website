@@ -8,7 +8,6 @@ class Post {
         this.id = data.id;
         this.title = data.title;
         this.description = data.description;
-        this.author = data.author || "Anonymous";
         this.gif = data.gif || "";
         this.date = data.date
         this.reaction = data.reaction || {"like": 0, "dislike": 0, "happy": 0}

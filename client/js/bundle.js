@@ -26,18 +26,21 @@ async function getAllPosts() {
     })
 }
 
-
 async function overallSection(data, section) {
-    console.log(data)
     let h2 = document.createElement("h2");
     h2.textContent = `${data.title}`
 
-    let h3 = document.createElement("h3");
-    h3.textContent = `${data.description}`;
-    h3.style.fontWeight = "normal"
 
-    let h4 = document.createElement("h4");
-    h4.textContent = `Author: ${data.author}`;
+    let button = document.createElement("button");
+    button.textContent = "Show punchline"
+
+    let h3 = document.createElement("h3");
+    button.addEventListener('click', (e) => {
+        e.preventDefault();
+        h3.textContent = `${data.description}`;
+        h3.style.fontWeight = "normal"
+        button.style.display = "none"
+    })
 
     let h5 = document.createElement("h5");
     h5.textContent = `Date: ${data.date}`;
@@ -46,8 +49,8 @@ async function overallSection(data, section) {
     img.src = data.gif
 
     section.append(h2);
+    section.append(button)
     section.append(h3);
-    section.append(h4);
     section.append(h5);
     section.append(img);
 }
@@ -226,7 +229,6 @@ async function submitForm(e) {
     const gif = document.querySelector("#one_gif img")
     const title = document.querySelector(".title");
     const description = document.querySelector(".description");
-    const author = document.querySelector(".author")
     const titleWarning = document.querySelector(".title-warning");
     const descriptionWarning = document.querySelector(".description-warning");
     // If the user opts not to use gifs, append an empty string, else, use the source of the image
@@ -238,7 +240,6 @@ async function submitForm(e) {
         const data = {
             title: title.value.trim(),
             description: description.value.trim(),
-            author: author.value.trim(),
             gif: gif_data,
     
         }

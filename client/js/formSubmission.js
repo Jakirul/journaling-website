@@ -4,7 +4,6 @@ async function submitForm(e) {
     const gif = document.querySelector("#one_gif img")
     const title = document.querySelector(".title");
     const description = document.querySelector(".description");
-    const author = document.querySelector(".author")
     const titleWarning = document.querySelector(".title-warning");
     const descriptionWarning = document.querySelector(".description-warning");
     // If the user opts not to use gifs, append an empty string, else, use the source of the image
@@ -16,7 +15,6 @@ async function submitForm(e) {
         const data = {
             title: title.value.trim(),
             description: description.value.trim(),
-            author: author.value.trim(),
             gif: gif_data,
     
         }

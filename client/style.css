@@ -46,8 +46,14 @@ input, textarea, body > div > section, button {
 }
 
 
-.outer-form > textarea {
+.outer-form > textarea:nth-of-type(1) {
     height: 100px;
+    resize: none;
+}
+
+.outer-form > textarea:nth-of-type(2) {
+    height: 50px;
+    resize: none;
 }
 
 .outer-form > .hidden2, .outer-form > .hidden3 {
