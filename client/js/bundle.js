@@ -27,16 +27,33 @@ async function getAllPosts(order) {
       }
       const div = document.querySelector("#jokes")
       let s2 = sectionArray;
+      console.log(order)
       if (order == "alphabetical"){
           s2 = sectionArray.sort(compareAlpha)
           console.log("ALPHA")
           div.innerHTML = ""
       }
-      if (order=="likes"){
-        s2 = sectionArray.sort(compareByLikes)
-        console.log("LIKES")
+      else if (order=="likes"){
+        s2 = sortByProperty(sectionArray, "happy")
+        console.log("IT WORKS")
+        div.innerHTML = ""
+      } 
+      else if(order == "dislikes"){
+        s2 = sortByProperty(sectionArray, "sad");
+        console.log("Sad:((")
         div.innerHTML = ""
       }
+      else if (order == "third"){
+        s2 = sortByProperty(sectionArray, "third");
+        console.log("Third")
+        div.innerHTML = ""
+      }
+      else if(order = "Latest"){
+        s2 = sectionArray
+        console.log("Latest")
+        div.innerHTML= ""
+    }
+      
     for (var i = 0; i <s2.length; i++) {
 
         div.append(s2[i])
@@ -46,19 +63,26 @@ async function getAllPosts(order) {
         console.log('ordered: ', s2[i]);
       }
 }
-function compareByLikes(a,b) {
-        
-    let a1 = parseInt(a.querySelector("#happy").textContent)
 
-    let b1 = parseInt(b.querySelector("#happy").textContent)
-    
-    
-    if (a1 > b1){
-        return -1;}
-    else if (a1< b1){
-        return 1;}
-    else{return 0;}
+function sortByProperty(array, propertyName) {
+    return array.sort(function (a, b) {
+        return b.querySelector("#"+propertyName).textContent - a.querySelector("#"+propertyName).textContent;
+    });
 }
+
+// function compareByLikes(a,b) {
+        
+//     let a1 = parseInt(a.querySelector("#happy").textContent)
+
+//     let b1 = parseInt(b.querySelector("#happy").textContent)
+    
+    
+//     if (a1 > b1){
+//         return -1;}
+//     else if (a1< b1){
+//         return 1;}
+//     else{return 0;}
+// }
 function compareAlpha(a,b) {
         
     let a1 = a.querySelector("h2").textContent.toLowerCase()
@@ -120,12 +144,14 @@ async function reaction(data, section) {
     const emoji2 = document.createElement("input");
     emoji2.value = "👎"
     const emoji2Label = document.createElement("label");
+    emoji2Label.id = "sad"
     emoji2Label.setAttribute("for", `${data.reaction["dislike"]}`)
     emoji2Label.textContent = `${data.reaction["dislike"]}`
 
     const emoji3 = document.createElement("input");
     emoji3.value = "😃"
     const emoji3Label = document.createElement("label");
+    emoji3Label.id = "third"
     emoji3Label.setAttribute("for", `${data.reaction["happy"]}`)
     emoji3Label.textContent = `${data.reaction["happy"]}`
 
@@ -197,7 +223,8 @@ async function commentSection(form, data, section) {
     
 }
 
-if (document.querySelector("#jokes")) {
+
+if (document.querySelector("#jokes")){
     sortBy.addEventListener('change', (event) => {
         if(event.target.value == "alphabetical"){
             getAllPosts("alphabetical")
@@ -205,11 +232,20 @@ if (document.querySelector("#jokes")) {
         else if(event.target.value == "likes"){
             getAllPosts("likes")
         }
+        else if (event.target.value == "dislikes"){
+            getAllPosts("dislikes")
+        }
+        else if (event.target.value == "third"){
+            getAllPosts("third")
+        } 
+        else{
+            getAllPosts("latest")
+        }
         
-    });
+      });
 }
 
-module.exports = {getAllPosts, overallSection, reaction, commentSection,compareAlpha,compareByLikes}
+module.exports = {getAllPosts, overallSection, reaction, commentSection,compareAlpha,sortByProperty}
 
 },{"./creation":3}],2:[function(require,module,exports){
 
