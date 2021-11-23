@@ -286,6 +286,11 @@ async function commentCreation(e) {
         if (document.querySelector(`.comment-form[name="${id}"] .emptyComm`)) {
             document.querySelector(`.comment-form[name="${id}"] .emptyComm`).textContent = ""
         }
+
+        if (document.querySelector(`.comment-section[name="${id}"] h4`)) {
+            document.querySelector(`.comment-section[name="${id}"] h4`).remove()
+        }
+
         const options = {
             method: "PUT",
             headers: { 'Content-Type': 'application/json' },
