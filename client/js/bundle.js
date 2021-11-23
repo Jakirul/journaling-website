@@ -1,31 +1,78 @@
 (function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){
 const {commentCreation, reactionCreation} = require('./creation')
 
-async function getAllPosts() {
+async function getAllPosts(order) {
     const getPost = await fetch('http://localhost:3000/')
     const res = await getPost.json();
-   
+    sectionArray = []
     res.forEach(data => {
         
         const section = document.createElement("section");
        
         let form = document.createElement("form");
 
-        overallSection(form, data, section)
+        overallSection(form, data, section,sectionArray)
         
         reaction(data, section)
         
         const div = document.querySelector("#jokes")
         console.log(document.querySelector(".comment-form"))
-        div.append(section)
-       
-        document.body.append(div)
         form.addEventListener('submit', commentCreation)
        
     })
-}
 
-async function overallSection(form, data, section) {
+    for (var i = 0; i <sectionArray.length; i++) {
+        console.log('unordered: ', sectionArray[i].querySelector("#happy").textContent+"KKKK");
+
+      }
+      const div = document.querySelector("#jokes")
+      let s2 = sectionArray;
+      if (order == "alphabetical"){
+          s2 = sectionArray.sort(compareAlpha)
+          console.log("ALPHA")
+          div.innerHTML = ""
+      }
+      if (order=="likes"){
+        s2 = sectionArray.sort(compareByLikes)
+        console.log("LIKES")
+        div.innerHTML = ""
+      }
+    for (var i = 0; i <s2.length; i++) {
+
+        div.append(s2[i])
+       
+        document.body.append(div)
+    
+        console.log('ordered: ', s2[i]);
+      }
+}
+function compareByLikes(a,b) {
+        
+    let a1 = parseInt(a.querySelector("#happy").textContent)
+
+    let b1 = parseInt(b.querySelector("#happy").textContent)
+    
+    
+    if (a1 > b1){
+        return -1;}
+    else if (a1< b1){
+        return 1;}
+    else{return 0;}
+}
+function compareAlpha(a,b) {
+        
+    let a1 = a.querySelector("h2").textContent.toLowerCase()
+
+    let b1 = b.querySelector("h2").textContent.toLowerCase()
+    
+    
+    if (a1 < b1)
+    return -1;
+    if (a1> b1)
+    return 1;
+    return 0;
+}
+async function overallSection(form, data, section,anArray) {
     let h2 = document.createElement("h2");
     h2.textContent = `${data.title}`;
     
@@ -55,6 +102,7 @@ async function overallSection(form, data, section) {
     section.append(h3);
     section.append(img);
     section.append(h5);
+    anArray.push(section)
 }
 
 async function reaction(data, section) {
@@ -65,6 +113,7 @@ async function reaction(data, section) {
     const emoji1 = document.createElement("input");
     emoji1.value = "👍";
     const emoji1Label = document.createElement("label");
+    emoji1Label.id = "happy"
     emoji1Label.setAttribute("for", `${data.reaction["like"]}`)
     emoji1Label.textContent = `${data.reaction["like"]}`
 
@@ -148,7 +197,19 @@ async function commentSection(form, data, section) {
     
 }
 
-module.exports = {getAllPosts, overallSection, reaction, commentSection}
+if (document.querySelector("#jokes")) {
+    sortBy.addEventListener('change', (event) => {
+        if(event.target.value == "alphabetical"){
+            getAllPosts("alphabetical")
+        }
+        else if(event.target.value == "likes"){
+            getAllPosts("likes")
+        }
+        
+    });
+}
+
+module.exports = {getAllPosts, overallSection, reaction, commentSection,compareAlpha,compareByLikes}
 
 },{"./creation":3}],2:[function(require,module,exports){
 
@@ -176,7 +237,11 @@ if (document.querySelector("#jokes")) {
 
 
 
+
+
 },{"./allPosts.js":1,"./formSubmission":4,"./gifFunctionality":5}],3:[function(require,module,exports){
+// const api_url = "https://lap1-jokesapp.herokuapp.com/"
+
 async function commentCreation(e) {
     e.preventDefault();
     const comment = e.target[0].value.trim()
@@ -190,7 +255,9 @@ async function commentCreation(e) {
             body: JSON.stringify({ "comment": comment })
         }
 
+        
         fetch(`http://localhost:3000/comment/${id}`, options)
+        // fetch(`http://localhost:3000/comment/${id}`, options)
             .then(data => console.log(data))
             .catch(err => console.log(err))
             .then(() => window.location.reload())
@@ -212,12 +279,10 @@ async function reactionCreation(e) {
     const happy = document.querySelector(".reactions > input:nth-of-type(3):focus")
     
     let id = e.target.name;
-    console.log(id)
     let currReaction;
     if (like) currReaction = like.name;
     if (dislike) currReaction = dislike.name;
     if (happy) currReaction = happy.name;
-    console.log(currReaction)
     
 
    
@@ -226,16 +291,20 @@ async function reactionCreation(e) {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ "reaction": currReaction })
     }
-
     fetch(`http://localhost:3000/reaction/${currReaction}/${id}`, options)
+    // fetch(`${api_url}/reaction/${currReaction}/${id}`, options)
+
         .then(data => console.log(data))
+        .then(() => location.reload())
         .catch(err => console.log(err))
-        .then(() => window.location.reload())
 }
 
 module.exports = {commentCreation, reactionCreation}
 },{}],4:[function(require,module,exports){
+const api_url = "https://lap1-jokesapp.herokuapp.com/"
+
 async function submitForm(e) {
+
 	e.preventDefault();
 
 	const gif = document.querySelector("#one_gif img");
@@ -260,7 +329,8 @@ async function submitForm(e) {
 			headers: { "Content-type": "application/json" }
 		};
 
-		fetch(`http://localhost:3000/`, options)
+		// fetch(`${api_url}`, options)
+		fetch('http://localhost:3000/', options)
 			.then(data => console.log(data))
 			.catch(err => console.log(err))
 			.then(() => {
