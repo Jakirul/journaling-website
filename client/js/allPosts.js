@@ -1,10 +1,10 @@
 const {commentCreation, reactionCreation} = require('./creation')
 
 async function getAllPosts(order) {
-    try {
+    try {    
         const getPost = await fetch('http://localhost:3000/')
         const res = await getPost.json();
-        let sectionArray = []
+        sectionArray = []
         res.forEach(data => {
             
             const section = document.createElement("section");
@@ -16,6 +16,7 @@ async function getAllPosts(order) {
             reaction(data, section)
             
             const div = document.querySelector("#jokes")
+            console.log(document.querySelector(".comment-form"))
             form.addEventListener('submit', commentCreation)
         })
     } catch (error) {
@@ -23,57 +24,54 @@ async function getAllPosts(order) {
     }
 
     for (var i = 0; i <sectionArray.length; i++) {
-        console.log('unordered: ', sectionArray[i].querySelector("#happy").textContent+"KKKK");
+        // console.log('unordered: ', sectionArray[i].querySelector("#happy").textContent+"KKKK");
 
       }
       const div = document.querySelector("#jokes")
       let s2 = sectionArray;
+    //   console.log(order)
       if (order == "alphabetical"){
           s2 = sectionArray.sort(compareAlpha)
-          console.log("ALPHA")
+        //   console.log("ALPHA")
           div.innerHTML = ""
       }
-      if (order=="likes"){
-        s2 = sectionArray.sort(compareByLikes)
-        console.log("LIKES")
+      else if (order=="likes"){
+        s2 = sortByProperty(sectionArray, "happy")
+        // console.log("IT WORKS")
+        div.innerHTML = ""
+      } 
+      else if(order == "dislikes"){
+        s2 = sortByProperty(sectionArray, "sad");
+        // console.log("Sad:((")
         div.innerHTML = ""
       }
+      else if (order == "third"){
+        s2 = sortByProperty(sectionArray, "third");
+        // console.log("Third")
+        div.innerHTML = ""
+      }
+      else if(order = "Latest"){
+        s2 = sectionArray
+        // console.log("Latest")
+        div.innerHTML= ""
+    }
+      
     for (var i = 0; i <s2.length; i++) {
 
         div.append(s2[i])
        
         document.body.append(div)
     
-        console.log('ordered: ', s2[i]);
+        // console.log('ordered: ', s2[i]);
       }
+
+    console.log(sectionArray)
 }
 
-function createJokeSection(data) {
-    const section = document.createElement("section");
-       
-    let form = document.createElement("form");
-
-    overallSection(form, data, section,sectionArray)
-    
-    reaction(data, section)
-    
-    const div = document.querySelector("#jokes")
-    console.log(document.querySelector(".comment-form"))
-    form.addEventListener('submit', commentCreation)
-}
-
-function compareByLikes(a,b) {
-        
-    let a1 = parseInt(a.querySelector("#happy").textContent)
-
-    let b1 = parseInt(b.querySelector("#happy").textContent)
-    
-    
-    if (a1 > b1){
-        return -1;}
-    else if (a1< b1){
-        return 1;}
-    else{return 0;}
+function sortByProperty(array, propertyName) {
+    return array.sort(function (a, b) {
+        return b.querySelector("#"+propertyName).textContent - a.querySelector("#"+propertyName).textContent;
+    });
 }
 
 function compareAlpha(a,b) {
@@ -90,7 +88,7 @@ function compareAlpha(a,b) {
     return 0;
 }
 
-async function overallSection(form, data, section,anArray) {
+function overallSection(form, data, section,anArray) {
     let h2 = document.createElement("h2");
     h2.textContent = `${data.title}`;
     
@@ -179,6 +177,7 @@ function commentSection(form, data, section) {
 
     const commentWrapper = document.createElement("section");
     commentWrapper.setAttribute("class", "comment-section hidden")
+    commentWrapper.setAttribute("name", data.id)
     
     const toggleComments = document.createElement("button");
     toggleComments.textContent = "Show/Hide Comments"
@@ -190,27 +189,22 @@ function commentSection(form, data, section) {
     section.append(toggleComments)
 
     if (data.comment.length < 1) {
-        noComments(section, commentWrapper)
+        const comments1 = document.createElement("h4");
+        comments1.textContent = `No comments yet!`
+        commentWrapper.append(comments1)
+        section.append(commentWrapper)
     }
+    data.comment.forEach(comment => {
+        const comments1 = document.createElement("p");
+        comments1.textContent = `${comment}`
+        commentWrapper.append(comments1)
+        section.append(commentWrapper)
+    })
+
     
-    data.comment.forEach(comment => displayComment(comment, section, commentWrapper))
 }
 
-function noComments(section, wrapper) {
-    const comments1 = document.createElement("h4");
-    comments1.textContent = `No comments yet!`
-    wrapper.append(comments1)
-    section.append(wrapper)
-}
-
-function displayComment(comment, section, wrapper) {
-    const comments1 = document.createElement("p");
-    comments1.textContent = comment
-    wrapper.append(comments1)
-    section.append(wrapper)
-}
-
-if (document.querySelector("#jokes")) {
+if (document.querySelector("#jokes")){
     sortBy.addEventListener('change', (event) => {
         if(event.target.value == "alphabetical"){
             getAllPosts("alphabetical")
@@ -218,8 +212,17 @@ if (document.querySelector("#jokes")) {
         else if(event.target.value == "likes"){
             getAllPosts("likes")
         }
+        else if (event.target.value == "dislikes"){
+            getAllPosts("dislikes")
+        }
+        else if (event.target.value == "third"){
+            getAllPosts("third")
+        } 
+        else{
+            getAllPosts("latest")
+        }
         
-    });
+      });
 }
 
-module.exports = {getAllPosts, overallSection, reaction, commentSection,compareAlpha,compareByLikes}
+module.exports = {getAllPosts, overallSection, reaction, commentSection,compareAlpha,sortByProperty}

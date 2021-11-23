@@ -37,24 +37,16 @@ describe('allPosts', () => {
 
     describe("getAllPosts", () => {
         it("fetches all the data", () => {
-            app.getAllPosts()
+            app.getAllPosts("likes")
             expect(fetch).toHaveBeenCalledWith('http://localhost:3000/')
-        })
-    })
-
-    describe("createJokeSection", () => {
-        it("creates a new section", () => {
-            const sectionCount = document.querySelectorAll("section").length
-            app.createJokeSection(testJoke)
-            const newSectionCount = document.querySelectorAll("section").length
-            expect(newSectionCount).toEqual(sectionCount + 1)
         })
 
         describe("overallSection", () => {
             beforeEach(() => {
                 const section = document.createElement("section")
                 const form = document.createElement("form")
-                app.overallSection(form, testJoke, section)
+                let sectionArray = []
+                app.overallSection(form, testJoke, section, sectionArray)
                 document.body.append(section)
             })
 
@@ -85,8 +77,6 @@ describe('allPosts', () => {
 
             })
         })
-
-        // describe("")
 
         describe("commentSection", () => {
             beforeEach(() => {
