@@ -10,6 +10,7 @@ async function getAllPosts(order) {
             
             const section = document.createElement("section");
         
+
             let form = document.createElement("form");
 
             overallSection(form, data, section,sectionArray)
@@ -38,22 +39,21 @@ async function getAllPosts(order) {
       }
       else if (order=="likes"){
         s2 = sortByProperty(sectionArray, "happy")
-        // console.log("IT WORKS")
         div.innerHTML = ""
       } 
       else if(order == "dislikes"){
         s2 = sortByProperty(sectionArray, "sad");
-        // console.log("Sad:((")
+
         div.innerHTML = ""
       }
       else if (order == "third"){
         s2 = sortByProperty(sectionArray, "third");
-        // console.log("Third")
+
         div.innerHTML = ""
       }
       else if(order = "Latest"){
         s2 = sectionArray
-        // console.log("Latest")
+
         div.innerHTML= ""
     }
       
@@ -62,8 +62,7 @@ async function getAllPosts(order) {
         div.append(s2[i])
        
         document.body.append(div)
-    
-        // console.log('ordered: ', s2[i]);
+
       }
 }
 
