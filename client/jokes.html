@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -9,23 +10,33 @@
     <link rel="stylesheet" href="./css/style.css">
     <link rel="stylesheet" href="./css/jokes.css">
 </head>
+
 <body>
     <header>
         <h1>Tell us a Joke!</h1>
-        <nav>
-            <a href="index.html"><p>Add a new Joke</p></a>
-            <a href="#"><p><b>Jokes List</b></p></a>
-        </nav>
     </header>
+    <nav>
+        <a href="index.html">
+            <p>Add a new Joke</p>
+        </a>
+        <a href="#">
+            <p><b>Jokes List</b></p>
+        </a>
+    </nav>
 
+    <div id="sortingdiv">
+        <label for="sortBy">Sort by: </label>
+        <select name="sortBy" id="sortBy">
+            <option selected value="default">Latest</option>
+            <option value="alphabetical">Alphabetical</option>
+            <option value="likes">Likes</option>
+            <option value="dislikes">Dislikes</option>
+            <option value="third">Third Emoji</option>
+        </select>
+    </div>
     <div id="jokes"></div>
-    <select name="sortBy" id="sortBy">
-        <option selected value="default">Latest</option>
-        <option value="alphabetical">Alphabetical</option>
-        <option value="likes">Likes</option>
-        <option value="dislikes">Dislikes</option>
-        <option value="third">Third Emoji</option>
 
-    </select>
+
 </body>
+
 </html>
