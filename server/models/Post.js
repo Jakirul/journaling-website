@@ -1,5 +1,4 @@
-let postData = '../server/data/postData.json'
-
+let postData = './data/postData.json'
 const fs = require('fs');
 
 
