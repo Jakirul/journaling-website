@@ -320,14 +320,14 @@ async function commentCreation(e) {
 
 async function reactionCreation(e) {
     e.preventDefault();
-    const like = document.querySelector(`.reactions[name="${e.target.name}"] > input:nth-of-type(1):focus`)
-    const likeLabel = document.querySelector(`.reactions[name="${e.target.name}"]  > label:nth-of-type(1)`)
+    const like = document.querySelector(`.reactions[name="${e.target.name}"] > #happy-div > input:nth-of-type(1):focus`)
+    const likeLabel = document.querySelector(`.reactions[name="${e.target.name}"] > #happy-div > label:nth-of-type(1)`)
 
-    const dislike = document.querySelector(`.reactions[name="${e.target.name}"] > input:nth-of-type(2):focus`)
-    const dislikeLabel = document.querySelector(`.reactions[name="${e.target.name}"] > label:nth-of-type(2)`)
+    const dislike = document.querySelector(`.reactions[name="${e.target.name}"] > #sad-div > input:nth-of-type(1):focus`)
+    const dislikeLabel = document.querySelector(`.reactions[name="${e.target.name}"] > #sad-div > label:nth-of-type(1)`)
 
-    const happy = document.querySelector(`.reactions[name="${e.target.name}"] > input:nth-of-type(3):focus`)
-    const happyLabel = document.querySelector(`.reactions[name="${e.target.name}"] > label:nth-of-type(3)`)
+    const happy = document.querySelector(`.reactions[name="${e.target.name}"] > #third-div > input:nth-of-type(1):focus`)
+    const happyLabel = document.querySelector(`.reactions[name="${e.target.name}"] > #third-div > label:nth-of-type(1)`)
 
     let id = e.target.name;
     
@@ -349,8 +349,6 @@ async function reactionCreation(e) {
         currLabelText = happyLabel.textContent;
         currReaction = happy.name;
     }
-
-   
     const options = {
         method: "PUT",
         headers: { 'Content-Type': 'application/json' },
