@@ -15,6 +15,7 @@ describe('Post model', () => {
         expect(post.title).toBe('What do you call a fish wearing a bowtie?');
         expect(postData[0].title).toBe('What do you call a fish wearing a bowtie?');
         expect(toString(post.date).substr(0,5)).toEqual(toString(new Date().toUTCString()).substr(0,5));
+        expect(parseInt(postData[0].id)).toBe(postData.length)
     });
 
 });
