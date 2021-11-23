@@ -13,7 +13,7 @@ describe('Post model', () => {
     it('makes an instance of a post and pushes it to the top of the array', () => {
         const post = new Post(testData);
         expect(post.title).toBe('What do you call a fish wearing a bowtie?');
-        expect(postData[0].title).toBe('What do you call a fish wearing a bowtie?')
+        expect(postData[0].title).toBe('What do you call a fish wearing a bowtie?');
     });
 
 });
