@@ -13,11 +13,16 @@ textarea,
 	font-size: 20px;
 }
 
+textarea {
+	width: 60%;
+	margin: 0 auto 20px auto;
+	max-width: 600px;
+}
+
 .outer-form {
 	display: flex;
 	flex-direction: column;
-	width: 60%;
-	max-width: 600px;
+	width: 100%;
 	margin: 20px auto;
 	border-radius: 8px;
 	margin: 40px auto;
@@ -33,7 +38,7 @@ textarea,
 }
 
 .outer-form > textarea:nth-of-type(2) {
-	height: 75px;
+	height: 100px;
 	resize: none;
 }
 
@@ -55,40 +60,11 @@ textarea,
 	margin-top: 15px;
 }
 
-.button {
-	margin: 0 10px;
-	text-align: center;
-	padding: 10px 15px;
-	border: none;
-	border-radius: 5px;
-	font-family: Glory;
-	font-size: 20px;
-}
-
-.button:hover {
-	cursor: pointer;
-}
-
-.submit {
-	background-color: #37d368;
-}
-
-.submit:hover {
-	background-color: #308b4d;
-	color: white;
-}
-
 .gifSearchForm {
 	margin-top: 20px;
 }
 
-#addGif:hover,
-.search_bar:hover {
-	background-color: rgb(126, 126, 126);
-	color: white;
-}
 .outer-form > #one_gif > input {
-
 	display: block;
 	margin: 0 auto;
 	background-color: #d0342c;
@@ -103,7 +79,7 @@ textarea,
 
 .outer-form > #one_gif > img {
 	margin: 10px 0;
-} 
+}
 
 .outer-form > .gifSearchForm > input[class="search_bar"] {
 	margin-left: 10px;
@@ -114,12 +90,33 @@ textarea,
 	display: flex;
 	flex-wrap: wrap;
 	justify-content: center;
-	width: 80%;
+	width: 90%;
 	margin: 10px auto;
+	max-width: 600px;
 }
 
 .outer-form > .gifSearchForm > .gif-list > img {
 	width: auto;
 	height: 125px;
 	margin: 5px;
+}
+
+@media only screen and (max-width: 500px) {
+	#submit-buttons {
+		display: block;
+		margin-top: 0;
+	}
+
+	#submit-buttons input {
+		display: block;
+		margin: 10px auto;
+	}
+
+	#submit-buttons .grey-button {
+		margin-bottom: 10px;
+	}
+
+	.outer-form > .gifSearchForm > .gif-list {
+		width: 90%;
+	}
 }

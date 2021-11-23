@@ -76,10 +76,11 @@ async function overallSection(form, data, section,anArray) {
     h2.textContent = `${data.title}`;
     
     let h5 = document.createElement("h5");
-    h5.textContent = `Posted: ${data.date.slice(0,-7)}`;
+    h5.textContent = `Posted: ${data.date.slice(5,-7)}`;
 
     let button = document.createElement("button");
     button.textContent = "Show punchline";
+    button.setAttribute("class", "button green-button")
 
     let h3 = document.createElement("h3");
     let img = document.createElement("img");
@@ -157,9 +158,11 @@ async function commentSection(form, data, section) {
     comments.setAttribute("name", "comment")
     comments.setAttribute("class", "comment_input")
     comments.setAttribute("required", "true")
+    comments.setAttribute("placeholder", "Add a comment")
 
     let input = document.createElement("input");
     input.setAttribute("type", "submit")
+    input.setAttribute("class", "button green-button")
 
     form.append(comments);
     form.append(input)
@@ -169,7 +172,8 @@ async function commentSection(form, data, section) {
     commentWrapper.setAttribute("class", "comment-section hidden")
     
     const toggleComments = document.createElement("button");
-    toggleComments.textContent = "Show/Hide Comment"
+    toggleComments.textContent = "Show/Hide Comments"
+    toggleComments.setAttribute("class", "button grey-button")
     toggleComments.addEventListener('click', () => {
         commentWrapper.classList.toggle("hidden")
     })
