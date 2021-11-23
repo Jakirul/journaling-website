@@ -16,41 +16,30 @@ async function getAllPosts(order) {
         reaction(data, section)
         
         const div = document.querySelector("#jokes")
-        console.log(document.querySelector(".comment-form"))
         form.addEventListener('submit', commentCreation)
        
     })
 
-    for (var i = 0; i <sectionArray.length; i++) {
-        console.log('unordered: ', sectionArray[i].querySelector("#happy").textContent+"KKKK");
-
-      }
       const div = document.querySelector("#jokes")
       let s2 = sectionArray;
-      console.log(order)
       if (order == "alphabetical"){
           s2 = sectionArray.sort(compareAlpha)
-          console.log("ALPHA")
           div.innerHTML = ""
       }
       else if (order=="likes"){
         s2 = sortByProperty(sectionArray, "happy")
-        console.log("IT WORKS")
         div.innerHTML = ""
       } 
       else if(order == "dislikes"){
         s2 = sortByProperty(sectionArray, "sad");
-        console.log("Sad:((")
         div.innerHTML = ""
       }
       else if (order == "third"){
         s2 = sortByProperty(sectionArray, "third");
-        console.log("Third")
         div.innerHTML = ""
       }
       else if(order = "Latest"){
         s2 = sectionArray
-        console.log("Latest")
         div.innerHTML= ""
     }
       
@@ -59,8 +48,6 @@ async function getAllPosts(order) {
         div.append(s2[i])
        
         document.body.append(div)
-    
-        console.log('ordered: ', s2[i]);
       }
 }
 
@@ -284,7 +271,7 @@ async function commentCreation(e) {
     let id = e.target.name;
     if (comment.length > 0) {
         if (document.querySelector(`.comment-form[name="${id}"] .emptyComm`)) {
-            document.querySelector(`.comment-form[name="${id}"] .emptyComm`).textContent = ""
+            document.querySelector(`.comment-form[name="${id}"] .emptyComm`).remove()
         }
 
         if (document.querySelector(`.comment-section[name="${id}"] h4`)) {

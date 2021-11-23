@@ -6,7 +6,7 @@ async function commentCreation(e) {
     let id = e.target.name;
     if (comment.length > 0) {
         if (document.querySelector(`.comment-form[name="${id}"] .emptyComm`)) {
-            document.querySelector(`.comment-form[name="${id}"] .emptyComm`).textContent = ""
+            document.querySelector(`.comment-form[name="${id}"] .emptyComm`).remove()
         }
 
         if (document.querySelector(`.comment-section[name="${id}"] h4`)) {
