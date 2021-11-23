@@ -36,12 +36,10 @@ async function getAllPosts(order) {
       if (order == "alphabetical"){
           s2 = sectionArray.sort(compareAlpha)
         //   console.log("ALPHA")
-
           div.innerHTML = ""
       }
       else if (order=="likes"){
         s2 = sortByProperty(sectionArray, "happy")
-
         div.innerHTML = ""
       } 
       else if(order == "dislikes"){
@@ -356,7 +354,6 @@ async function reactionCreation(e) {
             .catch(err => console.log(err))
     
 }
-
 
 module.exports = {commentCreation, reactionCreation}
 },{}],4:[function(require,module,exports){
