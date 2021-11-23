@@ -1,30 +1,29 @@
 const {commentCreation, reactionCreation} = require('./creation')
 
 async function getAllPosts() {
-    const getPost = await fetch('http://localhost:3000/')
-    const res = await getPost.json();
-   
-    res.forEach(data => {
-        
-        const section = document.createElement("section");
-       
-        let form = document.createElement("form");
-
-        overallSection(form, data, section)
-        
-        reaction(data, section)
-        
-        const div = document.querySelector("#jokes")
-        console.log(document.querySelector(".comment-form"))
-        div.append(section)
-       
-        document.body.append(div)
-        form.addEventListener('submit', commentCreation)
-       
-    })
+    try {
+        const getPost = await fetch('http://localhost:3000/')
+        const res = await getPost.json();
+        res.forEach(createJokeSection)
+    } catch (error) {
+        console.log(error)
+    }
 }
 
-async function overallSection(form, data, section) {
+function createJokeSection(data) {
+    const section = document.createElement("section");
+    let form = document.createElement("form");
+
+    overallSection(form, data, section)
+    reaction(data, section)
+    
+    const div = document.querySelector("#jokes")
+    div.append(section)
+
+    form.addEventListener('submit', commentCreation)
+}
+
+function overallSection(form, data, section) {
     let h2 = document.createElement("h2");
     h2.textContent = `${data.title}`;
     
@@ -56,35 +55,14 @@ async function overallSection(form, data, section) {
     section.append(h5);
 }
 
-async function reaction(data, section) {
+function reaction(data, section) {
     const reactionForm = document.createElement("form");
     reactionForm.setAttribute("class", "reactions");
     reactionForm.setAttribute("name", data.id)
 
-    const emoji1 = document.createElement("input");
-    emoji1.value = "👍";
-    const emoji1Label = document.createElement("label");
-    emoji1Label.setAttribute("for", `${data.reaction["like"]}`)
-    emoji1Label.textContent = `${data.reaction["like"]}`
-
-    const emoji2 = document.createElement("input");
-    emoji2.value = "👎"
-    const emoji2Label = document.createElement("label");
-    emoji2Label.setAttribute("for", `${data.reaction["dislike"]}`)
-    emoji2Label.textContent = `${data.reaction["dislike"]}`
-
-    const emoji3 = document.createElement("input");
-    emoji3.value = "😃"
-    const emoji3Label = document.createElement("label");
-    emoji3Label.setAttribute("for", `${data.reaction["happy"]}`)
-    emoji3Label.textContent = `${data.reaction["happy"]}`
-
-    emoji1.setAttribute("name", "like");
-    emoji1.setAttribute("type", "submit")
-    emoji2.setAttribute("name", "dislike");
-    emoji2.setAttribute("type", "submit")
-    emoji3.setAttribute("name", "happy");
-    emoji3.setAttribute("type", "submit")
+    const [emoji1, emoji1Label] = createEmoji(data, "👍", "like")
+    const [emoji2, emoji2Label] = createEmoji(data, "👎", "dislike")
+    const [emoji3, emoji3Label] = createEmoji(data, "😃", "happy")
     
     reactionForm.append(emoji1Label)
     reactionForm.append(emoji1)
@@ -99,8 +77,20 @@ async function reaction(data, section) {
     reactionForm.addEventListener('submit', reactionCreation)
 }
 
+function createEmoji(data, symbol, name) {
+    const emoji = document.createElement("input");
+    const emojiLabel = document.createElement("label");
+    emoji.value = symbol;
+    emoji.setAttribute("name", name);
+    emoji.setAttribute("type", "submit")
+    emojiLabel.setAttribute("for", name);
+    emojiLabel.textContent = `${data.reaction[name]}`;
 
-async function commentSection(form, data, section) {
+    return [emoji, emojiLabel];
+}
+
+
+function commentSection(form, data, section) {
     
     form.setAttribute("name", data.id)
     form.setAttribute("class", "comment-form")
@@ -132,19 +122,24 @@ async function commentSection(form, data, section) {
     section.append(toggleComments)
 
     if (data.comment.length < 1) {
-        const comments1 = document.createElement("h4");
-        comments1.textContent = `No comments yet!`
-        commentWrapper.append(comments1)
-        section.append(commentWrapper)
+        noComments(section, commentWrapper)
     }
-    data.comment.forEach(comment => {
-        const comments1 = document.createElement("p");
-        comments1.textContent = `${comment}`
-        commentWrapper.append(comments1)
-        section.append(commentWrapper)
-    })
-
     
+    data.comment.forEach(comment => displayComment(comment, section, commentWrapper))
 }
 
-module.exports = {getAllPosts, overallSection, reaction, commentSection}
+function noComments(section, wrapper) {
+    const comments1 = document.createElement("h4");
+    comments1.textContent = `No comments yet!`
+    wrapper.append(comments1)
+    section.append(wrapper)
+}
+
+function displayComment(comment, section, wrapper) {
+    const comments1 = document.createElement("p");
+    comments1.textContent = comment
+    wrapper.append(comments1)
+    section.append(wrapper)
+}
+
+module.exports = {getAllPosts, overallSection, reaction, commentSection, createJokeSection}
