@@ -29,8 +29,11 @@ router.put('/reaction/:reaction/:id', (req, res) => {
     const {reaction, id} = req.params
     
     try {
+        
         Post.updateReaction(reaction, id)
         res.status(200).send('New reaction!');
+      
+        
     } catch(e) {
         res.status(404).send("ERROR: TRY AGAIN LATER")
     }

@@ -1,29 +1,96 @@
 const {commentCreation, reactionCreation} = require('./creation')
 
-async function getAllPosts() {
+async function getAllPosts(order) {
     try {
         const getPost = await fetch('http://localhost:3000/')
         const res = await getPost.json();
-        res.forEach(createJokeSection)
+        let sectionArray = []
+        res.forEach(data => {
+            
+            const section = document.createElement("section");
+        
+            let form = document.createElement("form");
+
+            overallSection(form, data, section,sectionArray)
+            
+            reaction(data, section)
+            
+            const div = document.querySelector("#jokes")
+            form.addEventListener('submit', commentCreation)
+        })
     } catch (error) {
         console.log(error)
     }
+
+    for (var i = 0; i <sectionArray.length; i++) {
+        console.log('unordered: ', sectionArray[i].querySelector("#happy").textContent+"KKKK");
+
+      }
+      const div = document.querySelector("#jokes")
+      let s2 = sectionArray;
+      if (order == "alphabetical"){
+          s2 = sectionArray.sort(compareAlpha)
+          console.log("ALPHA")
+          div.innerHTML = ""
+      }
+      if (order=="likes"){
+        s2 = sectionArray.sort(compareByLikes)
+        console.log("LIKES")
+        div.innerHTML = ""
+      }
+    for (var i = 0; i <s2.length; i++) {
+
+        div.append(s2[i])
+       
+        document.body.append(div)
+    
+        console.log('ordered: ', s2[i]);
+      }
 }
 
 function createJokeSection(data) {
     const section = document.createElement("section");
+       
     let form = document.createElement("form");
 
-    overallSection(form, data, section)
+    overallSection(form, data, section,sectionArray)
+    
     reaction(data, section)
     
     const div = document.querySelector("#jokes")
-    div.append(section)
-
+    console.log(document.querySelector(".comment-form"))
     form.addEventListener('submit', commentCreation)
 }
 
-function overallSection(form, data, section) {
+function compareByLikes(a,b) {
+        
+    let a1 = parseInt(a.querySelector("#happy").textContent)
+
+    let b1 = parseInt(b.querySelector("#happy").textContent)
+    
+    
+    if (a1 > b1){
+        return -1;}
+    else if (a1< b1){
+        return 1;}
+    else{return 0;}
+}
+
+function compareAlpha(a,b) {
+        
+    let a1 = a.querySelector("h2").textContent.toLowerCase()
+
+    let b1 = b.querySelector("h2").textContent.toLowerCase()
+    
+    
+    if (a1 < b1)
+    return -1;
+    if (a1> b1)
+    return 1;
+    return 0;
+}
+
+async function overallSection(form, data, section,anArray) {
     let h2 = document.createElement("h2");
     h2.textContent = `${data.title}`;
     
@@ -53,6 +120,7 @@ function overallSection(form, data, section) {
     section.append(h3);
     section.append(img);
     section.append(h5);
+    anArray.push(section)
 }
 
 function reaction(data, section) {
@@ -142,4 +210,16 @@ function displayComment(comment, section, wrapper) {
     section.append(wrapper)
 }
 
-module.exports = {getAllPosts, overallSection, reaction, commentSection, createJokeSection}
+if (document.querySelector("#jokes")) {
+    sortBy.addEventListener('change', (event) => {
+        if(event.target.value == "alphabetical"){
+            getAllPosts("alphabetical")
+        }
+        else if(event.target.value == "likes"){
+            getAllPosts("likes")
+        }
+        
+    });
+}
+
+module.exports = {getAllPosts, overallSection, reaction, commentSection,compareAlpha,compareByLikes}
