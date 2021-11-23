@@ -10,10 +10,11 @@ describe('Post model', () => {
         
     }
 
-    it('makes an instance of a post and pushes it to the top of the array', () => {
+    it('makes an instance of a post which is at the top of the array and has the right id and date', () => {
         const post = new Post(testData);
         expect(post.title).toBe('What do you call a fish wearing a bowtie?');
         expect(postData[0].title).toBe('What do you call a fish wearing a bowtie?');
+        expect(toString(post.date).substr(0,5)).toEqual(toString(new Date().toUTCString()).substr(0,5));
     });
 
 });
