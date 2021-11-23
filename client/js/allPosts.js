@@ -1,3 +1,4 @@
+
 const {commentCreation, reactionCreation} = require('./creation')
 
 async function getAllPosts(order) {
@@ -245,3 +246,4 @@ if (document.querySelector("#jokes")){
 }
 
 module.exports = {getAllPosts, overallSection, reaction, commentSection,compareAlpha,sortByProperty}
+
