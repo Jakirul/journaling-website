@@ -15,25 +15,21 @@ async function getAllPosts(order) {
         reaction(data, section)
         
         const div = document.querySelector("#jokes")
-        console.log(document.querySelector(".comment-form"))
         form.addEventListener('submit', commentCreation)
        
     })
 
     for (var i = 0; i <sectionArray.length; i++) {
-        console.log('unordered: ', sectionArray[i].querySelector("#happy").textContent+"KKKK");
 
       }
       const div = document.querySelector("#jokes")
       let s2 = sectionArray;
       if (order == "alphabetical"){
           s2 = sectionArray.sort(compareAlpha)
-          console.log("ALPHA")
           div.innerHTML = ""
       }
       if (order=="likes"){
         s2 = sectionArray.sort(compareByLikes)
-        console.log("LIKES")
         div.innerHTML = ""
       }
     for (var i = 0; i <s2.length; i++) {
@@ -42,7 +38,6 @@ async function getAllPosts(order) {
        
         document.body.append(div)
     
-        console.log('ordered: ', s2[i]);
       }
 }
 function compareByLikes(a,b) {

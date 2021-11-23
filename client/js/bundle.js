@@ -16,25 +16,21 @@ async function getAllPosts(order) {
         reaction(data, section)
         
         const div = document.querySelector("#jokes")
-        console.log(document.querySelector(".comment-form"))
         form.addEventListener('submit', commentCreation)
        
     })
 
     for (var i = 0; i <sectionArray.length; i++) {
-        console.log('unordered: ', sectionArray[i].querySelector("#happy").textContent+"KKKK");
 
       }
       const div = document.querySelector("#jokes")
       let s2 = sectionArray;
       if (order == "alphabetical"){
           s2 = sectionArray.sort(compareAlpha)
-          console.log("ALPHA")
           div.innerHTML = ""
       }
       if (order=="likes"){
         s2 = sectionArray.sort(compareByLikes)
-        console.log("LIKES")
         div.innerHTML = ""
       }
     for (var i = 0; i <s2.length; i++) {
@@ -43,7 +39,6 @@ async function getAllPosts(order) {
        
         document.body.append(div)
     
-        console.log('ordered: ', s2[i]);
       }
 }
 function compareByLikes(a,b) {
@@ -275,28 +270,57 @@ async function commentCreation(e) {
 async function reactionCreation(e) {
     e.preventDefault();
     const like = document.querySelector(".reactions > input:nth-of-type(1):focus")
+    const likeLabel = document.querySelector(".reactions > label:nth-of-type(1)")
+
     const dislike = document.querySelector(".reactions > input:nth-of-type(2):focus")
+    const dislikeLabel = document.querySelector(".reactions > label:nth-of-type(2)")
+
     const happy = document.querySelector(".reactions > input:nth-of-type(3):focus")
-    
+    const happyLabel = document.querySelector(".reactions > label:nth-of-type(3)")
+
     let id = e.target.name;
+    
     let currReaction;
-    if (like) currReaction = like.name;
-    if (dislike) currReaction = dislike.name;
-    if (happy) currReaction = happy.name;
+    let currLabelText;
+    let currLabel;
+    if (like) {
+        currLabel = likeLabel;
+        currLabelText = likeLabel.textContent;
+        currReaction = like.name;
+    }
+    if (dislike) {
+        currLabel = dislikeLabel;
+        currLabelText = dislikeLabel.textContent;
+        currReaction = dislike.name;
+    }
+    if (happy) {
+        currLabel = happyLabel;
+        currLabelText = happyLabel.textContent;
+        currReaction = happy.name;
+    }
+
+    console.log(currLabel)
     
 
+    const label = document.querySelector(".reactions > #happy")
    
     const options = {
         method: "PUT",
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ "reaction": currReaction })
     }
-    fetch(`http://localhost:3000/reaction/${currReaction}/${id}`, options)
+    // setInterval(function() {
+        fetch(`http://localhost:3000/reaction/${currReaction}/${id}`, options)
     // fetch(`${api_url}/reaction/${currReaction}/${id}`, options)
 
-        .then(data => console.log(data))
-        .then(() => location.reload())
-        .catch(err => console.log(err))
+            // .then(res => res.json())
+            .then(data => {
+                console.log(currLabel)
+                currLabel.innerText = `${parseInt(currLabelText) + 1}`
+            })
+        // .then(() => location.reload())
+            .catch(err => console.log(err))
+    // }, 2000)
+    
 }
 
 module.exports = {commentCreation, reactionCreation}
