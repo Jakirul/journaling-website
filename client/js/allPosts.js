@@ -130,17 +130,12 @@ function reaction(data, section) {
     reactionForm.setAttribute("class", "reactions");
     reactionForm.setAttribute("name", data.id)
 
-    const [emoji1, emoji1Label] = createEmoji(data, "👍", "like", "happy")
-    const [emoji2, emoji2Label] = createEmoji(data, "👎", "dislike", "sad")
-    const [emoji3, emoji3Label] = createEmoji(data, "😃", "happy", "third")
+    const emoji1 = createEmoji(data, "👍", "like", "happy")
+    const emoji2 = createEmoji(data, "👎", "dislike", "sad")
+    const emoji3 = createEmoji(data, "😃", "happy", "third")
     
-    reactionForm.append(emoji1Label)
     reactionForm.append(emoji1)
-
-    reactionForm.append(emoji2Label)
     reactionForm.append(emoji2)
-
-    reactionForm.append(emoji3Label)
     reactionForm.append(emoji3)
     
     section.append(reactionForm)
@@ -148,8 +143,11 @@ function reaction(data, section) {
 }
 
 function createEmoji(data, symbol, name, id) {
+    const emojidiv = document.createElement("div");
     const emoji = document.createElement("input");
     const emojiLabel = document.createElement("label");
+    emojidiv.id = `${id}-div`
+    emojidiv.setAttribute("class", "emoji-div")
     emoji.value = symbol;
     emoji.setAttribute("name", name);
     emoji.setAttribute("type", "submit")
@@ -157,7 +155,10 @@ function createEmoji(data, symbol, name, id) {
     emojiLabel.id = id
     emojiLabel.textContent = `${data.reaction[name]}`;
 
-    return[emoji, emojiLabel];
+    emojidiv.append(emojiLabel);
+    emojidiv.append(emoji)
+
+    return emojidiv;
 }
 
 

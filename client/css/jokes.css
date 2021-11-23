@@ -1,7 +1,7 @@
 /* ------------------------------------------------ */
 
 /* These code blocks are for each post */
-div {
+#jokes {
 	display: flex;
 	flex-direction: column;
 	/* flex-wrap: wrap; */
@@ -31,9 +31,7 @@ div {
 	width: 125px;
 }
 
-input,
-textarea,
-body > div > section
+input, body > div > section
 {
 	border: 1px solid rgb(216, 210, 210);
 	border-radius: 8px;
@@ -63,20 +61,49 @@ div > section h5 {
 
 section > .reactions {
 	margin: 10px auto;
-	border: 1px solid rgb(216, 210, 210);
-	border-radius: 8px;
 	width: fit-content;
 	padding: 10px;
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	justify-content: center;
+}
+
+.emoji-div {
+	display: flex;
+	align-items: center;
+	/* border: 1px solid rgb(216, 210, 210); */
+	border-radius: 50%;
+	padding: 2px;
+	margin: 0 5px;
+}
+
+.emoji-div input {
+	background-color: #f5f4ee;
+	border: none;
+	width: 50px;
+	height: 50px;
+	font-size: 30px;
+	padding: 0;
+	border-radius: 50%;
+	transition: font-size 0.3s;
+}
+
+.emoji-div input:hover {
+	cursor: pointer;
+	font-size: 40px;
+}
+
+.emoji-div label {
+	margin-right: -5px;
+	z-index: 3;
+	font-size: 15px;
+	color: #97968f
 }
 
 /* The hidden class which toggles the hiding/showing of the comment section */
 section > .hidden {
 	display: none;
-}
-
-section > .reactions label {
-	margin-left: 20px;
-	margin-right: 5px;
 }
 
 section > .comment-section p {
@@ -88,14 +115,6 @@ section > .comment-section p {
 	margin: 10px auto;
 	background-color: white;
 	box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
-}
-
-section > .reactions label:nth-of-type(1) {
-	margin-left: 10px;
-}
-
-section > .reactions input:nth-of-type(3) {
-	margin-right: 10px;
 }
 
 .comment-form {
