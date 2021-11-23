@@ -2,55 +2,58 @@
 const {commentCreation, reactionCreation} = require('./creation')
 
 async function getAllPosts(order) {
-    const getPost = await fetch('http://localhost:3000/')
-    const res = await getPost.json();
-    sectionArray = []
-    res.forEach(data => {
+    try {    
+        const getPost = await fetch('http://localhost:3000/')
+        const res = await getPost.json();
+        sectionArray = []
+        res.forEach(data => {
+            
+            const section = document.createElement("section");
         
-        const section = document.createElement("section");
-       
-        let form = document.createElement("form");
+            let form = document.createElement("form");
 
-        overallSection(form, data, section,sectionArray)
-        
-        reaction(data, section)
-        
-        const div = document.querySelector("#jokes")
-        console.log(document.querySelector(".comment-form"))
-        form.addEventListener('submit', commentCreation)
-       
-    })
+            overallSection(form, data, section,sectionArray)
+            
+            reaction(data, section)
+            
+            const div = document.querySelector("#jokes")
+            console.log(document.querySelector(".comment-form"))
+            form.addEventListener('submit', commentCreation)
+        })
+    } catch (error) {
+        console.log(error)
+    }
 
     for (var i = 0; i <sectionArray.length; i++) {
-        console.log('unordered: ', sectionArray[i].querySelector("#happy").textContent+"KKKK");
+        // console.log('unordered: ', sectionArray[i].querySelector("#third").textContent+"KKKK");
 
       }
       const div = document.querySelector("#jokes")
       let s2 = sectionArray;
-      console.log(order)
+    //   console.log(order)
       if (order == "alphabetical"){
           s2 = sectionArray.sort(compareAlpha)
-          console.log("ALPHA")
+        //   console.log("ALPHA")
           div.innerHTML = ""
       }
       else if (order=="likes"){
         s2 = sortByProperty(sectionArray, "happy")
-        console.log("IT WORKS")
+        // console.log("IT WORKS")
         div.innerHTML = ""
       } 
       else if(order == "dislikes"){
         s2 = sortByProperty(sectionArray, "sad");
-        console.log("Sad:((")
+        // console.log("Sad:((")
         div.innerHTML = ""
       }
       else if (order == "third"){
         s2 = sortByProperty(sectionArray, "third");
-        console.log("Third")
+        // console.log("Third")
         div.innerHTML = ""
       }
       else if(order = "Latest"){
         s2 = sectionArray
-        console.log("Latest")
+        // console.log("Latest")
         div.innerHTML= ""
     }
       
@@ -60,29 +63,16 @@ async function getAllPosts(order) {
        
         document.body.append(div)
     
-        console.log('ordered: ', s2[i]);
+        // console.log('ordered: ', s2[i]);
       }
 }
 
 function sortByProperty(array, propertyName) {
     return array.sort(function (a, b) {
-        return b.querySelector("#"+propertyName).textContent - a.querySelector("#"+propertyName).textContent;
+        return b.querySelector("#"+propertyName).textContent.toLowerCase() - a.querySelector("#"+propertyName).textContent.toLowerCase();
     });
 }
 
-// function compareByLikes(a,b) {
-        
-//     let a1 = parseInt(a.querySelector("#happy").textContent)
-
-//     let b1 = parseInt(b.querySelector("#happy").textContent)
-    
-    
-//     if (a1 > b1){
-//         return -1;}
-//     else if (a1< b1){
-//         return 1;}
-//     else{return 0;}
-// }
 function compareAlpha(a,b) {
         
     let a1 = a.querySelector("h2").textContent.toLowerCase()
@@ -96,7 +86,7 @@ function compareAlpha(a,b) {
     return 1;
     return 0;
 }
-async function overallSection(form, data, section,anArray) {
+function overallSection(form, data, section,anArray) {
     let h2 = document.createElement("h2");
     h2.textContent = `${data.title}`;
     
@@ -129,38 +119,14 @@ async function overallSection(form, data, section,anArray) {
     anArray.push(section)
 }
 
-async function reaction(data, section) {
+function reaction(data, section) {
     const reactionForm = document.createElement("form");
     reactionForm.setAttribute("class", "reactions");
     reactionForm.setAttribute("name", data.id)
 
-    const emoji1 = document.createElement("input");
-    emoji1.value = "👍";
-    const emoji1Label = document.createElement("label");
-    emoji1Label.id = "happy"
-    emoji1Label.setAttribute("for", `${data.reaction["like"]}`)
-    emoji1Label.textContent = `${data.reaction["like"]}`
-
-    const emoji2 = document.createElement("input");
-    emoji2.value = "👎"
-    const emoji2Label = document.createElement("label");
-    emoji2Label.id = "sad"
-    emoji2Label.setAttribute("for", `${data.reaction["dislike"]}`)
-    emoji2Label.textContent = `${data.reaction["dislike"]}`
-
-    const emoji3 = document.createElement("input");
-    emoji3.value = "😃"
-    const emoji3Label = document.createElement("label");
-    emoji3Label.id = "third"
-    emoji3Label.setAttribute("for", `${data.reaction["happy"]}`)
-    emoji3Label.textContent = `${data.reaction["happy"]}`
-
-    emoji1.setAttribute("name", "like");
-    emoji1.setAttribute("type", "submit")
-    emoji2.setAttribute("name", "dislike");
-    emoji2.setAttribute("type", "submit")
-    emoji3.setAttribute("name", "happy");
-    emoji3.setAttribute("type", "submit")
+    const [emoji1, emoji1Label] = createEmoji(data, "👍", "like", "happy")
+    const [emoji2, emoji2Label] = createEmoji(data, "👎", "dislike", "sad")
+    const [emoji3, emoji3Label] = createEmoji(data, "😃", "happy", "third")
     
     reactionForm.append(emoji1Label)
     reactionForm.append(emoji1)
@@ -175,8 +141,21 @@ async function reaction(data, section) {
     reactionForm.addEventListener('submit', reactionCreation)
 }
 
+function createEmoji(data, symbol, name, id) {
+    const emoji = document.createElement("input");
+    const emojiLabel = document.createElement("label");
+    emoji.value = symbol;
+    emoji.setAttribute("name", name);
+    emoji.setAttribute("type", "submit")
+    emojiLabel.setAttribute("for", name);
+    emojiLabel.id = id
+    emojiLabel.textContent = `${data.reaction[name]}`;
 
-async function commentSection(form, data, section) {
+    return[emoji, emojiLabel];
+}
+
+
+function commentSection(form, data, section) {
     
     form.setAttribute("name", data.id)
     form.setAttribute("class", "comment-form")

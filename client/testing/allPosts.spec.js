@@ -41,6 +41,28 @@ describe('allPosts', () => {
             expect(fetch).toHaveBeenCalledWith('http://localhost:3000/')
         })
 
+        // it("sorts alphabetically", () => {
+        //     // const testJokeAlphabet = {
+        //     //     "id": "100",
+        //     //     "title": "zzzzzz",
+        //     //     "description": "Test Punchline",
+        //     //     "gif": "https://media0.giphy.com/media/9tx0gy37p7oXu/200.gif?cid=474c6cfdc4zzdswhwayf9kpva51xvzuvxhfg1h8ewn82luox&rid=200.gif&ct=g",
+        //     //     "date": "Tue, 23 Nov 2021 10:55:37 GMT",
+        //     //     "reaction": {
+        //     //         "like": 1,
+        //     //         "dislike": 2,
+        //     //         "happy": 3
+        //     //     },
+        //     //     "comment": [
+        //     //         "Test comment"
+        //     //     ]
+        //     // }
+        //     app.getAllPosts("alphabetical")
+        //     const children = document.querySelector("#jokes").children
+        //     const alphabet = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"]
+        //     expect(alphabet.indexOf(children[0][0].textContent[0])).toBeLessThanOrEqual(alphabet.indexOf(children[1][0].textContent[0]))
+        // })
+
         describe("overallSection", () => {
             beforeEach(() => {
                 const section = document.createElement("section")
@@ -116,6 +138,64 @@ describe('allPosts', () => {
 
                 expect(document.querySelector(".comment-section h4")).toBeTruthy()
                 expect(document.querySelector(".comment-section h4").textContent).toEqual("No comments yet!")
+
+            })
+        })
+    })
+
+    describe("comparison functions", () => {
+        const testJokesOrder = [
+            {
+            "id": "100",
+            "title": "bbb",
+            "description": "Test Punchline 1",
+            "gif": "https://media0.giphy.com/media/9tx0gy37p7oXu/200.gif?cid=474c6cfdc4zzdswhwayf9kpva51xvzuvxhfg1h8ewn82luox&rid=200.gif&ct=g",
+            "date": "Tue, 23 Nov 2021 11:55:37 GMT",
+            "reaction": {
+                "like": 1,
+                "dislike": 5,
+                "happy": 3
+            },
+            "comment": [
+                "Test comment"
+            ]
+            }, 
+            {
+            "id": "100",
+            "title": "aaa",
+            "description": "Test Punchline 2",
+            "gif": "https://media0.giphy.com/media/9tx0gy37p7oXu/200.gif?cid=474c6cfdc4zzdswhwayf9kpva51xvzuvxhfg1h8ewn82luox&rid=200.gif&ct=g",
+            "date": "Tue, 23 Nov 2021 10:55:37 GMT",
+            "reaction": {
+                "like": 3,
+                "dislike": 2,
+                "happy": 4
+            },
+            "comment": [
+                "Test comment",
+                "Test comment 2"
+            ]
+            }
+        ]
+        beforeEach(() => {
+            for (obj of testJokesOrder) {
+                let section = document.createElement("section")
+                let form = document.createElement("form")
+                let sectionArray = []
+                app.overallSection(form, obj, section, sectionArray)
+                document.body.append(section)
+            }
+        })
+
+        describe("compareAlpha", () => {
+            it("sorts alphabetically", () => {
+                app.getAllPosts("alphabetical");
+                expect(document.querySelector("#jokes").children).toContain("aaa")
+            })
+        })
+
+        describe("sortByProperty", () => {
+            it("sorts by number of likes", () => {
 
             })
         })
