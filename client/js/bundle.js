@@ -32,30 +32,35 @@ async function getAllPosts(order) {
       }
       const div = document.querySelector("#jokes")
       let s2 = sectionArray;
-    //   console.log(order)
       if (order == "alphabetical"){
-          s2 = sectionArray.sort(compareAlpha)
-        //   console.log("ALPHA")
-          div.innerHTML = ""
+        s2 = sectionArray.sort(compareAlpha)
+        while(div.firstChild){
+            div.removeChild(div.firstChild);
+        }
       }
       else if (order=="likes"){
         s2 = sortByProperty(sectionArray, "happy")
-        div.innerHTML = ""
+        while(div.firstChild){
+            div.removeChild(div.firstChild);
+        }
       } 
       else if(order == "dislikes"){
         s2 = sortByProperty(sectionArray, "sad");
-
-        div.innerHTML = ""
+        while(div.firstChild){
+            div.removeChild(div.firstChild);
+        }
       }
       else if (order == "third"){
         s2 = sortByProperty(sectionArray, "third");
-
-        div.innerHTML = ""
+        while(div.firstChild){
+            div.removeChild(div.firstChild);
+        }
       }
       else if(order = "Latest"){
         s2 = sectionArray
-
-        div.innerHTML= ""
+        while(div.firstChild){
+            div.removeChild(div.firstChild);
+        }
     }
       
     for (var i = 0; i <s2.length; i++) {
@@ -80,10 +85,12 @@ function compareAlpha(a,b) {
     let b1 = b.querySelector("h2").textContent.toLowerCase()
     
     
-    if (a1 < b1)
-    return -1;
-    if (a1> b1)
-    return 1;
+    if (a1 < b1){
+        return -1;
+    }
+    if (a1 > b1){
+        return 1;
+    }
     return 0;
 }
 function overallSection(form, data, section,anArray) {
