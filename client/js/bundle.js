@@ -101,10 +101,11 @@ async function overallSection(form, data, section,anArray) {
     h2.textContent = `${data.title}`;
     
     let h5 = document.createElement("h5");
-    h5.textContent = `Posted: ${data.date.slice(0,-7)}`;
+    h5.textContent = `Posted: ${data.date.slice(5,-7)}`;
 
     let button = document.createElement("button");
     button.textContent = "Show punchline";
+    button.setAttribute("class", "button green-button")
 
     let h3 = document.createElement("h3");
     let img = document.createElement("img");
@@ -184,9 +185,11 @@ async function commentSection(form, data, section) {
     comments.setAttribute("name", "comment")
     comments.setAttribute("class", "comment_input")
     comments.setAttribute("required", "true")
+    comments.setAttribute("placeholder", "Add a comment")
 
     let input = document.createElement("input");
     input.setAttribute("type", "submit")
+    input.setAttribute("class", "button green-button")
 
     form.append(comments);
     form.append(input)
@@ -196,7 +199,8 @@ async function commentSection(form, data, section) {
     commentWrapper.setAttribute("class", "comment-section hidden")
     
     const toggleComments = document.createElement("button");
-    toggleComments.textContent = "Show/Hide Comment"
+    toggleComments.textContent = "Show/Hide Comments"
+    toggleComments.setAttribute("class", "button grey-button")
     toggleComments.addEventListener('click', () => {
         commentWrapper.classList.toggle("hidden")
     })
@@ -218,6 +222,7 @@ async function commentSection(form, data, section) {
 
     
 }
+
 
 if (document.querySelector("#jokes")){
     sortBy.addEventListener('change', (event) => {
@@ -271,6 +276,8 @@ if (document.querySelector("#jokes")) {
 
 
 },{"./allPosts.js":1,"./formSubmission":4,"./gifFunctionality":5}],3:[function(require,module,exports){
+// const api_url = "https://lap1-jokesapp.herokuapp.com/"
+
 async function commentCreation(e) {
     e.preventDefault();
     const comment = e.target[0].value.trim()
@@ -284,7 +291,9 @@ async function commentCreation(e) {
             body: JSON.stringify({ "comment": comment })
         }
 
+        
         fetch(`http://localhost:3000/comment/${id}`, options)
+        // fetch(`http://localhost:3000/comment/${id}`, options)
             .then(data => console.log(data))
             .catch(err => console.log(err))
             .then(() => window.location.reload())
@@ -318,8 +327,9 @@ async function reactionCreation(e) {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ "reaction": currReaction })
     }
-
     fetch(`http://localhost:3000/reaction/${currReaction}/${id}`, options)
+    // fetch(`${api_url}/reaction/${currReaction}/${id}`, options)
+
         .then(data => console.log(data))
         .then(() => location.reload())
         .catch(err => console.log(err))
@@ -327,7 +337,10 @@ async function reactionCreation(e) {
 
 module.exports = {commentCreation, reactionCreation}
 },{}],4:[function(require,module,exports){
+const api_url = "https://lap1-jokesapp.herokuapp.com/"
+
 async function submitForm(e) {
+
 	e.preventDefault();
 
 	const gif = document.querySelector("#one_gif img");
@@ -352,7 +365,8 @@ async function submitForm(e) {
 			headers: { "Content-type": "application/json" }
 		};
 
-		fetch(`http://localhost:3000/`, options)
+		// fetch(`${api_url}`, options)
+		fetch('http://localhost:3000/', options)
 			.then(data => console.log(data))
 			.catch(err => console.log(err))
 			.then(() => {
@@ -389,6 +403,7 @@ function gifSelection(e) {
 	let gifDeletion = document.createElement("input");
 	gifDeletion.setAttribute("type", "button");
 	gifDeletion.setAttribute("value", "Remove Gif");
+	gifDeletion.setAttribute("class", "button red-button")
 
 	gifDeletion.addEventListener("click", () => {
 		gif.textContent = "";
@@ -419,7 +434,7 @@ function gifForm(e) {
 		let gif_btn = document.createElement("input");
 		gif_btn.setAttribute("type", "submit");
 		gif_btn.setAttribute("value", "Search");
-		gif_btn.setAttribute("class", "search_bar button");
+		gif_btn.setAttribute("class", "search_bar grey-button button");
 
 		// This is the list of gifs that gets returned into a new 'section'
 		let gif_list = document.createElement("section");

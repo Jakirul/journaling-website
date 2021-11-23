@@ -1,4 +1,7 @@
+const api_url = "https://lap1-jokesapp.herokuapp.com/"
+
 async function submitForm(e) {
+
 	e.preventDefault();
 
 	const gif = document.querySelector("#one_gif img");
@@ -23,7 +26,8 @@ async function submitForm(e) {
 			headers: { "Content-type": "application/json" }
 		};
 
-		fetch(`http://localhost:3000/`, options)
+		// fetch(`${api_url}`, options)
+		fetch('http://localhost:3000/', options)
 			.then(data => console.log(data))
 			.catch(err => console.log(err))
 			.then(() => {
