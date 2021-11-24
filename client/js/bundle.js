@@ -166,7 +166,6 @@ function commentSection(form, data, section) {
     let comments = document.createElement("input");
     comments.setAttribute("name", "comment")
     comments.setAttribute("class", "comment_input")
-    comments.setAttribute("required", "true")
     comments.setAttribute("placeholder", "Add a comment")
 
     let input = document.createElement("input");
@@ -174,9 +173,14 @@ function commentSection(form, data, section) {
     input.setAttribute("value", "\uf1d8")
     input.setAttribute("class", "fa button send-comment")
 
+    let noComm = document.createElement("div")
+    noComm.setAttribute("class", "no-comment")
+    noComm.setAttribute("name", data.id)
+
     form.append(comments);
     form.append(input)
     section.append(form);
+    section.append(noComm)
 
     const commentWrapper = document.createElement("section");
     commentWrapper.setAttribute("class", "comment-section hidden")
@@ -291,26 +295,28 @@ async function commentCreation(e) {
 
             })
         e.target[0].value = ""
+
+        if (document.querySelectorAll(`.no-comment[name="${id}"] p`)) {
+            document.querySelector(`.no-comment[name="${id}"] .emptyComm`).remove()
+        }
     } else {
-        
-        const form = document.querySelector(`.comment-form[name="${id}"]`);
         const inputField = document.querySelector(`.comment-form[name="${id}"] > input[name="comment"]`);
-        const pForm = document.querySelectorAll(`.comment-form[name="${id}"] p`);
+        const pCounts = document.querySelectorAll(`.no-comment[name="${id}"] p`);
+        const pDiv = document.querySelector(`.no-comment[name="${id}"]`)
        
-        
         const p = document.createElement("p");
         if (inputField.textContent.length == 0) {
-            if (pForm.length < 1) {
+            if (pCounts.length < 1) {
                 p.textContent = "Empty comments are not allowed - please try again!"
                 p.setAttribute("class", "emptyComm")
-                form.append(p)
-            }  else {
-                document.querySelector(`.comment-form[name="${id}"] .emptyComm`).remove()
+                pDiv.appendChild(p)
+                e.target[0].value = ""
+            } 
+            else {
+                e.target[0].value = ""
             }
         }       
-       
     }
-    
 };
 
 
@@ -361,7 +367,7 @@ async function reactionCreation(e) {
         method: "PUT",
         headers: { 'Content-Type': 'application/json' },
     }
-    if (!allDivClasses.includes("selected") && currDivClasses.includes("unselected")) {
+    if (!allDivClasses.includes("selected")) {
         fetch(`http://localhost:3000/reaction/${currReaction}/${id}/1`, options)
             .then(data => {
                 currLabel.innerText = `${parseInt(currLabelText) + 1}`
