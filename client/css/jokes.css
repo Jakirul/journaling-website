@@ -144,6 +144,11 @@ section > .reactions {
 	background-color:rgba(255, 255, 255, 0.404)
 }
 
+.emoji-div.not-chosen input:hover {
+	cursor: default;
+	font-size: 30px;
+}
+
 #jokes .button {
 	background-color: white;
 }
