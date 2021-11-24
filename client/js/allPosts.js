@@ -165,7 +165,6 @@ function commentSection(form, data, section) {
     let comments = document.createElement("input");
     comments.setAttribute("name", "comment")
     comments.setAttribute("class", "comment_input")
-    comments.setAttribute("required", "true")
     comments.setAttribute("placeholder", "Add a comment")
 
     let input = document.createElement("input");
@@ -173,9 +172,14 @@ function commentSection(form, data, section) {
     input.setAttribute("value", "\uf1d8")
     input.setAttribute("class", "fa button send-comment")
 
+    let noComm = document.createElement("div")
+    noComm.setAttribute("class", "no-comment")
+    noComm.setAttribute("name", data.id)
+
     form.append(comments);
     form.append(input)
     section.append(form);
+    section.append(noComm)
 
     const commentWrapper = document.createElement("section");
     commentWrapper.setAttribute("class", "comment-section hidden")
