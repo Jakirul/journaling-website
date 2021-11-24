@@ -78,15 +78,6 @@ nav > a:hover {
 	color: white;
 }
 
-.red-button {
-	background-color: rgb(226, 55, 55);
-}
-
-.red-button:hover {
-	background-color: rgb(168, 21, 21);
-	color: white;
-}
-
 @media only screen and (max-width: 300px) {
 	nav {
 		display: block;

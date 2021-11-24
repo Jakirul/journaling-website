@@ -1,5 +1,3 @@
-/* ------------------------------------------------ */
-
 /* These code blocks are for each post */
 #jokes {
 	display: flex;
@@ -53,17 +51,26 @@ div > section {
 	box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
 }
 
-div > section:nth-of-type(4n) {
-	background-color: #ffe44d;
+div > section:nth-of-type(7n) {
+	background-color: #f1d532;
 }
-div > section:nth-of-type(4n+1) {
-	background-color: #3a8fff;
+div > section:nth-of-type(7n+1) {
+	background-color: #31e4e4;
 }
-div > section:nth-of-type(4n+2) {
-	background-color: #ff593b;
+div > section:nth-of-type(7n+2) {
+	background-color: #ffa33b;
 }
-div > section:nth-of-type(4n+3) {
-	background-color: #71d453;
+div > section:nth-of-type(7n+3) {
+	background-color: #4e5ee9;
+}
+div > section:nth-of-type(7n+4) {
+	background-color: #fc5ad3;
+}
+div > section:nth-of-type(7n+5) {
+	background-color: #62d453;
+}
+div > section:nth-of-type(7n+6) {
+	background-color: #f34242;
 }
 
 div > section h2 {
@@ -85,6 +92,8 @@ img {
 	margin-bottom: 20px;
 }
 
+/* reactions */
+
 section > .reactions {
 	margin: 5px auto;
 	width: fit-content;
@@ -101,7 +110,6 @@ section > .reactions {
 	padding-left: 10px;
 	margin: 5px;
 	border-radius: 8px;
-	background-color:rgba(255, 255, 255, 0.404)
 }
 
 .emoji-div input {
@@ -125,7 +133,15 @@ section > .reactions {
 	margin-right: 0;
 	z-index: 3;
 	font-size: 15px;
-	color: #646464
+	color: #242424
+}
+
+.emoji-div.selected {
+	background-color: white;
+}
+
+.emoji-div.unselected {
+	background-color:rgba(255, 255, 255, 0.404)
 }
 
 #jokes .button {
@@ -133,9 +149,13 @@ section > .reactions {
 }
 
 #jokes section > .button:hover {
-	background-color: rgb(126, 126, 126);
+	background-color: rgba(94, 94, 94, 0.425);
 }
+
+
+
 /* The hidden class which toggles the hiding/showing of the comment section */
+
 section > .hidden {
 	display: none;
 }
@@ -153,7 +173,7 @@ section > .comment-section p {
 
 .comment-form {
 	width: max-content;
-	margin: 0 auto 10px auto;
+	margin: 10px auto 20px auto;
 	background-color: white;
 	border-radius: 8px;
 }
@@ -196,7 +216,7 @@ section > button:nth-of-type(2) {
 
 /* ------------------------------------------------ */
 
-/* Code for responsive design */
+/* responsive design */
 
 @media screen and (max-width: 1150px) {
 	#sortingdiv {
