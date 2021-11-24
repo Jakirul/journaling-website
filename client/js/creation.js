@@ -54,14 +54,14 @@ async function commentCreation(e) {
 
 async function reactionCreation(e) {
     e.preventDefault();
-    const like = document.querySelector(`.reactions[name="${e.target.name}"] > #happy-div > input:nth-of-type(1):focus`)
-    const likeLabel = document.querySelector(`.reactions[name="${e.target.name}"] > #happy-div > label:nth-of-type(1)`)
+    const like = document.querySelector(`.reactions[name="${e.target.name}"] > .happy-div > input:focus`)
+    const likeLabel = document.querySelector(`.reactions[name="${e.target.name}"] > .happy-div > label`)
 
-    const dislike = document.querySelector(`.reactions[name="${e.target.name}"] > #sad-div > input:nth-of-type(1):focus`)
-    const dislikeLabel = document.querySelector(`.reactions[name="${e.target.name}"] > #sad-div > label:nth-of-type(1)`)
+    const dislike = document.querySelector(`.reactions[name="${e.target.name}"] > .sad-div > input:focus`)
+    const dislikeLabel = document.querySelector(`.reactions[name="${e.target.name}"] > .sad-div > label`)
 
-    const happy = document.querySelector(`.reactions[name="${e.target.name}"] > #third-div > input:nth-of-type(1):focus`)
-    const happyLabel = document.querySelector(`.reactions[name="${e.target.name}"] > #third-div > label:nth-of-type(1)`)
+    const happy = document.querySelector(`.reactions[name="${e.target.name}"] > .third-div > input:focus`)
+    const happyLabel = document.querySelector(`.reactions[name="${e.target.name}"] > .third-div > label`)
 
     // const like = document.querySelector("#happy-div input:focus")
     // const likeLabel = document.querySelector("#happy")

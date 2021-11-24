@@ -74,7 +74,7 @@ async function getAllPosts(order) {
 
 function sortByProperty(array, propertyName) {
     return array.sort(function (a, b) {
-        return b.querySelector("#"+propertyName).textContent.toLowerCase() - a.querySelector("#"+propertyName).textContent.toLowerCase();
+        return b.querySelector("."+propertyName).textContent.toLowerCase() - a.querySelector("."+propertyName).textContent.toLowerCase();
     });
 }
 
@@ -147,13 +147,13 @@ function createEmoji(data, symbol, name, id) {
     const emojidiv = document.createElement("div");
     const emoji = document.createElement("input");
     const emojiLabel = document.createElement("label");
-    emojidiv.id = `${id}-div`
-    emojidiv.setAttribute("class", "emoji-div")
+    // emojidiv.id = `${id}-div`
+    emojidiv.setAttribute("class", `emoji-div ${id}-div`)
     emoji.value = symbol;
     emoji.setAttribute("name", name);
     emoji.setAttribute("type", "submit")
     emojiLabel.setAttribute("for", name);
-    emojiLabel.id = id
+    emojiLabel.setAttribute("class", id)
     emojiLabel.textContent = `${data.reaction[name]}`;
 
     emojidiv.append(emojiLabel);
@@ -320,14 +320,14 @@ async function commentCreation(e) {
 
 async function reactionCreation(e) {
     e.preventDefault();
-    const like = document.querySelector(`.reactions[name="${e.target.name}"] > #happy-div > input:nth-of-type(1):focus`)
-    const likeLabel = document.querySelector(`.reactions[name="${e.target.name}"] > #happy-div > label:nth-of-type(1)`)
+    const like = document.querySelector(`.reactions[name="${e.target.name}"] > .happy-div > input:focus`)
+    const likeLabel = document.querySelector(`.reactions[name="${e.target.name}"] > .happy-div > label`)
 
-    const dislike = document.querySelector(`.reactions[name="${e.target.name}"] > #sad-div > input:nth-of-type(1):focus`)
-    const dislikeLabel = document.querySelector(`.reactions[name="${e.target.name}"] > #sad-div > label:nth-of-type(1)`)
+    const dislike = document.querySelector(`.reactions[name="${e.target.name}"] > .sad-div > input:focus`)
+    const dislikeLabel = document.querySelector(`.reactions[name="${e.target.name}"] > .sad-div > label`)
 
-    const happy = document.querySelector(`.reactions[name="${e.target.name}"] > #third-div > input:nth-of-type(1):focus`)
-    const happyLabel = document.querySelector(`.reactions[name="${e.target.name}"] > #third-div > label:nth-of-type(1)`)
+    const happy = document.querySelector(`.reactions[name="${e.target.name}"] > .third-div > input:focus`)
+    const happyLabel = document.querySelector(`.reactions[name="${e.target.name}"] > .third-div > label`)
 
     // const like = document.querySelector("#happy-div input:focus")
     // const likeLabel = document.querySelector("#happy")
@@ -372,6 +372,7 @@ async function reactionCreation(e) {
 
 module.exports = {commentCreation, reactionCreation}
 },{}],4:[function(require,module,exports){
+<<<<<<< HEAD
 const api_url = "https://lap1-jokesapp.herokuapp.com/"
 
 async function submitForm(e) {
@@ -424,6 +425,60 @@ async function submitForm(e) {
 }
 
 module.exports = { submitForm };
+=======
+const api_url = "https://lap1-jokesapp.herokuapp.com/"
+
+async function submitForm(e) {
+
+	e.preventDefault();
+
+	const gif = document.querySelector("#one_gif img");
+	const title = document.querySelector(".title");
+	const description = document.querySelector(".description");
+	const titleWarning = document.querySelector(".title-warning");
+	const descriptionWarning = document.querySelector(".description-warning");
+	// If the user opts not to use gifs, append an empty string, else, use the source of the image
+	const gif_data = gif !== null ? gif.src : "";
+	titleWarning.textContent = "";
+	descriptionWarning.textContent = "";
+
+	if (title.value.trim().length > 0 && description.value.trim().length > 0) {
+		const data = {
+			title: title.value.trim(),
+			description: description.value.trim(),
+			gif: gif_data
+		};
+		let options = {
+			method: "POST",
+			body: JSON.stringify(data),
+			headers: { "Content-type": "application/json" }
+		};
+
+		// fetch(`${api_url}`, options)
+		fetch('http://localhost:3000/', options)
+			.then(data => console.log(data))
+			.catch(err => console.log(err))
+			.then(() => {
+				window.location.href = "./jokes.html";
+			});
+	} else if (title.value.trim().length === 0 && description.value.trim().length > 0) {
+		titleWarning.classList.remove("hidden2");
+		descriptionWarning.classList.add("hidden3");
+		titleWarning.textContent = "Please enter a joke!";
+	} else if (title.value.trim().length > 0 && description.value.trim().length === 0) {
+		descriptionWarning.classList.remove("hidden3");
+		titleWarning.classList.add("hidden2");
+		descriptionWarning.textContent = "Please give your joke a punchline!";
+	} else if (title.value.trim().length === 0 && description.value.trim().length === 0) {
+		titleWarning.classList.remove("hidden2");
+		descriptionWarning.classList.remove("hidden3");
+		titleWarning.textContent = "Please enter a joke!";
+		descriptionWarning.textContent = "Please give your joke a punchline!";
+	}
+}
+
+module.exports = { submitForm };
+>>>>>>> 281023216f3c095c09720ff22952832675cfb5d6
 
 },{}],5:[function(require,module,exports){
 const form = document.querySelector(".outer-form");
