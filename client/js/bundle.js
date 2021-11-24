@@ -141,8 +141,7 @@ function createEmoji(data, symbol, name, id) {
     const emojidiv = document.createElement("div");
     const emoji = document.createElement("input");
     const emojiLabel = document.createElement("label");
-    // emojidiv.id = `${id}-div`
-    emojidiv.setAttribute("class", `emoji-div ${id}-div`)
+    emojidiv.setAttribute("class", `emoji-div ${id}-div unselected`)
     emoji.value = symbol;
     emoji.setAttribute("name", name);
     emoji.setAttribute("type", "submit")
@@ -170,7 +169,8 @@ function commentSection(form, data, section) {
 
     let input = document.createElement("input");
     input.setAttribute("type", "submit")
-    input.setAttribute("class", "button green-button")
+    input.setAttribute("value", "\uf1d8")
+    input.setAttribute("class", "fa button send-comment")
 
     form.append(comments);
     form.append(input)
@@ -288,6 +288,7 @@ async function commentCreation(e) {
                 commSec.append(p)
 
             })
+        e.target[0].value = ""
     } else {
         
         const form = document.querySelector(`.comment-form[name="${id}"]`);
@@ -322,15 +323,6 @@ async function reactionCreation(e) {
 
     const happy = document.querySelector(`.reactions[name="${e.target.name}"] > .third-div > input:focus`)
     const happyLabel = document.querySelector(`.reactions[name="${e.target.name}"] > .third-div > label`)
-
-    // const like = document.querySelector("#happy-div input:focus")
-    // const likeLabel = document.querySelector("#happy")
-
-    // const dislike = document.querySelector("#sad-div input:focus")
-    // const dislikeLabel = document.querySelector("#sad")
-
-    // const happy = document.querySelector("#third-div input:focus")
-    // const happyLabel = document.querySelector("#third")
 
     let id = e.target.name;
     

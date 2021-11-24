@@ -28,6 +28,7 @@ async function commentCreation(e) {
                 commSec.append(p)
 
             })
+        e.target[0].value = ""
     } else {
         
         const form = document.querySelector(`.comment-form[name="${id}"]`);
@@ -62,15 +63,6 @@ async function reactionCreation(e) {
 
     const happy = document.querySelector(`.reactions[name="${e.target.name}"] > .third-div > input:focus`)
     const happyLabel = document.querySelector(`.reactions[name="${e.target.name}"] > .third-div > label`)
-
-    // const like = document.querySelector("#happy-div input:focus")
-    // const likeLabel = document.querySelector("#happy")
-
-    // const dislike = document.querySelector("#sad-div input:focus")
-    // const dislikeLabel = document.querySelector("#sad")
-
-    // const happy = document.querySelector("#third-div input:focus")
-    // const happyLabel = document.querySelector("#third")
 
     let id = e.target.name;
     
