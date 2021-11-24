@@ -4,6 +4,7 @@
 
 const { expect } = require("@jest/globals");
 const { commentCreation, reactionCreation } = require("../js/creation");
+const { getAllPosts } = require("../js/allPosts")
 const app = require('../js/allPosts');
 let fullComment = 'Hello there, general kenobi'
 let emptyComment = ' ';
@@ -25,28 +26,34 @@ let testData = [{
 
 
 describe("creation.js", () => {
-    befo
+    beforeEach(()=>{
+        getAllPosts(testData)
+
+	});
 
     describe('comment creation',()=>
-        it('it lets you make a comment', ()=>{
-            expect(commentCreation(fullComment)).toBeDefined()
+        it('it has a comment creating function', ()=>{
+            expect(commentCreation(emptyComment)).toBeDefined()
+            expect(typeof(commentCreation)).toBe('function')
         })
         )
         it('it rejects empty comments',()=>{
             commentCreation(emptyComment);
+            const addEvnt = new Event('submit')
+            document.dispatchEvent(addEvnt)
+            
             let para = document.getElementsByClassName('emptyComm')
             expect(para.textContent).toEqual("Empty comments are not allowed - please try again!")
         })
+    })
 
-    describe('reaction creation',()=>{
+describe('reaction creation',()=>{
 
     
-        it('it lets you you add a reaction',()=>{
-            expect(reactionCreation()).toBeDefined()
-        })
-        it('fetches the right reactions',()=>{
-            expect(document.querySelector(".reactions").childElementCount).toEqual(3)
+    it('it lets you you add a reaction',()=>{
+        expect(reactionCreation()).toBeDefined()
+    })
+    it('fetches the right reactions',()=>{
+        expect(document.querySelector(".reactions").childElementCount).toEqual(3)
         })
     })
-}
-)
