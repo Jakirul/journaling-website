@@ -89,6 +89,7 @@ async function reactionCreation(e) {
     }
 
     let currDivClasses = currDiv.classList.value.split(" ")
+    console.log(currDiv.classList.value)
 
     const options = {
         method: "PUT",
