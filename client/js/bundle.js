@@ -74,7 +74,7 @@ async function getAllPosts(order) {
 
 function sortByProperty(array, propertyName) {
     return array.sort(function (a, b) {
-        return b.querySelector("#"+propertyName).textContent.toLowerCase() - a.querySelector("#"+propertyName).textContent.toLowerCase();
+        return b.querySelector("."+propertyName).textContent.toLowerCase() - a.querySelector("."+propertyName).textContent.toLowerCase();
     });
 }
 
@@ -147,13 +147,13 @@ function createEmoji(data, symbol, name, id) {
     const emojidiv = document.createElement("div");
     const emoji = document.createElement("input");
     const emojiLabel = document.createElement("label");
-    emojidiv.id = `${id}-div`
-    emojidiv.setAttribute("class", "emoji-div")
+    // emojidiv.id = `${id}-div`
+    emojidiv.setAttribute("class", `emoji-div ${id}-div`)
     emoji.value = symbol;
     emoji.setAttribute("name", name);
     emoji.setAttribute("type", "submit")
     emojiLabel.setAttribute("for", name);
-    emojiLabel.id = id
+    emojiLabel.setAttribute("class", id)
     emojiLabel.textContent = `${data.reaction[name]}`;
 
     emojidiv.append(emojiLabel);
@@ -320,14 +320,14 @@ async function commentCreation(e) {
 
 async function reactionCreation(e) {
     e.preventDefault();
-    const like = document.querySelector(`.reactions[name="${e.target.name}"] > #happy-div > input:nth-of-type(1):focus`)
-    const likeLabel = document.querySelector(`.reactions[name="${e.target.name}"] > #happy-div > label:nth-of-type(1)`)
+    const like = document.querySelector(`.reactions[name="${e.target.name}"] > .happy-div > input:focus`)
+    const likeLabel = document.querySelector(`.reactions[name="${e.target.name}"] > .happy-div > label`)
 
-    const dislike = document.querySelector(`.reactions[name="${e.target.name}"] > #sad-div > input:nth-of-type(1):focus`)
-    const dislikeLabel = document.querySelector(`.reactions[name="${e.target.name}"] > #sad-div > label:nth-of-type(1)`)
+    const dislike = document.querySelector(`.reactions[name="${e.target.name}"] > .sad-div > input:focus`)
+    const dislikeLabel = document.querySelector(`.reactions[name="${e.target.name}"] > .sad-div > label`)
 
-    const happy = document.querySelector(`.reactions[name="${e.target.name}"] > #third-div > input:nth-of-type(1):focus`)
-    const happyLabel = document.querySelector(`.reactions[name="${e.target.name}"] > #third-div > label:nth-of-type(1)`)
+    const happy = document.querySelector(`.reactions[name="${e.target.name}"] > .third-div > input:focus`)
+    const happyLabel = document.querySelector(`.reactions[name="${e.target.name}"] > .third-div > label`)
 
     // const like = document.querySelector("#happy-div input:focus")
     // const likeLabel = document.querySelector("#happy")

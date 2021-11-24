@@ -73,7 +73,7 @@ async function getAllPosts(order) {
 
 function sortByProperty(array, propertyName) {
     return array.sort(function (a, b) {
-        return b.querySelector("#"+propertyName).textContent.toLowerCase() - a.querySelector("#"+propertyName).textContent.toLowerCase();
+        return b.querySelector("."+propertyName).textContent.toLowerCase() - a.querySelector("."+propertyName).textContent.toLowerCase();
     });
 }
 
@@ -146,13 +146,13 @@ function createEmoji(data, symbol, name, id) {
     const emojidiv = document.createElement("div");
     const emoji = document.createElement("input");
     const emojiLabel = document.createElement("label");
-    emojidiv.id = `${id}-div`
-    emojidiv.setAttribute("class", "emoji-div")
+    // emojidiv.id = `${id}-div`
+    emojidiv.setAttribute("class", `emoji-div ${id}-div`)
     emoji.value = symbol;
     emoji.setAttribute("name", name);
     emoji.setAttribute("type", "submit")
     emojiLabel.setAttribute("for", name);
-    emojiLabel.id = id
+    emojiLabel.setAttribute("class", id)
     emojiLabel.textContent = `${data.reaction[name]}`;
 
     emojidiv.append(emojiLabel);
