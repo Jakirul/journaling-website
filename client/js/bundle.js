@@ -315,45 +315,57 @@ async function commentCreation(e) {
 
 async function reactionCreation(e) {
     e.preventDefault();
-    const like = document.querySelector(`.reactions[name="${e.target.name}"] > .happy-div > input:focus`)
-    const likeLabel = document.querySelector(`.reactions[name="${e.target.name}"] > .happy-div > label`)
-
-    const dislike = document.querySelector(`.reactions[name="${e.target.name}"] > .sad-div > input:focus`)
-    const dislikeLabel = document.querySelector(`.reactions[name="${e.target.name}"] > .sad-div > label`)
-
-    const happy = document.querySelector(`.reactions[name="${e.target.name}"] > .third-div > input:focus`)
-    const happyLabel = document.querySelector(`.reactions[name="${e.target.name}"] > .third-div > label`)
-
     let id = e.target.name;
+    const like = document.querySelector(`.reactions[name="${id}"] > .happy-div > input:focus`)
+    const likeLabel = document.querySelector(`.reactions[name="${id}"] > .happy-div > label`)
+    const likeDiv = document.querySelector(`.reactions[name="${id}"] > .happy-div`)
+
+    const dislike = document.querySelector(`.reactions[name="${id}"] > .sad-div > input:focus`)
+    const dislikeLabel = document.querySelector(`.reactions[name="${id}"] > .sad-div > label`)
+    const dislikeDiv = document.querySelector(`.reactions[name="${id}"] > .sad-div`)
+
+    const happy = document.querySelector(`.reactions[name="${id}"] > .third-div > input:focus`)
+    const happyLabel = document.querySelector(`.reactions[name="${id}"] > .third-div > label`)
+    const happyDiv = document.querySelector(`.reactions[name="${id}"] > .third-div`)
     
-    let currReaction;
-    let currLabelText;
-    let currLabel;
+    let currReaction, currLabelText, currLabel, currDiv
     if (like) {
         currLabel = likeLabel;
         currLabelText = likeLabel.textContent;
         currReaction = like.name;
+        currDiv = likeDiv
     }
     if (dislike) {
         currLabel = dislikeLabel;
         currLabelText = dislikeLabel.textContent;
         currReaction = dislike.name;
+        currDiv = dislikeDiv
     }
     if (happy) {
         currLabel = happyLabel;
         currLabelText = happyLabel.textContent;
         currReaction = happy.name;
+        currDiv = happyDiv
     }
+
+    let currDivClasses = currDiv.classList.value.split(" ")
+
     const options = {
         method: "PUT",
         headers: { 'Content-Type': 'application/json' },
     }
-        fetch(`http://localhost:3000/reaction/${currReaction}/${id}`, options)
-            .then(data => {
+    fetch(`http://localhost:3000/reaction/${currReaction}/${id}`, options)
+        .then(data => {
+            if (currDivClasses.includes("unselected")) {
                 currLabel.innerText = `${parseInt(currLabelText) + 1}`
-            })
-            .catch(err => console.log(err))
-    
+                currDiv.setAttribute("class", `${currDivClasses[0]} ${currDivClasses[1]} selected`)
+            } else {
+                currLabel.innerText = `${parseInt(currLabelText) - 1}`
+                currDiv.setAttribute("class", `${currDivClasses[0]} ${currDivClasses[1]} unselected`)
+            }
+        })
+        .catch(err => console.log(err))
+            
 }
 
 module.exports = {commentCreation, reactionCreation}
