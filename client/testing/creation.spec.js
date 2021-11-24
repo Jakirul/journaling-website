@@ -6,7 +6,7 @@ const fs = require('fs');
 const path = require('path');
 const html = fs.readFileSync(path.resolve(__dirname, '../jokes.html'), 'utf8');
 const {commentCreation, reactionCreation} = require('../js/creation.js')
-
+const {getAllPosts} = require('../js/allPosts')
 global.fetch = require('jest-fetch-mock');
 let app;
 describe('allPosts', () => {
@@ -15,6 +15,7 @@ describe('allPosts', () => {
     beforeEach(() => {
         document.documentElement.innerHTML = html.toString();
         app = require('../js/creation.js')
+        getAllPosts(order)
     })
 
     afterEach(() => {
