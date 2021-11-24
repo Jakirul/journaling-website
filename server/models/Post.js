@@ -72,9 +72,12 @@ class Post {
                 return data.id === reactionId
             });
 
-            if (add === 1) {
+            if (add === "1") {
                 let postUpdate = new Post(find[0]);
                 postUpdate.reaction[reactions]+=1
+            } else {
+                let postUpdate = new Post(find[0]);
+                postUpdate.reaction[reactions]-=1
             }
 
             fs.writeFile(postData, JSON.stringify(parser), (error) => {
