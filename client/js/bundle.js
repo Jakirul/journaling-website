@@ -17,19 +17,13 @@ async function getAllPosts(order) {
             overallSection(form, data, section,sectionArray)
             
             reaction(data, section)
-            
-            const div = document.querySelector("#jokes")
-            console.log(document.querySelector(".comment-form"))
+
             form.addEventListener('submit', commentCreation)
         })
     } catch (error) {
         console.log(error)
     }
-
-    for (var i = 0; i <sectionArray.length; i++) {
-        // console.log('unordered: ', sectionArray[i].querySelector("#third").textContent+"KKKK");
-
-      }
+    
       const div = document.querySelector("#jokes")
       let s2 = sectionArray;
       if (order == "alphabetical"){
@@ -397,7 +391,7 @@ async function submitForm(e) {
 		let options = {
 			method: "POST",
 			body: JSON.stringify(data),
-			headers: { "Content-type": "application/json" }
+			headers: { "Content-type": "application/json" },
 		};
 
 		// fetch(`${api_url}`, options)
