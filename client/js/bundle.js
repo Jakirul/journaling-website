@@ -397,7 +397,7 @@ async function submitForm(e) {
 		let options = {
 			method: "POST",
 			body: JSON.stringify(data),
-			headers: { "Content-type": "application/json" }
+			headers: { "Content-type": "application/json" },
 		};
 
 		// fetch(`${api_url}`, options)
