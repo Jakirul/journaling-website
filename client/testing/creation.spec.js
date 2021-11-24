@@ -2,9 +2,6 @@
 * @jest-environment jsdom
 */
 
-
-const request = require('supertest');
-// import server
 const { expect } = require("@jest/globals");
 const { commentCreation, reactionCreation } = require("../js/creation");
 const app = require('../js/allPosts');
@@ -28,10 +25,8 @@ let testData = [{
 
 
 describe("creation.js", () => {
-    beforeEach(() => {
-        form = document.querySelector('form')
-        app.getAllPosts(testData)
-    })
+    befo
+
     describe('comment creation',()=>
         it('it lets you make a comment', ()=>{
             expect(commentCreation(fullComment)).toBeDefined()
@@ -44,9 +39,7 @@ describe("creation.js", () => {
         })
 
     describe('reaction creation',()=>{
-        beforeAll(() => {
-            reactionCreation(testData)
-        });
+
     
         it('it lets you you add a reaction',()=>{
             expect(reactionCreation()).toBeDefined()
