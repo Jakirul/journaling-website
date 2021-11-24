@@ -327,25 +327,30 @@ async function reactionCreation(e) {
     const happy = document.querySelector(`.reactions[name="${id}"] > .third-div > input:focus`)
     const happyLabel = document.querySelector(`.reactions[name="${id}"] > .third-div > label`)
     const happyDiv = document.querySelector(`.reactions[name="${id}"] > .third-div`)
+
+    const allDivClasses = likeDiv.classList.value.split(" ").concat(dislikeDiv.classList.value.split(" "), happyDiv.classList.value.split(" "))
     
-    let currReaction, currLabelText, currLabel, currDiv
+    let currReaction, currLabelText, currLabel, currDiv, otherDivs;
     if (like) {
         currLabel = likeLabel;
         currLabelText = likeLabel.textContent;
         currReaction = like.name;
         currDiv = likeDiv
+        otherDivs = [dislikeDiv, happyDiv]
     }
     if (dislike) {
         currLabel = dislikeLabel;
         currLabelText = dislikeLabel.textContent;
         currReaction = dislike.name;
         currDiv = dislikeDiv
+        otherDivs = [likeDiv, happyDiv]
     }
     if (happy) {
         currLabel = happyLabel;
         currLabelText = happyLabel.textContent;
         currReaction = happy.name;
         currDiv = happyDiv
+        otherDivs = [likeDiv, dislikeDiv]
     }
 
     let currDivClasses = currDiv.classList.value.split(" ")
@@ -354,18 +359,24 @@ async function reactionCreation(e) {
         method: "PUT",
         headers: { 'Content-Type': 'application/json' },
     }
-    if (currDivClasses.includes("unselected")) {
+    if (!allDivClasses.includes("selected") && currDivClasses.includes("unselected")) {
         fetch(`http://localhost:3000/reaction/${currReaction}/${id}/1`, options)
             .then(data => {
                 currLabel.innerText = `${parseInt(currLabelText) + 1}`
-                currDiv.setAttribute("class", `${currDivClasses[0]} ${currDivClasses[1]} selected`)
+                currDiv.classList.remove("unselected")
+                currDiv.classList.add("selected")
+                otherDivs[0].classList.add("not-chosen")
+                otherDivs[1].classList.add("not-chosen")
             })
             .catch(err => console.log(err))
-    } else {
+    } else if (currDivClasses.includes("selected")) {
         fetch(`http://localhost:3000/reaction/${currReaction}/${id}/0`, options)
             .then(data => {
                 currLabel.innerText = `${parseInt(currLabelText) - 1}`
-                currDiv.setAttribute("class", `${currDivClasses[0]} ${currDivClasses[1]} unselected`)
+                currDiv.classList.remove("selected")
+                currDiv.classList.add("unselected")
+                otherDivs[0].classList.remove("not-chosen")
+                otherDivs[1].classList.remove("not-chosen")
             })
             .catch(err => console.log(err))
     }
