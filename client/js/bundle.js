@@ -268,9 +268,11 @@ if (document.querySelector("#jokes")) {
 
 async function commentCreation(e) {
     e.preventDefault();
-    const comment = e.target[0].value.trim()
+    
+    const comment = e.target[0].value && e.target[0].value.trim()
     let id = e.target.name;
-    if (comment.length > 0) {
+    let evt = {target: [{value: "oifjweoif"}]};
+    if (comment && comment.length > 0) {
         if (document.querySelector(`.comment-form[name="${id}"] .emptyComm`)) {
             document.querySelector(`.comment-form[name="${id}"] .emptyComm`).remove()
         }
@@ -296,16 +298,17 @@ async function commentCreation(e) {
             })
         e.target[0].value = ""
 
-        if (document.querySelectorAll(`.no-comment[name="${id}"] p`)) {
+        if (document.querySelector(`.no-comment[name="${id}"] .emptyComm`)) {
             document.querySelector(`.no-comment[name="${id}"] .emptyComm`).remove()
         }
+        
     } else {
         const inputField = document.querySelector(`.comment-form[name="${id}"] > input[name="comment"]`);
         const pCounts = document.querySelectorAll(`.no-comment[name="${id}"] p`);
         const pDiv = document.querySelector(`.no-comment[name="${id}"]`)
        
         const p = document.createElement("p");
-        if (inputField.textContent.length == 0) {
+        if (inputField && inputField.textContent.length == 0) {
             if (pCounts.length < 1) {
                 p.textContent = "Empty comments are not allowed - please try again!"
                 p.setAttribute("class", "emptyComm")
