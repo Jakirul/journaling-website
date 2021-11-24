@@ -94,17 +94,21 @@ async function reactionCreation(e) {
         method: "PUT",
         headers: { 'Content-Type': 'application/json' },
     }
-    fetch(`http://localhost:3000/reaction/${currReaction}/${id}`, options)
-        .then(data => {
-            if (currDivClasses.includes("unselected")) {
+    if (currDivClasses.includes("unselected")) {
+        fetch(`http://localhost:3000/reaction/${currReaction}/${id}/1`, options)
+            .then(data => {
                 currLabel.innerText = `${parseInt(currLabelText) + 1}`
                 currDiv.setAttribute("class", `${currDivClasses[0]} ${currDivClasses[1]} selected`)
-            } else {
+            })
+            .catch(err => console.log(err))
+    } else {
+        fetch(`http://localhost:3000/reaction/${currReaction}/${id}/0`, options)
+            .then(data => {
                 currLabel.innerText = `${parseInt(currLabelText) - 1}`
                 currDiv.setAttribute("class", `${currDivClasses[0]} ${currDivClasses[1]} unselected`)
-            }
-        })
-        .catch(err => console.log(err))
+            })
+            .catch(err => console.log(err))
+    }
             
 }
 
