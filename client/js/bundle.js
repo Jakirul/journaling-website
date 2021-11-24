@@ -223,7 +223,6 @@ async function commentSection(form, data, section) {
     
 }
 
-
 if (document.querySelector("#jokes")){
     sortBy.addEventListener('change', (event) => {
         if(event.target.value == "alphabetical"){

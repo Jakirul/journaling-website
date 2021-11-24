@@ -27,6 +27,7 @@ h1 {
 	margin-top: 0;
 	padding-top: 35px;
 	margin-bottom: 0;
+	text-decoration: none;
 }
 
 nav {
@@ -34,8 +35,14 @@ nav {
 	justify-content: space-evenly;
 	font-family: Glory;
 	font-size: 20px;
+	position: sticky;
+	top: 0;
+	z-index: 5;
 }
-
+h1 > a{
+	text-decoration: none;
+	color: black;
+}
 nav > a {
 	text-decoration: none;
 	color: black;
