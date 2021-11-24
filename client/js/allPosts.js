@@ -16,45 +16,44 @@ async function getAllPosts(order) {
             overallSection(form, data, section,sectionArray)
             
             reaction(data, section)
-            
-            const div = document.querySelector("#jokes")
-            console.log(document.querySelector(".comment-form"))
+
             form.addEventListener('submit', commentCreation)
         })
     } catch (error) {
         console.log(error)
     }
-
-    for (var i = 0; i <sectionArray.length; i++) {
-        // console.log('unordered: ', sectionArray[i].querySelector("#third").textContent+"KKKK");
-
-      }
+    
       const div = document.querySelector("#jokes")
       let s2 = sectionArray;
-    //   console.log(order)
       if (order == "alphabetical"){
-          s2 = sectionArray.sort(compareAlpha)
-        //   console.log("ALPHA")
-          div.innerHTML = ""
+        s2 = sectionArray.sort(compareAlpha)
+        while(div.firstChild){
+            div.removeChild(div.firstChild);
+        }
       }
       else if (order=="likes"){
         s2 = sortByProperty(sectionArray, "happy")
-        div.innerHTML = ""
+        while(div.firstChild){
+            div.removeChild(div.firstChild);
+        }
       } 
       else if(order == "dislikes"){
         s2 = sortByProperty(sectionArray, "sad");
-
-        div.innerHTML = ""
+        while(div.firstChild){
+            div.removeChild(div.firstChild);
+        }
       }
       else if (order == "third"){
         s2 = sortByProperty(sectionArray, "third");
-
-        div.innerHTML = ""
+        while(div.firstChild){
+            div.removeChild(div.firstChild);
+        }
       }
       else if(order = "Latest"){
         s2 = sectionArray
-
-        div.innerHTML= ""
+        while(div.firstChild){
+            div.removeChild(div.firstChild);
+        }
     }
       
     for (var i = 0; i <s2.length; i++) {
@@ -68,7 +67,7 @@ async function getAllPosts(order) {
 
 function sortByProperty(array, propertyName) {
     return array.sort(function (a, b) {
-        return b.querySelector("#"+propertyName).textContent.toLowerCase() - a.querySelector("#"+propertyName).textContent.toLowerCase();
+        return b.querySelector("."+propertyName).textContent.toLowerCase() - a.querySelector("."+propertyName).textContent.toLowerCase();
     });
 }
 
@@ -79,10 +78,12 @@ function compareAlpha(a,b) {
     let b1 = b.querySelector("h2").textContent.toLowerCase()
     
     
-    if (a1 < b1)
-    return -1;
-    if (a1> b1)
-    return 1;
+    if (a1 < b1){
+        return -1;
+    }
+    if (a1 > b1){
+        return 1;
+    }
     return 0;
 }
 function overallSection(form, data, section,anArray) {
@@ -123,17 +124,12 @@ function reaction(data, section) {
     reactionForm.setAttribute("class", "reactions");
     reactionForm.setAttribute("name", data.id)
 
-    const [emoji1, emoji1Label] = createEmoji(data, "👍", "like", "happy")
-    const [emoji2, emoji2Label] = createEmoji(data, "👎", "dislike", "sad")
-    const [emoji3, emoji3Label] = createEmoji(data, "😃", "happy", "third")
+    const emoji1 = createEmoji(data, "👍", "like", "happy")
+    const emoji2 = createEmoji(data, "👎", "dislike", "sad")
+    const emoji3 = createEmoji(data, "😃", "happy", "third")
     
-    reactionForm.append(emoji1Label)
     reactionForm.append(emoji1)
-
-    reactionForm.append(emoji2Label)
     reactionForm.append(emoji2)
-
-    reactionForm.append(emoji3Label)
     reactionForm.append(emoji3)
     
     section.append(reactionForm)
@@ -141,16 +137,22 @@ function reaction(data, section) {
 }
 
 function createEmoji(data, symbol, name, id) {
+    const emojidiv = document.createElement("div");
     const emoji = document.createElement("input");
     const emojiLabel = document.createElement("label");
+    // emojidiv.id = `${id}-div`
+    emojidiv.setAttribute("class", `emoji-div ${id}-div`)
     emoji.value = symbol;
     emoji.setAttribute("name", name);
     emoji.setAttribute("type", "submit")
     emojiLabel.setAttribute("for", name);
-    emojiLabel.id = id
+    emojiLabel.setAttribute("class", id)
     emojiLabel.textContent = `${data.reaction[name]}`;
 
-    return[emoji, emojiLabel];
+    emojidiv.append(emojiLabel);
+    emojidiv.append(emoji)
+
+    return emojidiv;
 }
 
 
