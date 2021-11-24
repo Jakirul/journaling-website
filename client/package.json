@@ -14,7 +14,7 @@
   "devDependencies": {},
   "scripts": {
     "test": "jest --silent --watchAll",
-    "coverage": "jest --coverage --silent"
+    "coverage": "jest --coverage --silent --watchAll"
   },
   "keywords": [],
   "author": "",
