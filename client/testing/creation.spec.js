@@ -27,7 +27,7 @@ let testData = [{
 
 describe("creation.js", () => {
     beforeEach(()=>{
-        getAllPosts(testData)
+        app.getAllPosts()
 
 	});
 
@@ -40,7 +40,8 @@ describe("creation.js", () => {
         it('it rejects empty comments',()=>{
             commentCreation(emptyComment);
             const addEvnt = new Event('submit')
-            document.dispatchEvent(addEvnt)
+            let jokes = document.querySelector("#jokes")
+            jokes.getElementsByClassName('comment-form').dispatchEvent(addEvnt)
             
             let para = document.getElementsByClassName('emptyComm')
             expect(para.textContent).toEqual("Empty comments are not allowed - please try again!")
