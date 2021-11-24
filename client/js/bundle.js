@@ -3,11 +3,10 @@
 const {commentCreation, reactionCreation} = require('./creation')
 
 async function getAllPosts(order) {
-    sectionArray = []
     try {    
         const getPost = await fetch('http://localhost:3000/')
         const res = await getPost.json();
-        
+        sectionArray = []
         res.forEach(data => {
             
             const section = document.createElement("section");
@@ -26,7 +25,6 @@ async function getAllPosts(order) {
     }
     
       const div = document.querySelector("#jokes")
-     
       let s2 = sectionArray;
       if (order == "alphabetical"){
         s2 = sectionArray.sort(compareAlpha)
