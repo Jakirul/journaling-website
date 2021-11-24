@@ -1,5 +1,3 @@
-/* ------------------------------------------------ */
-
 /* These code blocks are for each post */
 #jokes {
 	display: flex;
@@ -15,6 +13,7 @@
 	align-items: center;
 	margin: 20px auto 0 auto;
 	width: 50%;
+	max-width: 850px;
 }
 
 #sortingdiv label {
@@ -33,32 +32,45 @@
 
 input, body > div > section
 {
-	border: 1px solid rgb(216, 210, 210);
 	border-radius: 8px;
-	padding: 10px;
 	font-family: Glory;
 	font-size: 20px;
 }
 
+input {
+	border: 1px solid rgb(216, 210, 210);
+	padding: 10px;
+}
+
 div > section {
 	width: 50%;
+	max-width: 800px;
 	margin: 5px auto 40px;
 	padding: 20px;
 	position: relative;
 	box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
 }
 
-div > section:nth-of-type(4n) {
-	background-color: #ffe44d;
+div > section:nth-of-type(7n) {
+	background-color: #f1d532;
 }
-div > section:nth-of-type(4n+1) {
-	background-color: #3a8fff;
+div > section:nth-of-type(7n+1) {
+	background-color: #31e4e4;
 }
-div > section:nth-of-type(4n+2) {
-	background-color: #ff593b;
+div > section:nth-of-type(7n+2) {
+	background-color: #ffa33b;
 }
-div > section:nth-of-type(4n+3) {
-	background-color: #50ff50;
+div > section:nth-of-type(7n+3) {
+	background-color: #4e5ee9;
+}
+div > section:nth-of-type(7n+4) {
+	background-color: #fc5ad3;
+}
+div > section:nth-of-type(7n+5) {
+	background-color: #62d453;
+}
+div > section:nth-of-type(7n+6) {
+	background-color: #f34242;
 }
 
 div > section h2 {
@@ -77,12 +89,15 @@ h3 {
 
 img {
 	margin-top: 20px;
+	margin-bottom: 20px;
 }
+
+/* reactions */
 
 section > .reactions {
 	margin: 5px auto;
 	width: fit-content;
-	padding: 10px;
+	padding: 2px;
 	display: flex;
 	flex-direction: row;
 	flex-wrap: wrap;
@@ -92,14 +107,13 @@ section > .reactions {
 .emoji-div {
 	display: flex;
 	align-items: center;
-	/* border: 1px solid rgb(216, 210, 210); */
-	border-radius: 50%;
-	padding: 2px;
-	margin: 0 5px;
+	padding-left: 10px;
+	margin: 5px;
+	border-radius: 8px;
 }
 
 .emoji-div input {
-	background-color: inherit;
+	background-color: rgba(0, 0, 0, 0);
 	border: none;
 	width: 50px;
 	height: 50px;
@@ -107,6 +121,7 @@ section > .reactions {
 	padding: 0;
 	border-radius: 50%;
 	transition: font-size 0.3s;
+
 }
 
 .emoji-div input:hover {
@@ -115,13 +130,32 @@ section > .reactions {
 }
 
 .emoji-div label {
-	margin-right: -5px;
+	margin-right: 0;
 	z-index: 3;
 	font-size: 15px;
-	color: #97968f
+	color: #242424
 }
 
+.emoji-div.selected {
+	background-color: white;
+}
+
+.emoji-div.unselected {
+	background-color:rgba(255, 255, 255, 0.404)
+}
+
+#jokes .button {
+	background-color: white;
+}
+
+#jokes section > .button:hover {
+	background-color: rgba(94, 94, 94, 0.425);
+}
+
+
+
 /* The hidden class which toggles the hiding/showing of the comment section */
+
 section > .hidden {
 	display: none;
 }
@@ -138,13 +172,35 @@ section > .comment-section p {
 }
 
 .comment-form {
-	margin-bottom: 10px;
+	width: max-content;
+	margin: 10px auto 20px auto;
+	background-color: white;
+	border-radius: 8px;
 }
 
 section > .comment-form > input {
-	margin-left: 10px;
-	margin-top: 10px;
+	margin: 0 5px;
 	max-width: 90%;
+	border: none;
+}
+section > .comment-form > input:focus-visible {
+	outline: none;
+}
+
+.comment_input {
+	width: 150px;
+}
+
+.send-comment {
+	width: 25px;
+	padding: 0;
+	padding-right: 15px;
+	color: rgb(126, 126, 126)
+}
+
+.send-comment:hover {
+	background-color: white;
+	color: black;
 }
 
 section > h1,
@@ -152,17 +208,30 @@ section > h2 {
 	word-wrap: break-word;
 }
 
-.button {
-	margin-bottom: -5px;
-	margin-top: 10px;
-	background-color: white;
+section > button:nth-of-type(2) {
+	margin-bottom: 20px;
+	margin-top: 0;
 }
+
 
 /* ------------------------------------------------ */
 
-/* Code for responsive design */
+/* responsive design */
 
-@media screen and (max-width: 1000px) {
+@media screen and (max-width: 1150px) {
+	#sortingdiv {
+		/* margin-right: 50px; */
+		width: 70%;
+	}
+	#sortBy {
+		margin-right: 35px;;
+	}
+	div > section {
+		width: 70%;
+	}
+}
+
+@media screen and (max-width: 850px) {
 	#sortingdiv {
 		margin-right: 50px;
 		width: 100%;

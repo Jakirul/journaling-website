@@ -140,8 +140,7 @@ function createEmoji(data, symbol, name, id) {
     const emojidiv = document.createElement("div");
     const emoji = document.createElement("input");
     const emojiLabel = document.createElement("label");
-    // emojidiv.id = `${id}-div`
-    emojidiv.setAttribute("class", `emoji-div ${id}-div`)
+    emojidiv.setAttribute("class", `emoji-div ${id}-div unselected`)
     emoji.value = symbol;
     emoji.setAttribute("name", name);
     emoji.setAttribute("type", "submit")
@@ -169,7 +168,8 @@ function commentSection(form, data, section) {
 
     let input = document.createElement("input");
     input.setAttribute("type", "submit")
-    input.setAttribute("class", "button green-button")
+    input.setAttribute("value", "\uf1d8")
+    input.setAttribute("class", "fa button send-comment")
 
     form.append(comments);
     form.append(input)

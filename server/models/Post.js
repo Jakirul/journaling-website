@@ -65,15 +65,20 @@ class Post {
         });
     }
 
-    static updateReaction(reactions, reactionId) {
+    static updateReaction(reactions, reactionId, add) {
         fs.readFile(postData, (err, data) => {
             let parser = JSON.parse(data);
             let find = parser.filter(data => {
                 return data.id === reactionId
             });
 
-            let postUpdate = new Post(find[0]);
-            postUpdate.reaction[reactions]+=1
+            if (add === "1") {
+                let postUpdate = new Post(find[0]);
+                postUpdate.reaction[reactions]+=1
+            } else {
+                let postUpdate = new Post(find[0]);
+                postUpdate.reaction[reactions]-=1
+            }
 
             fs.writeFile(postData, JSON.stringify(parser), (error) => {
                 if (error) {
