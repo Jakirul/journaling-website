@@ -1,57 +1,60 @@
 (function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){
+
 const {commentCreation, reactionCreation} = require('./creation')
 
 async function getAllPosts(order) {
-    const getPost = await fetch('http://localhost:3000/')
-    const res = await getPost.json();
-    sectionArray = []
-    res.forEach(data => {
+    try {    
+        const getPost = await fetch('http://localhost:3000/')
+        const res = await getPost.json();
+        sectionArray = []
+        res.forEach(data => {
+            
+            const section = document.createElement("section");
         
-        const section = document.createElement("section");
-       
-        let form = document.createElement("form");
 
-        overallSection(form, data, section,sectionArray)
-        
-        reaction(data, section)
-        
-        const div = document.querySelector("#jokes")
-        console.log(document.querySelector(".comment-form"))
-        form.addEventListener('submit', commentCreation)
-       
-    })
+            let form = document.createElement("form");
 
-    for (var i = 0; i <sectionArray.length; i++) {
-        console.log('unordered: ', sectionArray[i].querySelector("#happy").textContent+"KKKK");
+            overallSection(form, data, section,sectionArray)
+            
+            reaction(data, section)
 
-      }
+            form.addEventListener('submit', commentCreation)
+        })
+    } catch (error) {
+        console.log(error)
+    }
+    
       const div = document.querySelector("#jokes")
       let s2 = sectionArray;
-      console.log(order)
       if (order == "alphabetical"){
-          s2 = sectionArray.sort(compareAlpha)
-          console.log("ALPHA")
-          div.innerHTML = ""
+        s2 = sectionArray.sort(compareAlpha)
+        while(div.firstChild){
+            div.removeChild(div.firstChild);
+        }
       }
       else if (order=="likes"){
         s2 = sortByProperty(sectionArray, "happy")
-        console.log("IT WORKS")
-        div.innerHTML = ""
+        while(div.firstChild){
+            div.removeChild(div.firstChild);
+        }
       } 
       else if(order == "dislikes"){
         s2 = sortByProperty(sectionArray, "sad");
-        console.log("Sad:((")
-        div.innerHTML = ""
+        while(div.firstChild){
+            div.removeChild(div.firstChild);
+        }
       }
       else if (order == "third"){
         s2 = sortByProperty(sectionArray, "third");
-        console.log("Third")
-        div.innerHTML = ""
+        while(div.firstChild){
+            div.removeChild(div.firstChild);
+        }
       }
       else if(order = "Latest"){
         s2 = sectionArray
-        console.log("Latest")
-        div.innerHTML= ""
+        while(div.firstChild){
+            div.removeChild(div.firstChild);
+        }
     }
       
     for (var i = 0; i <s2.length; i++) {
@@ -59,30 +62,16 @@ async function getAllPosts(order) {
         div.append(s2[i])
        
         document.body.append(div)
-    
-        console.log('ordered: ', s2[i]);
+
       }
 }
 
 function sortByProperty(array, propertyName) {
     return array.sort(function (a, b) {
-        return b.querySelector("#"+propertyName).textContent - a.querySelector("#"+propertyName).textContent;
+        return b.querySelector("."+propertyName).textContent.toLowerCase() - a.querySelector("."+propertyName).textContent.toLowerCase();
     });
 }
 
-// function compareByLikes(a,b) {
-        
-//     let a1 = parseInt(a.querySelector("#happy").textContent)
-
-//     let b1 = parseInt(b.querySelector("#happy").textContent)
-    
-    
-//     if (a1 > b1){
-//         return -1;}
-//     else if (a1< b1){
-//         return 1;}
-//     else{return 0;}
-// }
 function compareAlpha(a,b) {
         
     let a1 = a.querySelector("h2").textContent.toLowerCase()
@@ -90,13 +79,15 @@ function compareAlpha(a,b) {
     let b1 = b.querySelector("h2").textContent.toLowerCase()
     
     
-    if (a1 < b1)
-    return -1;
-    if (a1> b1)
-    return 1;
+    if (a1 < b1){
+        return -1;
+    }
+    if (a1 > b1){
+        return 1;
+    }
     return 0;
 }
-async function overallSection(form, data, section,anArray) {
+function overallSection(form, data, section,anArray) {
     let h2 = document.createElement("h2");
     h2.textContent = `${data.title}`;
     
@@ -129,54 +120,44 @@ async function overallSection(form, data, section,anArray) {
     anArray.push(section)
 }
 
-async function reaction(data, section) {
+function reaction(data, section) {
     const reactionForm = document.createElement("form");
     reactionForm.setAttribute("class", "reactions");
     reactionForm.setAttribute("name", data.id)
 
-    const emoji1 = document.createElement("input");
-    emoji1.value = "👍";
-    const emoji1Label = document.createElement("label");
-    emoji1Label.id = "happy"
-    emoji1Label.setAttribute("for", `${data.reaction["like"]}`)
-    emoji1Label.textContent = `${data.reaction["like"]}`
-
-    const emoji2 = document.createElement("input");
-    emoji2.value = "👎"
-    const emoji2Label = document.createElement("label");
-    emoji2Label.id = "sad"
-    emoji2Label.setAttribute("for", `${data.reaction["dislike"]}`)
-    emoji2Label.textContent = `${data.reaction["dislike"]}`
-
-    const emoji3 = document.createElement("input");
-    emoji3.value = "😃"
-    const emoji3Label = document.createElement("label");
-    emoji3Label.id = "third"
-    emoji3Label.setAttribute("for", `${data.reaction["happy"]}`)
-    emoji3Label.textContent = `${data.reaction["happy"]}`
-
-    emoji1.setAttribute("name", "like");
-    emoji1.setAttribute("type", "submit")
-    emoji2.setAttribute("name", "dislike");
-    emoji2.setAttribute("type", "submit")
-    emoji3.setAttribute("name", "happy");
-    emoji3.setAttribute("type", "submit")
+    const emoji1 = createEmoji(data, "👍", "like", "happy")
+    const emoji2 = createEmoji(data, "👎", "dislike", "sad")
+    const emoji3 = createEmoji(data, "😃", "happy", "third")
     
-    reactionForm.append(emoji1Label)
     reactionForm.append(emoji1)
-
-    reactionForm.append(emoji2Label)
     reactionForm.append(emoji2)
-
-    reactionForm.append(emoji3Label)
     reactionForm.append(emoji3)
     
     section.append(reactionForm)
     reactionForm.addEventListener('submit', reactionCreation)
 }
 
+function createEmoji(data, symbol, name, id) {
+    const emojidiv = document.createElement("div");
+    const emoji = document.createElement("input");
+    const emojiLabel = document.createElement("label");
+    // emojidiv.id = `${id}-div`
+    emojidiv.setAttribute("class", `emoji-div ${id}-div`)
+    emoji.value = symbol;
+    emoji.setAttribute("name", name);
+    emoji.setAttribute("type", "submit")
+    emojiLabel.setAttribute("for", name);
+    emojiLabel.setAttribute("class", id)
+    emojiLabel.textContent = `${data.reaction[name]}`;
 
-async function commentSection(form, data, section) {
+    emojidiv.append(emojiLabel);
+    emojidiv.append(emoji)
+
+    return emojidiv;
+}
+
+
+function commentSection(form, data, section) {
     
     form.setAttribute("name", data.id)
     form.setAttribute("class", "comment-form")
@@ -197,6 +178,7 @@ async function commentSection(form, data, section) {
 
     const commentWrapper = document.createElement("section");
     commentWrapper.setAttribute("class", "comment-section hidden")
+    commentWrapper.setAttribute("name", data.id)
     
     const toggleComments = document.createElement("button");
     toggleComments.textContent = "Show/Hide Comments"
@@ -246,6 +228,7 @@ if (document.querySelector("#jokes")){
 
 module.exports = {getAllPosts, overallSection, reaction, commentSection,compareAlpha,sortByProperty}
 
+
 },{"./creation":3}],2:[function(require,module,exports){
 
 
@@ -280,10 +263,16 @@ if (document.querySelector("#jokes")) {
 async function commentCreation(e) {
     e.preventDefault();
     const comment = e.target[0].value.trim()
-
+    let id = e.target.name;
     if (comment.length > 0) {
-        let id = e.target.name;
-        // let commentInput = document.querySelector(`form[name="${e.target.name}"]`);
+        if (document.querySelector(`.comment-form[name="${id}"] .emptyComm`)) {
+            document.querySelector(`.comment-form[name="${id}"] .emptyComm`).remove()
+        }
+
+        if (document.querySelector(`.comment-section[name="${id}"] h4`)) {
+            document.querySelector(`.comment-section[name="${id}"] h4`).remove()
+        }
+
         const options = {
             method: "PUT",
             headers: { 'Content-Type': 'application/json' },
@@ -292,15 +281,31 @@ async function commentCreation(e) {
 
         
         fetch(`http://localhost:3000/comment/${id}`, options)
-        // fetch(`http://localhost:3000/comment/${id}`, options)
-            .then(data => console.log(data))
-            .catch(err => console.log(err))
-            .then(() => window.location.reload())
+            .then(data => {
+                let commSec = document.querySelector(`.comment-section[name="${id}"]`);
+                let p = document.createElement("p");
+                p.textContent = comment;
+                commSec.append(p)
+
+            })
     } else {
-        const form = document.querySelector(".comment-form");
+        
+        const form = document.querySelector(`.comment-form[name="${id}"]`);
+        const inputField = document.querySelector(`.comment-form[name="${id}"] > input[name="comment"]`);
+        const pForm = document.querySelectorAll(`.comment-form[name="${id}"] p`);
+       
+        
         const p = document.createElement("p");
-        p.textContent = "Empty comments are not allowed - please try again!"
-        form.append(p)
+        if (inputField.textContent.length == 0) {
+            if (pForm.length < 1) {
+                p.textContent = "Empty comments are not allowed - please try again!"
+                p.setAttribute("class", "emptyComm")
+                form.append(p)
+            }  else {
+                document.querySelector(`.comment-form[name="${id}"] .emptyComm`).remove()
+            }
+        }       
+       
     }
     
 };
@@ -309,29 +314,54 @@ async function commentCreation(e) {
 
 async function reactionCreation(e) {
     e.preventDefault();
-    const like = document.querySelector(".reactions > input:nth-of-type(1):focus")
-    const dislike = document.querySelector(".reactions > input:nth-of-type(2):focus")
-    const happy = document.querySelector(".reactions > input:nth-of-type(3):focus")
-    
-    let id = e.target.name;
-    let currReaction;
-    if (like) currReaction = like.name;
-    if (dislike) currReaction = dislike.name;
-    if (happy) currReaction = happy.name;
-    
+    const like = document.querySelector(`.reactions[name="${e.target.name}"] > .happy-div > input:focus`)
+    const likeLabel = document.querySelector(`.reactions[name="${e.target.name}"] > .happy-div > label`)
 
-   
+    const dislike = document.querySelector(`.reactions[name="${e.target.name}"] > .sad-div > input:focus`)
+    const dislikeLabel = document.querySelector(`.reactions[name="${e.target.name}"] > .sad-div > label`)
+
+    const happy = document.querySelector(`.reactions[name="${e.target.name}"] > .third-div > input:focus`)
+    const happyLabel = document.querySelector(`.reactions[name="${e.target.name}"] > .third-div > label`)
+
+    // const like = document.querySelector("#happy-div input:focus")
+    // const likeLabel = document.querySelector("#happy")
+
+    // const dislike = document.querySelector("#sad-div input:focus")
+    // const dislikeLabel = document.querySelector("#sad")
+
+    // const happy = document.querySelector("#third-div input:focus")
+    // const happyLabel = document.querySelector("#third")
+
+    let id = e.target.name;
+    
+    let currReaction;
+    let currLabelText;
+    let currLabel;
+    if (like) {
+        currLabel = likeLabel;
+        currLabelText = likeLabel.textContent;
+        currReaction = like.name;
+    }
+    if (dislike) {
+        currLabel = dislikeLabel;
+        currLabelText = dislikeLabel.textContent;
+        currReaction = dislike.name;
+    }
+    if (happy) {
+        currLabel = happyLabel;
+        currLabelText = happyLabel.textContent;
+        currReaction = happy.name;
+    }
     const options = {
         method: "PUT",
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ "reaction": currReaction })
     }
-    fetch(`http://localhost:3000/reaction/${currReaction}/${id}`, options)
-    // fetch(`${api_url}/reaction/${currReaction}/${id}`, options)
-
-        .then(data => console.log(data))
-        .then(() => location.reload())
-        .catch(err => console.log(err))
+        fetch(`http://localhost:3000/reaction/${currReaction}/${id}`, options)
+            .then(data => {
+                currLabel.innerText = `${parseInt(currLabelText) + 1}`
+            })
+            .catch(err => console.log(err))
+    
 }
 
 module.exports = {commentCreation, reactionCreation}
@@ -361,7 +391,7 @@ async function submitForm(e) {
 		let options = {
 			method: "POST",
 			body: JSON.stringify(data),
-			headers: { "Content-type": "application/json" }
+			headers: { "Content-type": "application/json" },
 		};
 
 		// fetch(`${api_url}`, options)

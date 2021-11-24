@@ -3,10 +3,16 @@
 async function commentCreation(e) {
     e.preventDefault();
     const comment = e.target[0].value.trim()
-
+    let id = e.target.name;
     if (comment.length > 0) {
-        let id = e.target.name;
-        // let commentInput = document.querySelector(`form[name="${e.target.name}"]`);
+        if (document.querySelector(`.comment-form[name="${id}"] .emptyComm`)) {
+            document.querySelector(`.comment-form[name="${id}"] .emptyComm`).remove()
+        }
+
+        if (document.querySelector(`.comment-section[name="${id}"] h4`)) {
+            document.querySelector(`.comment-section[name="${id}"] h4`).remove()
+        }
+
         const options = {
             method: "PUT",
             headers: { 'Content-Type': 'application/json' },
@@ -15,15 +21,31 @@ async function commentCreation(e) {
 
         
         fetch(`http://localhost:3000/comment/${id}`, options)
-        // fetch(`http://localhost:3000/comment/${id}`, options)
-            .then(data => console.log(data))
-            .catch(err => console.log(err))
-            .then(() => window.location.reload())
+            .then(data => {
+                let commSec = document.querySelector(`.comment-section[name="${id}"]`);
+                let p = document.createElement("p");
+                p.textContent = comment;
+                commSec.append(p)
+
+            })
     } else {
-        const form = document.querySelector(".comment-form");
+        
+        const form = document.querySelector(`.comment-form[name="${id}"]`);
+        const inputField = document.querySelector(`.comment-form[name="${id}"] > input[name="comment"]`);
+        const pForm = document.querySelectorAll(`.comment-form[name="${id}"] p`);
+       
+        
         const p = document.createElement("p");
-        p.textContent = "Empty comments are not allowed - please try again!"
-        form.append(p)
+        if (inputField.textContent.length == 0) {
+            if (pForm.length < 1) {
+                p.textContent = "Empty comments are not allowed - please try again!"
+                p.setAttribute("class", "emptyComm")
+                form.append(p)
+            }  else {
+                document.querySelector(`.comment-form[name="${id}"] .emptyComm`).remove()
+            }
+        }       
+       
     }
     
 };
@@ -32,29 +54,54 @@ async function commentCreation(e) {
 
 async function reactionCreation(e) {
     e.preventDefault();
-    const like = document.querySelector(".reactions > input:nth-of-type(1):focus")
-    const dislike = document.querySelector(".reactions > input:nth-of-type(2):focus")
-    const happy = document.querySelector(".reactions > input:nth-of-type(3):focus")
-    
-    let id = e.target.name;
-    let currReaction;
-    if (like) currReaction = like.name;
-    if (dislike) currReaction = dislike.name;
-    if (happy) currReaction = happy.name;
-    
+    const like = document.querySelector(`.reactions[name="${e.target.name}"] > .happy-div > input:focus`)
+    const likeLabel = document.querySelector(`.reactions[name="${e.target.name}"] > .happy-div > label`)
 
-   
+    const dislike = document.querySelector(`.reactions[name="${e.target.name}"] > .sad-div > input:focus`)
+    const dislikeLabel = document.querySelector(`.reactions[name="${e.target.name}"] > .sad-div > label`)
+
+    const happy = document.querySelector(`.reactions[name="${e.target.name}"] > .third-div > input:focus`)
+    const happyLabel = document.querySelector(`.reactions[name="${e.target.name}"] > .third-div > label`)
+
+    // const like = document.querySelector("#happy-div input:focus")
+    // const likeLabel = document.querySelector("#happy")
+
+    // const dislike = document.querySelector("#sad-div input:focus")
+    // const dislikeLabel = document.querySelector("#sad")
+
+    // const happy = document.querySelector("#third-div input:focus")
+    // const happyLabel = document.querySelector("#third")
+
+    let id = e.target.name;
+    
+    let currReaction;
+    let currLabelText;
+    let currLabel;
+    if (like) {
+        currLabel = likeLabel;
+        currLabelText = likeLabel.textContent;
+        currReaction = like.name;
+    }
+    if (dislike) {
+        currLabel = dislikeLabel;
+        currLabelText = dislikeLabel.textContent;
+        currReaction = dislike.name;
+    }
+    if (happy) {
+        currLabel = happyLabel;
+        currLabelText = happyLabel.textContent;
+        currReaction = happy.name;
+    }
     const options = {
         method: "PUT",
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ "reaction": currReaction })
     }
-    fetch(`http://localhost:3000/reaction/${currReaction}/${id}`, options)
-    // fetch(`${api_url}/reaction/${currReaction}/${id}`, options)
-
-        .then(data => console.log(data))
-        .then(() => location.reload())
-        .catch(err => console.log(err))
+        fetch(`http://localhost:3000/reaction/${currReaction}/${id}`, options)
+            .then(data => {
+                currLabel.innerText = `${parseInt(currLabelText) + 1}`
+            })
+            .catch(err => console.log(err))
+    
 }
 
 module.exports = {commentCreation, reactionCreation}

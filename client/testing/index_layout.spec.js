@@ -28,7 +28,7 @@ describe("index.html", () => {
 
             beforeEach(() => {
                 header = document.querySelector("header");
-                nav = header.querySelector("nav");
+                nav = document.querySelector("nav");
                 heading = header.querySelector("h1");
             })
 
@@ -73,9 +73,16 @@ describe("index.html", () => {
                 expect(titleInput.tagName).toEqual("TEXTAREA")
             })
 
+            //TEST THAT THEY HAVE CHARACTER LIMIT
+
             it("has a section for the joke punchline", () => {
                 expect(titleInput).toBeTruthy();
                 expect(titleInput.tagName).toEqual("TEXTAREA")
+            })
+
+            it("has a button to add gifs", () => {
+                expect(gifBtn).toBeTruthy();
+                expect(gifBtn.value).toEqual("Add a gif");
             })
         })
     })
