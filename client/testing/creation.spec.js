@@ -30,7 +30,7 @@ let testData = [{
 describe("creation.js", () => {
     beforeEach(() => {
         form = document.querySelector('form')
-        commentCreation(emptyComment);
+        app.getAllPosts(testData)
     })
     describe('comment creation',()=>
         it('it lets you make a comment', ()=>{
