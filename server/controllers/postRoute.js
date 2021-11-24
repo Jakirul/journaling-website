@@ -25,12 +25,13 @@ router.put('/comment/:comment', (req, res) => {
     }
 })
 
-router.put('/reaction/:reaction/:id', (req, res) => {
-    const {reaction, id} = req.params
+router.put('/reaction/:reaction/:id/:add', (req, res) => {
+    const {reaction, id, add} = req.params
+    console.log(req.params)
     
     try {
         
-        Post.updateReaction(reaction, id)
+        Post.updateReaction(reaction, id, add)
         res.status(200).send('New reaction!');
       
         
