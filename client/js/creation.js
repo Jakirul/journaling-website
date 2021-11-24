@@ -28,6 +28,7 @@ async function commentCreation(e) {
                 commSec.append(p)
 
             })
+        e.target[0].value = ""
     } else {
         
         const form = document.querySelector(`.comment-form[name="${id}"]`);

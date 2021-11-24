@@ -18,7 +18,7 @@ body {
 h1,
 nav,
 header {
-	background-color: rgb(95, 95, 243);
+	background-color: #71d453;
 }
 
 h1 {
@@ -37,6 +37,7 @@ nav {
 	position: sticky;
 	top: 0;
 	z-index: 5;
+	box-shadow: 0 3px 5px 0 #396b2a
 }
 
 nav > a {

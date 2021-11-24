@@ -169,7 +169,8 @@ function commentSection(form, data, section) {
 
     let input = document.createElement("input");
     input.setAttribute("type", "submit")
-    input.setAttribute("class", "button green-button")
+    input.setAttribute("value", "\uf1d8")
+    input.setAttribute("class", "fa button send-comment")
 
     form.append(comments);
     form.append(input)
