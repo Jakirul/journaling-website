@@ -28,7 +28,7 @@ describe("index.html", () => {
 
             beforeEach(() => {
                 header = document.querySelector("header");
-                nav = header.querySelector("nav");
+                nav = document.querySelector("nav");
                 heading = header.querySelector("h1");
             })
 

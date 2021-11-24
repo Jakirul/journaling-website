@@ -72,7 +72,7 @@ describe('allPosts', () => {
         })
 
         it("adds appropriate reactions", () => {
-            expect(document.querySelector(".reactions").children.length).toEqual(6)
+            expect(document.querySelector(".reactions").children.length).toEqual(3)
             expect(document.querySelector(".reactions label[for='like']").textContent).toEqual("1")
             expect(document.querySelector(".reactions label[for='dislike']").textContent).toEqual("2")
             expect(document.querySelector(".reactions label[for='happy']").textContent).toEqual("3")
