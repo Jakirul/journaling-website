@@ -28,6 +28,10 @@ let testData = [{
 
 
 describe("creation.js", () => {
+    beforeEach(() => {
+        form = document.querySelector('form')
+        commentCreation(emptyComment);
+    })
     describe('comment creation',()=>
         it('it lets you make a comment', ()=>{
             expect(commentCreation(fullComment)).toBeDefined()
