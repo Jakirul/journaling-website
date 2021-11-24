@@ -165,7 +165,6 @@ function commentSection(form, data, section) {
     let comments = document.createElement("input");
     comments.setAttribute("name", "comment")
     comments.setAttribute("class", "comment_input")
-    comments.setAttribute("required", "true")
     comments.setAttribute("placeholder", "Add a comment")
 
     let input = document.createElement("input");
