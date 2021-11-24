@@ -5,7 +5,7 @@
 const { expect } = require("@jest/globals");
 const { commentCreation, reactionCreation } = require("../js/creation");
 const { getAllPosts } = require("../js/allPosts")
-const app = require('../js/allPosts');
+let app;
 let fullComment = 'Hello there, general kenobi'
 let emptyComment = ' ';
 
@@ -25,9 +25,67 @@ let testData = [{
 }]
 
 
+const fs = require('fs');
+const path = require('path');
+const html = fs.readFileSync(path.resolve(__dirname, '../jokes.html'), 'utf8');
+
+global.fetch = require('jest-fetch-mock');
+
+describe('allPosts', () => {
+    
+
+    beforeEach(() => {
+        document.documentElement.innerHTML = html.toString();
+        app = require('../js/creation.js')
+    })
+
+    afterEach(() => {
+        fetch.resetMocks();
+    })
+
+    describe("commentCreation", () => {
+        let comment;
+        let evt;
+        beforeEach(() => {
+            evt = { preventDefault: jest.fn(), target: "value" };
+            comment = commentCreation(evt)
+
+        })
+        it("exists", () => {
+            expect(comment).toBeTruthy()
+        })
+
+    })
+
+    describe("reactionCreation", () => {
+        let reaction;
+        beforeEach(() => {
+            const evt = { preventDefault: jest.fn() }
+            reaction = reactionCreation(evt)
+            
+        })
+        it("exists", () => {
+            expect(reaction).toBeTruthy();
+        })
+
+        it("Create reaction", async () => {
+            const evt = { preventDefault: jest.fn(), target: [0, {name: '0'}] }
+            
+            await reactionCreation(evt)
+
+            expect(reactionCreation(evt)).toBeDefined()
+        })
+
+    })
+})
+
+
+
 describe("creation.js", () => {
     beforeEach(()=>{
-        app.getAllPosts()
+        document.documentElement.innerHTML = html.toString();
+        app = require('../js/allPosts.js')
+        app.getAllPosts("likes")
 
 	});
 
@@ -41,7 +99,7 @@ describe("creation.js", () => {
             commentCreation(emptyComment);
             const addEvnt = new Event('submit')
             let jokes = document.querySelector("#jokes")
-            jokes.getElementsByClassName('comment-form').dispatchEvent(addEvnt)
+            document.querySelector('.comment-form ').dispatchEvent(addEvnt)
             
             let para = document.getElementsByClassName('emptyComm')
             expect(para.textContent).toEqual("Empty comments are not allowed - please try again!")
