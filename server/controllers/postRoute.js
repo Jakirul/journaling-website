@@ -27,7 +27,6 @@ router.put('/comment/:comment', (req, res) => {
 
 router.put('/reaction/:reaction/:id/:add', (req, res) => {
     const {reaction, id, add} = req.params
-    console.log(req.params)
     
     try {
         

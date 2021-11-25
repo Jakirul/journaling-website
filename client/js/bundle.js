@@ -105,12 +105,7 @@ function overallSection(form, data, section,anArray) {
 
     button.addEventListener('click', (e) => {
         e.preventDefault();
-        h3.textContent = `${data.description}`;
-        h3.style.fontWeight = "normal";
-        img.src = data.gif;
-        button.style.display = "none";
-        
-        
+        showPunchline(data, h3, img, button)
         commentSection(form, data, section)
     })
 
@@ -120,6 +115,13 @@ function overallSection(form, data, section,anArray) {
     section.append(img);
     section.append(h5);
     anArray.push(section)
+}
+
+function showPunchline(data, punchline, gif, button) {
+    punchline.textContent = `${data.description}`;
+    punchline.style.fontWeight = "normal";
+    gif.src = data.gif;
+    button.style.display = "none";
 }
 
 function reaction(data, section) {
@@ -141,12 +143,14 @@ function reaction(data, section) {
 
 function createEmoji(data, symbol, name, id) {
     const emojidiv = document.createElement("div");
-    const emoji = document.createElement("input");
-    const emojiLabel = document.createElement("label");
     emojidiv.setAttribute("class", `emoji-div ${id}-div unselected`)
+
+    const emoji = document.createElement("input");
     emoji.value = symbol;
     emoji.setAttribute("name", name);
     emoji.setAttribute("type", "submit")
+
+    const emojiLabel = document.createElement("label");
     emojiLabel.setAttribute("for", name);
     emojiLabel.setAttribute("class", id)
     emojiLabel.textContent = `${data.reaction[name]}`;
@@ -211,7 +215,24 @@ function commentSection(form, data, section) {
     
 }
 
-if (document.querySelector("#jokes")){
+module.exports = {getAllPosts, overallSection, reaction, commentSection,compareAlpha,sortByProperty}
+
+
+},{"./creation":3}],2:[function(require,module,exports){
+const {submitForm} = require('./formSubmission')
+const {getAllPosts} = require('./allPosts.js')
+const {gifForm} = require('./gifFunctionality')
+
+
+if (document.querySelector(".outer-form")) {
+    const form = document.querySelector('.outer-form');
+    const addGif = document.querySelector('#addGif')
+    form.addEventListener('submit', submitForm)
+    addGif.addEventListener('click', gifForm)
+}
+
+if (document.querySelector("#jokes")) {
+    getAllPosts("latest")
     sortBy.addEventListener('change', (event) => {
         if(event.target.value == "alphabetical"){
             getAllPosts("alphabetical")
@@ -230,29 +251,6 @@ if (document.querySelector("#jokes")){
         }
         
       });
-}
-
-module.exports = {getAllPosts, overallSection, reaction, commentSection,compareAlpha,sortByProperty}
-
-
-},{"./creation":3}],2:[function(require,module,exports){
-
-
-const {submitForm} = require('./formSubmission')
-const {getAllPosts} = require('./allPosts.js')
-const {gifForm} = require('./gifFunctionality')
-
-
-if (document.querySelector("form")) {
-    const form = document.querySelector('.outer-form');
-    const addGif = document.querySelector('#addGif')
-    form.addEventListener('submit', submitForm)
-    addGif.addEventListener('click', gifForm)
-}
-
-// Immediately shows all results in the home page
-if (document.querySelector("#jokes")) {
-    getAllPosts()
 }
 
 
