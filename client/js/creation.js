@@ -68,7 +68,7 @@ async function reactionCreation(e) {
     const happyDivClasses = happyDiv && happyDiv.classList.value.split(" ")
 
     const allDivClasses = likeDiv && likeDivClasses.concat( dislikeDiv && dislikeDivClasses, happyDiv && happyDivClasses )
-    
+
     let currReaction, currLabelText, currLabel, currDiv, otherDivs;
     if (like) {
         currLabel = likeLabel;
@@ -133,4 +133,4 @@ function unselectReaction(reaction, id, label, div, otherDivs, labelText) {
             .catch(err => console.log(err))
 }
 
-module.exports = {commentCreation, reactionCreation}
+module.exports = {commentCreation,postComment, askForComment, reactionCreation, selectReaction, unselectReaction}
