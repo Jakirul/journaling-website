@@ -1,49 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tell us a joke!</title>
+    <title>Homepage</title>
     <link rel="stylesheet" href="./css/style.css">
-    <link rel="stylesheet" href="./css/index-style.css">
+    <link rel="stylesheet" href="./css/homepage-style.css">
     <script defer src="./js/bundle.js"></script>
 </head>
-
 <body>
     <header>
-        <h1><a href="homepage.html">Tell us a Joke!</a></h1>
-        <nav>
-            <a href="#">
-                <p><b>Add a new Joke</b></p>
-            </a>
-            <a href="jokes.html">
-                <p>Jokes List</p>
-            </a>
-        </nav>
+        <h1>Community Jokes </h1>
     </header>
+    
+    <section>
+        <a href="new_joke.html">Create a Joke</a>   
+        <a href="jokes.html">View Jokes</a> 
+    </section>
 
-    <form class="outer-form">
-        <label for="title">Set up your joke:</label>
-        <textarea type="text" class="title" name="title"
-            placeholder="Eg. Why did the chicken cross the road? (max. 200 characters)" maxlength="200"></textarea>
-        <p class="title-warning warning hidden2"></p>
-        <label for="description">What's the punchline?</label>
-        <textarea class="description" name="description"
-            placeholder="Eg. To get to the other side! (max. 100 characters)" maxlength="100"></textarea>
-        <p class="description-warning warning hidden3"></p>
-        <div id="submit-buttons">
-            <input type="submit" id="addGif" value="Add a gif" class="button grey-button">
-            <input type="submit" value="Submit Joke!" class="submit button green-button">
-        </div>
-
-        <span id="one_gif"></span>
-    </form>
-
-
-    <!-- <div></div> -->
-
+    <footer>
+        <a href="https://github.com/PeterAndrewBriscoe">Peter Andrews-Briscoe</a>   
+        <a href="https://github.com/Jakirul">Jakirul Islam</a> 
+        <a href="https://github.com/EmilyKral">Emily Kral</a>   
+        <a href="https://github.com/umalik00">Urslan Malik </a> 
+    </footer>
+    
 </body>
-
 </html>
