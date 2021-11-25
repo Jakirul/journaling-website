@@ -2,22 +2,29 @@
 * @jest-environment jsdom
 */
 
+<<<<<<< HEAD
+=======
 
+>>>>>>> 6d1da639b4b5317948ddfb553c6e27e025753640
 const fs = require('fs');
 const { request } = require('http');
 const path = require('path');
 const html = fs.readFileSync(path.resolve(__dirname, '../jokes.html'), 'utf8');
 const {commentCreation, reactionCreation} = require('../js/creation.js')
-
+const {getAllPosts} = require('../js/allPosts')
 global.fetch = require('jest-fetch-mock');
 let app;
+<<<<<<< HEAD
+=======
 
+>>>>>>> 6d1da639b4b5317948ddfb553c6e27e025753640
 describe('allPosts', () => {
     
 
     beforeEach(() => {
         document.documentElement.innerHTML = html.toString();
         app = require('../js/creation.js')
+        getAllPosts(order)
     })
 
     afterEach(() => {
@@ -25,7 +32,10 @@ describe('allPosts', () => {
     })
 
     describe("commentCreation", () => {
+<<<<<<< HEAD
+=======
 
+>>>>>>> 6d1da639b4b5317948ddfb553c6e27e025753640
 
         let comment;
         let evt;
@@ -87,4 +97,3 @@ describe('allPosts', () => {
 
     })
 })
-
