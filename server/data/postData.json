@@ -1,1 +1,80 @@
-[{"id":"1","title":"How do you follow Will Smith in the snow?","description":"You follow the fresh prints.","author":"","gif":"https://media1.giphy.com/media/xUA7aM09ByyR1w5YWc/200.gif?cid=474c6cfdx2sbp1dy2t1t67ar5hx0q6t1n5kqsk2l8y1yh3je&rid=200.gif&ct=g","date":"Mon, 22 Nov 2021 11:00:37 GMT","reaction":{"like":91,"dislike":17,"happy":20},"comment":["Haha funny joke!","I don't get it","Hahaha","New comment"]},{"id":"2","title":"What do you call a fish wearing a bowtie?","description":"Sofishticated.","author":"","gif":"https://media1.giphy.com/media/3ohs4iUIR6b14Hv9N6/200.gif?cid=474c6cfd2opmtx9o0svu9rngse7qpgdzkpb6sfpgqokwq66q&rid=200.gif&ct=g","date":"Mon, 22 Nov 2021 11:00:37 GMT","reaction":{"like":13,"dislike":14,"happy":12},"comment":["nice joke","fantastic","haha"]}]
+[
+    {
+        "id": "1",
+        "title": "How do you follow Will Smith in the snow?",
+        "description": "You follow the fresh prints.",
+        "author": "",
+        "gif": "https://media1.giphy.com/media/xUA7aM09ByyR1w5YWc/200.gif?cid=474c6cfdx2sbp1dy2t1t67ar5hx0q6t1n5kqsk2l8y1yh3je&rid=200.gif&ct=g",
+        "date": "Mon, 22 Nov 2021 11:00:37 GMT",
+        "reaction": {
+            "like": 50,
+            "dislike": 17,
+            "happy": 20
+        },
+        "comment": [
+            "Haha funny joke!",
+            "I don't get it",
+            "Hahaha",
+            "New comment",
+            "New comment",
+            "New comment",
+            "New comment",
+            "New comment",
+            "New comment",
+            "New comment",
+            "New comment",
+            "New comment",
+            "New comment",
+            "New comment",
+            "New comment",
+            "New comment",
+            "New comment",
+            "New comment",
+            "New comment",
+            "New comment",
+            "New comment",
+            "New comment",
+            "New comment",
+            "New comment",
+            "New comment",
+            "New comment",
+            "New comment",
+            "New comment",
+            "New comment",
+            "New comment",
+            "New comment",
+            "New comment",
+            "New comment",
+            "New comment",
+            "New comment",
+            "New comment",
+            "New comment",
+            "New comment",
+            "New comment",
+            "New comment",
+            "New comment",
+            "New comment",
+            "New comment",
+            "New comment",
+            "New comment"
+        ]
+    },
+    {
+        "id": "2",
+        "title": "What do you call a fish wearing a bowtie?",
+        "description": "Sofishticated.",
+        "author": "",
+        "gif": "https://media1.giphy.com/media/3ohs4iUIR6b14Hv9N6/200.gif?cid=474c6cfd2opmtx9o0svu9rngse7qpgdzkpb6sfpgqokwq66q&rid=200.gif&ct=g",
+        "date": "Mon, 22 Nov 2021 11:00:37 GMT",
+        "reaction": {
+            "like": 13,
+            "dislike": 14,
+            "happy": 12
+        },
+        "comment": [
+            "nice joke",
+            "fantastic",
+            "haha"
+        ]
+    }
+]
