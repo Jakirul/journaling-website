@@ -2,10 +2,6 @@
 * @jest-environment jsdom
 */
 
-<<<<<<< HEAD
-=======
-
->>>>>>> 6d1da639b4b5317948ddfb553c6e27e025753640
 const fs = require('fs');
 const { request } = require('http');
 const path = require('path');
@@ -14,10 +10,6 @@ const {commentCreation, reactionCreation} = require('../js/creation.js')
 const {getAllPosts} = require('../js/allPosts')
 global.fetch = require('jest-fetch-mock');
 let app;
-<<<<<<< HEAD
-=======
-
->>>>>>> 6d1da639b4b5317948ddfb553c6e27e025753640
 describe('allPosts', () => {
     
 
@@ -32,10 +24,6 @@ describe('allPosts', () => {
     })
 
     describe("commentCreation", () => {
-<<<<<<< HEAD
-=======
-
->>>>>>> 6d1da639b4b5317948ddfb553c6e27e025753640
 
         let comment;
         let evt;
