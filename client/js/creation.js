@@ -2,9 +2,11 @@
 
 async function commentCreation(e) {
     e.preventDefault();
-    const comment = e.target[0].value.trim()
+    
+    const comment = e.target[0].value && e.target[0].value.trim()
     let id = e.target.name;
-    if (comment.length > 0) {
+    let evt = {target: [{value: "oifjweoif"}]};
+    if (comment && comment.length > 0) {
         if (document.querySelector(`.comment-form[name="${id}"] .emptyComm`)) {
             document.querySelector(`.comment-form[name="${id}"] .emptyComm`).remove()
         }
@@ -28,80 +30,102 @@ async function commentCreation(e) {
                 commSec.append(p)
 
             })
+        e.target[0].value = ""
+
+        if (document.querySelector(`.no-comment[name="${id}"] .emptyComm`)) {
+            document.querySelector(`.no-comment[name="${id}"] .emptyComm`).remove()
+        }
+        
     } else {
-        
-        const form = document.querySelector(`.comment-form[name="${id}"]`);
         const inputField = document.querySelector(`.comment-form[name="${id}"] > input[name="comment"]`);
-        const pForm = document.querySelectorAll(`.comment-form[name="${id}"] p`);
+        const pCounts = document.querySelectorAll(`.no-comment[name="${id}"] p`);
+        const pDiv = document.querySelector(`.no-comment[name="${id}"]`)
        
-        
         const p = document.createElement("p");
-        if (inputField.textContent.length == 0) {
-            if (pForm.length < 1) {
+        if (inputField && inputField.textContent.length == 0) {
+            if (pCounts.length < 1) {
                 p.textContent = "Empty comments are not allowed - please try again!"
                 p.setAttribute("class", "emptyComm")
-                form.append(p)
-            }  else {
-                document.querySelector(`.comment-form[name="${id}"] .emptyComm`).remove()
+                pDiv.appendChild(p)
+                e.target[0].value = ""
+            } 
+            else {
+                e.target[0].value = ""
             }
         }       
-       
     }
-    
 };
 
 
 
 async function reactionCreation(e) {
     e.preventDefault();
-    const like = document.querySelector(`.reactions[name="${e.target.name}"] > .happy-div > input:focus`)
-    const likeLabel = document.querySelector(`.reactions[name="${e.target.name}"] > .happy-div > label`)
-
-    const dislike = document.querySelector(`.reactions[name="${e.target.name}"] > .sad-div > input:focus`)
-    const dislikeLabel = document.querySelector(`.reactions[name="${e.target.name}"] > .sad-div > label`)
-
-    const happy = document.querySelector(`.reactions[name="${e.target.name}"] > .third-div > input:focus`)
-    const happyLabel = document.querySelector(`.reactions[name="${e.target.name}"] > .third-div > label`)
-
-    // const like = document.querySelector("#happy-div input:focus")
-    // const likeLabel = document.querySelector("#happy")
-
-    // const dislike = document.querySelector("#sad-div input:focus")
-    // const dislikeLabel = document.querySelector("#sad")
-
-    // const happy = document.querySelector("#third-div input:focus")
-    // const happyLabel = document.querySelector("#third")
-
     let id = e.target.name;
+    const like = document.querySelector(`.reactions[name="${id}"] > .happy-div > input:focus`)
+    const likeLabel = document.querySelector(`.reactions[name="${id}"] > .happy-div > label`)
+    const likeDiv = document.querySelector(`.reactions[name="${id}"] > .happy-div`)
+
+    const dislike = document.querySelector(`.reactions[name="${id}"] > .sad-div > input:focus`)
+    const dislikeLabel = document.querySelector(`.reactions[name="${id}"] > .sad-div > label`)
+    const dislikeDiv = document.querySelector(`.reactions[name="${id}"] > .sad-div`)
+
+    const happy = document.querySelector(`.reactions[name="${id}"] > .third-div > input:focus`)
+    const happyLabel = document.querySelector(`.reactions[name="${id}"] > .third-div > label`)
+    const happyDiv = document.querySelector(`.reactions[name="${id}"] > .third-div`)
+
+    const allDivClasses = likeDiv.classList.value.split(" ").concat(dislikeDiv.classList.value.split(" "), happyDiv.classList.value.split(" "))
     
-    let currReaction;
-    let currLabelText;
-    let currLabel;
+    let currReaction, currLabelText, currLabel, currDiv, otherDivs;
     if (like) {
         currLabel = likeLabel;
         currLabelText = likeLabel.textContent;
         currReaction = like.name;
+        currDiv = likeDiv
+        otherDivs = [dislikeDiv, happyDiv]
     }
     if (dislike) {
         currLabel = dislikeLabel;
         currLabelText = dislikeLabel.textContent;
         currReaction = dislike.name;
+        currDiv = dislikeDiv
+        otherDivs = [likeDiv, happyDiv]
     }
     if (happy) {
         currLabel = happyLabel;
         currLabelText = happyLabel.textContent;
         currReaction = happy.name;
+        currDiv = happyDiv
+        otherDivs = [likeDiv, dislikeDiv]
     }
+
+    let currDivClasses = currDiv.classList.value.split(" ")
+
     const options = {
         method: "PUT",
         headers: { 'Content-Type': 'application/json' },
     }
-        fetch(`http://localhost:3000/reaction/${currReaction}/${id}`, options)
+    if (!allDivClasses.includes("selected")) {
+        fetch(`http://localhost:3000/reaction/${currReaction}/${id}/1`, options)
             .then(data => {
                 currLabel.innerText = `${parseInt(currLabelText) + 1}`
+                currDiv.classList.remove("unselected")
+                currDiv.classList.add("selected")
+                otherDivs[0].classList.add("not-chosen")
+                otherDivs[1].classList.add("not-chosen")
             })
             .catch(err => console.log(err))
-    
+    } else if (currDivClasses.includes("selected")) {
+        fetch(`http://localhost:3000/reaction/${currReaction}/${id}/0`, options)
+            .then(data => {
+                currLabel.innerText = `${parseInt(currLabelText) - 1}`
+                currDiv.classList.remove("selected")
+                currDiv.classList.add("unselected")
+                otherDivs[0].classList.remove("not-chosen")
+                otherDivs[1].classList.remove("not-chosen")
+            })
+            .catch(err => console.log(err))
+    }
+            
 }
 
 module.exports = {commentCreation, reactionCreation}

@@ -41,6 +41,17 @@ describe('allPosts', () => {
             app.getAllPosts("likes")
             expect(fetch).toHaveBeenCalledWith('http://localhost:3000/')
         })
+
+        it("Emotions to be defined", async () => {
+            await app.getAllPosts("likes")
+            // let sectionArray = []
+            // let s2 = await app.sortByProperty(sectionArray, "happy")
+            expect(app.getAllPosts("alphabetical")).toBeDefined()
+            expect(app.getAllPosts("dislikes")).toBeDefined()
+            expect(app.getAllPosts("likes")).toBeDefined()
+            expect(app.getAllPosts("third")).toBeDefined()
+            expect(app.getAllPosts("Latest")).toBeDefined()
+        })
     })
 
     describe("overallSection", () => {

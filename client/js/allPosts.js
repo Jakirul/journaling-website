@@ -2,10 +2,11 @@
 const {commentCreation, reactionCreation} = require('./creation')
 
 async function getAllPosts(order) {
+    sectionArray = []
     try {    
         const getPost = await fetch('http://localhost:3000/')
         const res = await getPost.json();
-        sectionArray = []
+        
         res.forEach(data => {
             
             const section = document.createElement("section");
@@ -24,6 +25,7 @@ async function getAllPosts(order) {
     }
     
       const div = document.querySelector("#jokes")
+     
       let s2 = sectionArray;
       if (order == "alphabetical"){
         s2 = sectionArray.sort(compareAlpha)
@@ -140,8 +142,7 @@ function createEmoji(data, symbol, name, id) {
     const emojidiv = document.createElement("div");
     const emoji = document.createElement("input");
     const emojiLabel = document.createElement("label");
-    // emojidiv.id = `${id}-div`
-    emojidiv.setAttribute("class", `emoji-div ${id}-div`)
+    emojidiv.setAttribute("class", `emoji-div ${id}-div unselected`)
     emoji.value = symbol;
     emoji.setAttribute("name", name);
     emoji.setAttribute("type", "submit")
@@ -164,16 +165,21 @@ function commentSection(form, data, section) {
     let comments = document.createElement("input");
     comments.setAttribute("name", "comment")
     comments.setAttribute("class", "comment_input")
-    comments.setAttribute("required", "true")
     comments.setAttribute("placeholder", "Add a comment")
 
     let input = document.createElement("input");
     input.setAttribute("type", "submit")
-    input.setAttribute("class", "button green-button")
+    input.setAttribute("value", "\uf1d8")
+    input.setAttribute("class", "fa button send-comment")
+
+    let noComm = document.createElement("div")
+    noComm.setAttribute("class", "no-comment")
+    noComm.setAttribute("name", data.id)
 
     form.append(comments);
     form.append(input)
     section.append(form);
+    section.append(noComm)
 
     const commentWrapper = document.createElement("section");
     commentWrapper.setAttribute("class", "comment-section hidden")
