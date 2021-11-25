@@ -47,7 +47,7 @@ describe("index.html", () => {
                 })
 
                 it("links to the home page", () => {
-                    expect(nav.children[0].href).toEqual("http://localhost/index.html")
+                    expect(nav.children[0].href).toEqual("http://localhost/new_joke.html")
                 })
             })
         })

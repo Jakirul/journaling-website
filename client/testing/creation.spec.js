@@ -3,20 +3,22 @@
 */
 
 const fs = require('fs');
-const { request } = require('http');
 const path = require('path');
 const html = fs.readFileSync(path.resolve(__dirname, '../jokes.html'), 'utf8');
 const {commentCreation, reactionCreation} = require('../js/creation.js')
-const {getAllPosts} = require('../js/allPosts')
+
 global.fetch = require('jest-fetch-mock');
 let app;
+<<<<<<< HEAD
+=======
+
+>>>>>>> ed06265cb9f92ea0b93a2db72a8d20e215e314a0
 describe('allPosts', () => {
     
 
     beforeEach(() => {
         document.documentElement.innerHTML = html.toString();
         app = require('../js/creation.js')
-        getAllPosts(order)
     })
 
     afterEach(() => {
@@ -24,6 +26,10 @@ describe('allPosts', () => {
     })
 
     describe("commentCreation", () => {
+<<<<<<< HEAD
+=======
+
+>>>>>>> ed06265cb9f92ea0b93a2db72a8d20e215e314a0
 
         let comment;
         let evt;
@@ -85,3 +91,4 @@ describe('allPosts', () => {
 
     })
 })
+
