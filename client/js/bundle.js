@@ -292,7 +292,8 @@ async function postComment(comment, id) {
             let p = document.createElement("p");
             p.textContent = comment;
             commSec.append(p)
-
+            document.querySelector(`.comment-section[name="${id}"] > h4`).remove()
+   
         })
         .catch(error => console.log(error))
 }
