@@ -233,6 +233,7 @@ if (document.querySelector(".outer-form")) {
 
 if (document.querySelector("#jokes")) {
     getAllPosts("latest")
+    const sortBy = document.querySelector("#sortBy")
     sortBy.addEventListener('change', (event) => {
         if(event.target.value == "alphabetical"){
             getAllPosts("alphabetical")
@@ -250,7 +251,7 @@ if (document.querySelector("#jokes")) {
             getAllPosts("latest")
         }
         
-      });
+    });
 }
 
 
