@@ -16,6 +16,7 @@ describe ('app',()=>{
         app = require('../js/app.js')
         selectAmount =document.querySelector("#sortBy").childNodes 
         selectValue = document.querySelector("#sortBy").value
+        
     })
 
     afterEach(() => {
