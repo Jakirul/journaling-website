@@ -83,19 +83,19 @@ A project to create an anonymous community journaling website, made for the proj
 ## Images
 
 The home page
-![alt](https://i.gyazo.com/4ff4012153924b20b935629b2b7dc109.png)
+![Home page](https://i.gyazo.com/4ff4012153924b20b935629b2b7dc109.png)
   
   Once you click on "Create a Joke", it will take you to this page
-![alt](https://i.gyazo.com/d5d2f4c08fe8ca7350b5c0ee996f1a48.png)
+![Joke creation page and gift list](https://i.gyazo.com/d5d2f4c08fe8ca7350b5c0ee996f1a48.png)
 
 Once a gif is selected, the gif list will be replaced by the gif that you clicked on
-![alt](https://i.gyazo.com/470daed27754134f134a4a96c9fba13d.png)
+![Gif selected](https://i.gyazo.com/470daed27754134f134a4a96c9fba13d.png)
 
 Once the form has been submitted, you'll be taken to the Jokes List page
-![alt](https://i.gyazo.com/19a0e30f97a9c86c61bd6d8dc18e2f48.png)
+![Jokes list page](https://i.gyazo.com/19a0e30f97a9c86c61bd6d8dc18e2f48.png)
 
 Clicking on 'Show Punchline' shows you the punchline and the comment section
-![alt](https://i.gyazo.com/b7829765a2eaa3f561d1d73cc61f0835.png )
+![Show punchline](https://i.gyazo.com/b7829765a2eaa3f561d1d73cc61f0835.png )
 
 ## Licence
 [MIT license](https://opensource.org/licenses/mit-license.php)
