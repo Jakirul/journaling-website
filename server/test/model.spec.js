@@ -1,4 +1,5 @@
 const Post = require('../models/Post.js');
+const postData = require('../data/postData.json')
 
 describe('Post model', () => {
     let testData = {
@@ -9,9 +10,12 @@ describe('Post model', () => {
         
     }
 
-    it('makes an instance of a post', () => {
+    it('makes an instance of a post which is at the top of the array and has the right id and date', () => {
         const post = new Post(testData);
         expect(post.title).toBe('What do you call a fish wearing a bowtie?');
+        expect(postData[0].title).toBe('What do you call a fish wearing a bowtie?');
+        expect(toString(post.date).substr(0,5)).toEqual(toString(new Date().toUTCString()).substr(0,5));
+        expect(parseInt(postData[0].id)).toBe(postData.length)
     });
 
 });

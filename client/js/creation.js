@@ -5,7 +5,6 @@ async function commentCreation(e) {
     
     const comment = e.target[0].value && e.target[0].value.trim()
     let id = e.target.name;
-    let evt = {target: [{value: "oifjweoif"}]};
     if (comment && comment.length > 0) {
         if (document.querySelector(`.comment-form[name="${id}"] .emptyComm`)) {
             document.querySelector(`.comment-form[name="${id}"] .emptyComm`).remove()
@@ -73,7 +72,7 @@ async function reactionCreation(e) {
     const happyLabel = document.querySelector(`.reactions[name="${id}"] > .third-div > label`)
     const happyDiv = document.querySelector(`.reactions[name="${id}"] > .third-div`)
 
-    const allDivClasses = likeDiv.classList.value.split(" ").concat(dislikeDiv.classList.value.split(" "), happyDiv.classList.value.split(" "))
+    const allDivClasses = likeDiv && likeDiv.classList.value.split(" ").concat( dislikeDiv && dislikeDiv.classList.value.split(" "), happyDiv && happyDiv.classList.value.split(" "))
     
     let currReaction, currLabelText, currLabel, currDiv, otherDivs;
     if (like) {
@@ -98,13 +97,14 @@ async function reactionCreation(e) {
         otherDivs = [likeDiv, dislikeDiv]
     }
 
-    let currDivClasses = currDiv.classList.value.split(" ")
+    let currDivClasses = currDiv && currDiv.classList.value.split(" ")
 
     const options = {
         method: "PUT",
         headers: { 'Content-Type': 'application/json' },
     }
-    if (!allDivClasses.includes("selected")) {
+   
+    if (allDivClasses && !allDivClasses.includes("selected")) {
         fetch(`http://localhost:3000/reaction/${currReaction}/${id}/1`, options)
             .then(data => {
                 currLabel.innerText = `${parseInt(currLabelText) + 1}`
@@ -114,7 +114,7 @@ async function reactionCreation(e) {
                 otherDivs[1].classList.add("not-chosen")
             })
             .catch(err => console.log(err))
-    } else if (currDivClasses.includes("selected")) {
+    } else if (currDivClasses && currDivClasses.includes("selected")) {
         fetch(`http://localhost:3000/reaction/${currReaction}/${id}/0`, options)
             .then(data => {
                 currLabel.innerText = `${parseInt(currLabelText) - 1}`

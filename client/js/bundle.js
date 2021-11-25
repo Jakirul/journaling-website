@@ -271,7 +271,6 @@ async function commentCreation(e) {
     
     const comment = e.target[0].value && e.target[0].value.trim()
     let id = e.target.name;
-    let evt = {target: [{value: "oifjweoif"}]};
     if (comment && comment.length > 0) {
         if (document.querySelector(`.comment-form[name="${id}"] .emptyComm`)) {
             document.querySelector(`.comment-form[name="${id}"] .emptyComm`).remove()
@@ -339,7 +338,7 @@ async function reactionCreation(e) {
     const happyLabel = document.querySelector(`.reactions[name="${id}"] > .third-div > label`)
     const happyDiv = document.querySelector(`.reactions[name="${id}"] > .third-div`)
 
-    const allDivClasses = likeDiv.classList.value.split(" ").concat(dislikeDiv.classList.value.split(" "), happyDiv.classList.value.split(" "))
+    const allDivClasses = likeDiv && likeDiv.classList.value.split(" ").concat( dislikeDiv && dislikeDiv.classList.value.split(" "), happyDiv && happyDiv.classList.value.split(" "))
     
     let currReaction, currLabelText, currLabel, currDiv, otherDivs;
     if (like) {
@@ -364,13 +363,14 @@ async function reactionCreation(e) {
         otherDivs = [likeDiv, dislikeDiv]
     }
 
-    let currDivClasses = currDiv.classList.value.split(" ")
+    let currDivClasses = currDiv && currDiv.classList.value.split(" ")
 
     const options = {
         method: "PUT",
         headers: { 'Content-Type': 'application/json' },
     }
-    if (!allDivClasses.includes("selected")) {
+   
+    if (allDivClasses && !allDivClasses.includes("selected")) {
         fetch(`http://localhost:3000/reaction/${currReaction}/${id}/1`, options)
             .then(data => {
                 currLabel.innerText = `${parseInt(currLabelText) + 1}`
@@ -380,7 +380,7 @@ async function reactionCreation(e) {
                 otherDivs[1].classList.add("not-chosen")
             })
             .catch(err => console.log(err))
-    } else if (currDivClasses.includes("selected")) {
+    } else if (currDivClasses && currDivClasses.includes("selected")) {
         fetch(`http://localhost:3000/reaction/${currReaction}/${id}/0`, options)
             .then(data => {
                 currLabel.innerText = `${parseInt(currLabelText) - 1}`
@@ -409,10 +409,14 @@ async function submitForm(e) {
 	const descriptionWarning = document.querySelector(".description-warning");
 	// If the user opts not to use gifs, append an empty string, else, use the source of the image
 	const gif_data = gif !== null ? gif.src : "";
-	titleWarning.textContent = "";
-	descriptionWarning.textContent = "";
+	if (titleWarning) {
+		titleWarning.textContent = "";
+	}
 
-	if (title.value.trim().length > 0 && description.value.trim().length > 0) {
+	if (descriptionWarning) {
+		descriptionWarning.textContent = "";
+	}
+	if (title && title.value.trim().length > 0 && description && description.value.trim().length > 0) {
 		const data = {
 			title: title.value.trim(),
 			description: description.value.trim(),
@@ -431,15 +435,15 @@ async function submitForm(e) {
 			.then(() => {
 				window.location.href = "./jokes.html";
 			});
-	} else if (title.value.trim().length === 0 && description.value.trim().length > 0) {
+	} else if (title && title.value.trim().length === 0 && description && description.value.trim().length > 0) {
 		titleWarning.classList.remove("hidden2");
 		descriptionWarning.classList.add("hidden3");
 		titleWarning.textContent = "Please enter a joke!";
-	} else if (title.value.trim().length > 0 && description.value.trim().length === 0) {
+	} else if (title && title.value.trim().length > 0 && description && description.value.trim().length === 0) {
 		descriptionWarning.classList.remove("hidden3");
 		titleWarning.classList.add("hidden2");
 		descriptionWarning.textContent = "Please give your joke a punchline!";
-	} else if (title.value.trim().length === 0 && description.value.trim().length === 0) {
+	} else if (title && title.value.trim().length === 0 && description && description.value.trim().length === 0) {
 		titleWarning.classList.remove("hidden2");
 		descriptionWarning.classList.remove("hidden3");
 		titleWarning.textContent = "Please enter a joke!";
