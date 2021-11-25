@@ -2,6 +2,7 @@
 * @jest-environment jsdom
 */
 
+
 const fs = require('fs');
 const { request } = require('http');
 const path = require('path');
@@ -10,6 +11,7 @@ const {commentCreation, reactionCreation} = require('../js/creation.js')
 
 global.fetch = require('jest-fetch-mock');
 let app;
+
 describe('allPosts', () => {
     
 
@@ -23,6 +25,7 @@ describe('allPosts', () => {
     })
 
     describe("commentCreation", () => {
+
 
         let comment;
         let evt;
@@ -89,3 +92,4 @@ describe('allPosts', () => {
 
     })
 })
+
