@@ -29,6 +29,8 @@ A project to create an anonymous community journaling website, made for the proj
 
 ### Client Testing
 - In the `client` folder, run `npm run coverage` or `npm test`
+
+### Server Testing
 - In the `server` folder, run `npm run coverage` or `npm test`
   
 ## Technologies
