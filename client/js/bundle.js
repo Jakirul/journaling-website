@@ -457,6 +457,7 @@ module.exports = { submitForm };
 const form = document.querySelector(".outer-form");
 
 function gifSelection(e) {
+	const form = document.querySelector(".outer-form");
 	let gif = document.querySelector("#one_gif");
 	gif.textContent = "";
 	let gifImg = document.createElement("img");
@@ -479,6 +480,7 @@ function gifSelection(e) {
 
 function gifForm(e) {
 	e.preventDefault();
+	const form = document.querySelector(".outer-form");
 	const gifSearchForm = document.querySelector(".gifSearchForm");
 
 	if (gifSearchForm) {
@@ -509,35 +511,36 @@ function gifForm(e) {
 		form.append(newForm);
 
 		const search = document.querySelector(".search_bar");
-		search.addEventListener("click", async e => {
-			e.preventDefault();
+		search.addEventListener("click", gifSearch);
+	}
+}
 
-			let search = document.querySelector(".gif_search").value;
+async function gifSearch(e) {
+	e.preventDefault();
 
-			// API function below
-			let data = await api(search);
+	let search = document.querySelector(".gif_search").value;
 
-			if (data.data.length > 0) {
-				const gif_list = document.querySelector(".gif-list");
+	// API function below
+	let data = await api(search);
+	const gif_list = document.querySelector(".gif-list");
 
-				// If I dont keep this in, the other searches will stack. not ideal
-				gif_list.textContent = "";
+	if (data.data.length > 0) {
+		// If I dont keep this in, the other searches will stack. not ideal
+		gif_list.textContent = "";
 
-				data.data.forEach(gif => {
-					let img = document.createElement("img");
-					img.setAttribute("src", gif.images.fixed_height.url);
-					gif_list.append(img);
-					img.addEventListener("click", gifSelection);
-				});
-			} else {
-				const p = document.createElement("p");
-				p.textContent = `No gifs found for "${search}"!`;
-				p.style.overflow = "hidden";
-				p.style.textOverflow = "ellipsis";
-				gif_list.textContent = "";
-				gif_list.append(p);
-			}
+		data.data.forEach(gif => {
+			let img = document.createElement("img");
+			img.setAttribute("src", gif.images.fixed_height.url);
+			gif_list.append(img);
+			img.addEventListener("click", gifSelection);
 		});
+	} else {
+		const p = document.createElement("p");
+		p.textContent = `No gifs found for "${search}"!`;
+		p.style.overflow = "hidden";
+		p.style.textOverflow = "ellipsis";
+		gif_list.textContent = "";
+		gif_list.append(p);
 	}
 }
 
@@ -552,6 +555,6 @@ async function api(search) {
 	return data;
 }
 
-module.exports = { gifSelection, gifForm };
+module.exports = { gifSelection, gifForm, api };
 
 },{}]},{},[2]);
