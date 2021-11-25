@@ -24,34 +24,30 @@ async function getAllPosts(order) {
         console.log(error)
     }
     
-      const div = document.querySelector("#jokes")
-     
-      let s2 = sectionArray;
-      if (order == "alphabetical"){
+    const div = document.querySelector("#jokes")
+    
+    let s2 = sectionArray;
+    if (order == "alphabetical"){
         s2 = sectionArray.sort(compareAlpha)
         while(div.firstChild){
             div.removeChild(div.firstChild);
         }
-      }
-      else if (order=="likes"){
+    } else if (order=="likes"){
         s2 = sortByProperty(sectionArray, "happy")
         while(div.firstChild){
             div.removeChild(div.firstChild);
         }
-      } 
-      else if(order == "dislikes"){
+    } else if(order == "dislikes"){
         s2 = sortByProperty(sectionArray, "sad");
         while(div.firstChild){
             div.removeChild(div.firstChild);
         }
-      }
-      else if (order == "third"){
+    } else if (order == "third"){
         s2 = sortByProperty(sectionArray, "third");
         while(div.firstChild){
             div.removeChild(div.firstChild);
         }
-      }
-      else if(order = "Latest"){
+    } else if(order = "Latest"){
         s2 = sectionArray
         while(div.firstChild){
             div.removeChild(div.firstChild);
@@ -59,12 +55,9 @@ async function getAllPosts(order) {
     }
       
     for (var i = 0; i <s2.length; i++) {
-
         div.append(s2[i])
-       
         document.body.append(div)
-
-      }
+    }
 }
 
 function sortByProperty(array, propertyName) {

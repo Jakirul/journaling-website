@@ -69,10 +69,9 @@ A project to create an anonymous community journaling website, made for the proj
 - Making use of the giphy API
 - Finding a way to work with different JavaScript on different HTML files without having to link different files in each html head
 - Adding a way to sort the jokes in different orders from a dropdown menu
+- Restricting the reactions so only one reaction can be selected at a time and can then be unselected to change reaction. Whether it is selected or unselected is also correctly reflected in the information stored by the server
 - Successfully hosting the application
-- Achieved over 60% test coverage for both the client and server folder
-
-  
+- Achieved over 70% test coverage for both the client and server folder
 
 **Challenges**
 - In development, there was sometimes a bug that meant adding a reaction caused an error when fetching the information to reload the webpage
@@ -85,7 +84,7 @@ A project to create an anonymous community journaling website, made for the proj
 The home page
 ![Home page](https://i.gyazo.com/4ff4012153924b20b935629b2b7dc109.png)
   
-  Once you click on "Create a Joke", it will take you to this page
+Once you click on "Create a Joke", it will take you to this page
 ![Joke creation page and gift list](https://i.gyazo.com/d5d2f4c08fe8ca7350b5c0ee996f1a48.png)
 
 Once a gif is selected, the gif list will be replaced by the gif that you clicked on
