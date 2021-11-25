@@ -2,6 +2,10 @@
 * @jest-environment jsdom
 */
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 6d1da639b4b5317948ddfb553c6e27e025753640
 const fs = require('fs');
 const { request } = require('http');
 const path = require('path');
@@ -10,6 +14,10 @@ const {commentCreation, reactionCreation} = require('../js/creation.js')
 const {getAllPosts} = require('../js/allPosts')
 global.fetch = require('jest-fetch-mock');
 let app;
+<<<<<<< HEAD
+=======
+
+>>>>>>> 6d1da639b4b5317948ddfb553c6e27e025753640
 describe('allPosts', () => {
     
 
@@ -24,6 +32,10 @@ describe('allPosts', () => {
     })
 
     describe("commentCreation", () => {
+<<<<<<< HEAD
+=======
+
+>>>>>>> 6d1da639b4b5317948ddfb553c6e27e025753640
 
         let comment;
         let evt;
@@ -74,18 +86,13 @@ describe('allPosts', () => {
         it("exists", () => {
             expect(reactionCreation(evt1)).toBeTruthy();
         })
+        it("Create reaction", async () => {
+            const evt = { preventDefault: jest.fn(), target: {name: 1} }
+           
+            await reactionCreation(evt)
+            expect(reactionCreation(evt)).toBeDefined()
+        })
 
-        // it('posts data', () => {
-        //     expect(fetch).toHaveBeenCalledWith(`http://localhost:3000/reaction/happy/${testJoke.id}/1`)
-        // })
-
-        // it("Create reaction",  () => {
-        //     // const evt = { preventDefault: jest.fn(), target: {name: '1'} }
-          
-      
-        //     // await reactionCreation(evt1)
-        //     expect(reactionCreation(evt1)).toBeDefined()
-        // })
 
 
     })
