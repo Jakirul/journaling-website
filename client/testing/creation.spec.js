@@ -9,7 +9,6 @@ const {commentCreation, reactionCreation} = require('../js/creation.js')
 
 global.fetch = require('jest-fetch-mock');
 let app;
-
 describe('allPosts', () => {
     
 
@@ -23,7 +22,6 @@ describe('allPosts', () => {
     })
 
     describe("commentCreation", () => {
-
 
         let comment;
         let evt;
