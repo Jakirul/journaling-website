@@ -26,8 +26,9 @@ describe('Post model', () => {
         await postCreation(testData)
         expect(postData[0].title).toBe('What do you call a fish wearing a bowtie?');
     })
-    it('has the right id', ()=>{
-        expect(postData[0].id).toBe(postData.length) 
+    it('has the right id', async ()=>{
+        await postCreation(testData)
+        expect(parseInt(postData[0].id)).toBe(postData.length) 
     })
 
 });
