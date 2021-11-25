@@ -554,5 +554,4 @@ async function api(search) {
 }
 
 module.exports = { gifSelection, gifForm, api };
-
 },{}]},{},[2]);
