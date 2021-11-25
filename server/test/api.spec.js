@@ -37,7 +37,7 @@ describe('API server', () => {
     });
 
     it('puts data', (done) => {
-        request(api).put('/reaction/like/1').expect(200, done).expect("New reaction!")
+        request(api).put('/reaction/like/1/0').expect(200, done).expect("New reaction!")
     })
 
     it('POST / data', async () => {
